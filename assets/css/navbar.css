@@ -1,0 +1,143 @@
+/* header */
+#header-container {
+    color: white;
+}
+
+#header-container header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-container .logo {
+    width: 8%;
+    position: relative;
+    right: 10rem;
+}
+
+#header-container nav {
+    display: flex;
+    margin: 16px;
+}
+
+#header-container nav a {
+    text-decoration: none;
+    color: white;
+    font-family: "cousine";
+    padding: 1rem;
+}
+
+/* ===== barre animée ===== */
+.trait {
+    width: 100%;
+    display: flex;
+}
+
+.growing-bar {
+    margin: 0 0 32px 0;
+    height: 1px;
+    border: none;
+    background: #ffffff91;
+    width: 0; /* état de départ */
+    animation: growBar 2s ease-out forwards;
+}
+
+@keyframes growBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 24%;
+    } /* 24 % de .trait  */
+}
+
+.slogan {
+    margin: 16px;
+    padding: 16px;
+    animation: slowFlicker 4s infinite ease-in-out;
+}
+
+.social {
+    display: flex;
+    gap: 16px;
+}
+
+@keyframes slowFlicker {
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+#footer-container {
+    footer {
+        display: flex;
+        padding: 0 2.5%;
+        justify-content: space-between;
+        align-items: center;
+        color: rgb(255, 255, 255);
+    }
+}
+
+/* nav container */
+#main-nav {
+    position: relative; /* référentiel pour #marker */
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* liens */
+#main-nav a {
+    position: relative;
+    padding: 1rem;
+    text-decoration: none;
+    color: #fff;
+    font-family: "cousine";
+    z-index: 1000;
+}
+
+/* marqueur */
+#marker {
+    position: absolute;
+    bottom: 0; /* collé au bas du lien */
+    left: 0;
+    /* width: 50px;
+    height: 40px; */
+    /* border-radius: 2px; */
+    /* background: #ff5de9; */
+    transition: 0.4s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* style planete */
+#marker::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ff5b5b, #662727);
+    box-shadow:
+        0 0 10px #ff5d5d,
+        0 0 20px #ff5d5d,
+        0 0 40px #ff5d5d,
+        inset 0 0 8px #ff8989;
+    animation: rotatePlanet 6s linear infinite;
+}
+/* #5da6ff */
+
+@keyframes rotatePlanet {
+    from {
+        transform: translateX(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}

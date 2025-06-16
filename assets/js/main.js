@@ -13,8 +13,9 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 4;
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+document.getElementById('backgroundCanvas').appendChild(renderer.domElement);
 
 // Lumière
 scene.add(new THREE.AmbientLight(0x222222));
@@ -35,7 +36,7 @@ const normalMap = loader.load("/textures/8k_earth_normal_map.jpg");
 const cloudMap = loader.load("/textures/8k_earth_clouds.jpg");
 
 // Matériau Terre
-const earthGeometry = new THREE.SphereGeometry(1, 128, 128);
+const earthGeometry = new THREE.SphereGeometry(1, 264, 264);
 const earthMaterial = new THREE.MeshPhongMaterial({
   map: earthMap,
   bumpMap: bumpMap,
@@ -76,9 +77,9 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
 
       void main() {
       // 1) Intensité radiale : glow plus fort sur le bord (limb)
-      float rim = 0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0));
+      float rim = 0.7 - dot(vNormal, vec3(0.0, 0.0, 1.2));
       rim = clamp(rim, 0.0, 1.0);
-      rim = pow(rim, 3.2);          // adoucissement (>=3 = plus doux)
+      rim = pow(rim, 3.1);          // adoucissement (>=3 = plus doux)
 
       // 2) Masque lumière/ombre : uniquement côté éclairé
       float litSide = max(dot(vNormal, lightDirection), 0.0);
@@ -87,7 +88,7 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
       // 3) Glow final = produit des deux facteurs
       float glow = rim * litSide;
 
-      vec3 color = vec3(0.0, 0.35, 1.0) * glow;  // teinte bleue
+      vec3 color = vec3(0.0, 0.5, 1.0) * glow;  // teinte bleue
       gl_FragColor = vec4(color, glow);         // alpha = glow pour bloom
       }
     `,
@@ -119,9 +120,31 @@ composer.addPass(bloomPass);
 // Animation
 function animate() {
   requestAnimationFrame(animate);
-  earth.rotation.y += 0.0012;
-  clouds.rotation.y += 0.0012;
+  earth.rotation.y += 0.0004;
+  clouds.rotation.y += 0.0004;
   atmosphere.rotation.y += 0.0035;
   composer.render();
 }
 animate();
+
+
+async function loadComponent(containerId, url) {
+  const container = document.getElementById(containerId);
+  const res = await fetch(url);
+  const html = await res.text();
+  container.innerHTML = html;
+  return Promise.resolve();
+}
+
+import { initMarker } from './marker.js'; 
+
+Promise.all([
+  loadComponent('header-container', '/components/header.html'),
+  loadComponent('footer-container', '/components/footer.html')
+]).then(() => {
+  // ici les deux sont injectés
+  initMarker(); // ou setupMarker()
+});
+
+// marker
+

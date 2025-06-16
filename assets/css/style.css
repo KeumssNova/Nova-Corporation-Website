@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'cousine';
+    src: url('../fonts/Cousine-Regular.ttf') format('truetype'); /* ou woff2/otf */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Utilisation globale */
+  body {
+    font-family: 'cousine', sans-serif;
+  }
+  
