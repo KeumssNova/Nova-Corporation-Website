@@ -1,35 +1,98 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-  }
-  #app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  #backgroundCanvas {
-    position: fixed;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* #backgroundCanvas {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* envoie le canvas derrière le contenu */
+    overflow: hidden;
+    z-index: -1;
   }
-  
-  canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+   */
+
+/* #backgroundCanvas {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+} */
+
+/* #planet-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+}
+
+#stars-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* ← plus bas que tout le reste 
+  background: black; 
+*/
+
+
+
+#stars-canvas,
+#planet-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+#stars-canvas {
+  z-index: 0;
+  background-color: black;
+}
+
+#planet-canvas {
+  z-index: 1;
+}
+
+
+/* header / footer restent en flux normal */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
