@@ -9,101 +9,152 @@
       href="assets/images/nova logo blanc fond noir  (2).png"
       type="image/x-icon"
     />
+    <link rel="stylesheet" href="assets/css/output.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/navbar.css" />
     <link rel="stylesheet" href="assets/css/projets.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
   </head>
   <body>
     <div id="header-container"></div>
     <main>
-      <section class="hero">
-        <h1>A VOIR MAINTENANT !</h1>
-        <iframe
-          width="100%"
-          height="880px"
-          src="https://www.youtube.com/embed/s1WYPNshaDo?si=CHexM1RWSXZOHGa1"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+      <!-- ================= HERO (vidéo + logo) ================= -->
+      <section
+        class="relative h-screen flex items-center justify-center overflow-hidden text-white"
+      >
+        <!-- Vidéo de fond -->
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="assets/video/Hero-bg.mp4" type="video/mp4" />
+          Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
+        <!-- Voile sombre -->
+        <div class="absolute inset-0 bg-black/50"></div>
+        <!-- Logo Nova -->
+        <!-- <div class="relative z-10 text-center px-4">
+          <img
+            src="assets/images/nova logo blanc .png"
+            alt="Logo Nova"
+            class="mx-auto w-24 md:w-32 lg:w-40 opacity-90"
+          />
+        </div> -->
       </section>
-      <section class="artist-container">
-        <h1>A DECOUVRIR</h1>
-        <div class="artist msk">
-          <div class="img-artist">
-            <a
-              href="https://www.instagram.com/p/C-S71j4il3Q/?utm_source=ig_web_copy_link&igsh=MXVycWhvbHVuN2N0ag=="
-              target="_blank"
-              rel="noopener"
-            >
-              <img src="assets/images/msk.jpg" alt="post insta MSK" />
-              <h3>MSK</h3>
-            </a>
-          </div>
-          <div class="song-artist">
-            <iframe
-              style="border-radius: 12px"
-              src="https://open.spotify.com/embed/album/60SJppekG8UO8nPq5E9dGz?utm_source=generator&theme=0"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              allowfullscreen=""
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            >
-            </iframe>
+
+      <!-- ================= À PROPOS ================= -->
+      <section class="py-12">
+        <div class="max-w-4xl mx-auto text-center px-4">
+          <h2 class="text-3xl font-bold mb-6">Qui sommes‑nous ?</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+            eget sapien sapien. Curabitur eu libero nec ligula tempor dignissim.
+          </p>
+        </div>
+      </section>
+
+      <!-- Slider Artistes -->
+      <section class="py-12 overflow-hidden">
+        <h1 class="text-[180px] font-bold text-center mx-8">ARTISTES</h1>
+        <div class="relative">
+          <div class="flex w-max animate-slide gap-6 px-6">
+            <!-- Images (duplicated for infinite effect) -->
+            <template id="carousel-images">
+              <div
+                class="flex-shrink-0 w-[605px] h-[800px] bg-gray-800 overflow-hidden"
+              >
+                <img
+                  src="assets/images/keumss.jpg"
+                  alt="Keumss"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="flex-shrink-0 w-[605px] h-[800px] bg-gray-800 overflow-hidden"
+              >
+                <img
+                  src="assets/images/laaska.jpg"
+                  alt="Laaska"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="flex-shrink-0 w-[605px] h-[800px] bg-gray-800 overflow-hidden"
+              >
+                <img
+                  src="assets/images/msk.jpg"
+                  alt="MSK"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="flex-shrink-0 w-[605px] h-[800px] bg-gray-800 overflow-hidden"
+              >
+                <img
+                  src="assets/images/R7.jpg"
+                  alt="R7"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </template>
+
+            <!-- Duplication pour effet infini -->
+            <script>
+              const container = document.querySelector(".animate-slide");
+              const template = document.getElementById("carousel-images");
+
+              for (let i = 0; i < 2; i++) {
+                container.append(...template.content.cloneNode(true).children);
+              }
+            </script>
           </div>
         </div>
+      </section>
 
-        <div class="artist laaska">
-          <div class="img-artist">
-            <a
-              href="https://www.instagram.com/p/DHG5VPhtpyd/?utm_source=ig_web_copy_link&igsh=MW5pb2JvMHB6bHp0bQ=="
-              target="_blank"
-              rel="noopener"
-            >
-              <img src="assets/images/laaska.jpg" alt="post insta MSK" />
-              <h3>LAASKA</h3>
-            </a>
-          </div>
-          <div class="song-artist">
+      <!-- ================= ROSTER CLIPS ================= -->
+      <section class="py-12 w-full mb-8" >
+        <h1 class=" text-[180px] font-bold text-left mx-8">ROSTER</h1>
+        <div class="grid gap-6 mx-8">
+          <div class="w-full h-auto max-h-[864px] aspect-video overflow-hidden">
             <iframe
-              style="border-radius: 12px"
-              src="https://open.spotify.com/embed/album/7d4IMu2Ggxs9ZZ9h0HfkAZ?utm_source=generator&theme=0"
               width="100%"
               height="100%"
+              src="https://www.youtube.com/embed/s1WYPNshaDo?si=XEkUBTtrQOnboFUq"
+              title="YouTube video player"
               frameborder="0"
-              allowfullscreen=""
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
             ></iframe>
           </div>
-        </div>
-
-        <div class="artist R7">
-          <div class="img-artist">
-            <a
-              href="https://www.instagram.com/r7.6tm/"
-              target="_blank"
-              rel="noopener"
-            >
-              <img src="assets/images/R7.jpg" alt="post insta R7" />
-              <h3>R7</h3>
-            </a>
-          </div>
-          <div class="song-artist">
-            <iframe
-              style="border-radius: 12px"
-              src="https://open.spotify.com/embed/artist/0Im9fHzEBxSj5tEWj12gkC?utm_source=generator&theme=0"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              allowfullscreen=""
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            ></iframe>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="h-auto max-h-[518px] aspect-video overflow-hidden">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/udKFyqpIq7k?si=VIUKivFuLUBcR6Ln"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="h-auto max-h-[518px] aspect-video overflow-hidden">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/m3ILCmltDqQ?si=BqSu0CRiQGlwj1uo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>

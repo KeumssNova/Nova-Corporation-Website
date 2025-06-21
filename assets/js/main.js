@@ -129,7 +129,6 @@
 // }
 // animate();
 
-
 async function loadComponent(containerId, url) {
   const container = document.getElementById(containerId);
   const res = await fetch(url);
@@ -138,11 +137,11 @@ async function loadComponent(containerId, url) {
   return Promise.resolve();
 }
 
-import { initMarker } from './marker.js'; 
+import { initMarker } from "./marker.js";
 
 Promise.all([
-  loadComponent('header-container', '/components/header.html'),
-  loadComponent('footer-container', '/components/footer.html')
+  loadComponent("header-container", "/components/header.html"),
+  loadComponent("footer-container", "/components/footer.html"),
 ]).then(() => {
   // ici les deux sont injectés
   initMarker(); // ou setupMarker()
@@ -150,4 +149,21 @@ Promise.all([
 
 // // marker
 
+// // slider artiste
+// const track = document.getElementById("carousel-track");
+// let scrollAmount = 0;
+// const speed = 1; // pixels per frame, ajuste à ton goût
 
+// // Duplique les enfants pour le looping infini
+// track.innerHTML += track.innerHTML;
+
+// function animate() {
+//   scrollAmount += speed;
+//   if (scrollAmount >= track.scrollWidth / 2) {
+//     scrollAmount = 0;
+//   }
+//   track.style.transform = `translateX(-${scrollAmount}px)`;
+//   requestAnimationFrame(animate);
+// }
+
+// animate();

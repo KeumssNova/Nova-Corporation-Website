@@ -1,12 +1,26 @@
 @font-face {
-    font-family: 'cousine';
-    src: url('../fonts/Cousine-Regular.ttf') format('truetype'); /* ou woff2/otf */
-    font-weight: normal;
-    font-style: normal;
+  font-family: "cousine";
+  src: url("../fonts/Cousine-Regular.ttf") format("truetype"); /* ou woff2/otf */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Utilisation globale */
+body,
+main {
+  font-family: "cousine", sans-serif;
+}
+
+
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
   }
-  
-  /* Utilisation globale */
-  body {
-    font-family: 'cousine', sans-serif;
+  100% {
+    transform: translateX(-50%);
   }
-  
+}
+.animate-slide {
+  animation: slide 30s linear infinite;
+}
