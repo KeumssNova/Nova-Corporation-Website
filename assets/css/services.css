@@ -30,3 +30,9 @@ main{
 .swiper-button-next:after, .swiper-button-prev:after{
   color: #ffffff;
 }
+
+.video-container{
+  background: url(../images/alexander-dummer-aS4Duj2j7r4-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
