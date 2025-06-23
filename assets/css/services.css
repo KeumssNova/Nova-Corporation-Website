@@ -26,13 +26,22 @@ main{
 .swiper-pagination-bullet {
     background: #ffffff;
 }
+
+.swiper-pagination-bullet-active{
+  background: #000;
+  color: #000;
+}
   
 .swiper-button-next:after, .swiper-button-prev:after{
   color: #ffffff;
 }
 
+.swiper-pagination-color{
+  background-color: white;
+}
+
 .video-container{
-  background: url(../images/alexander-dummer-aS4Duj2j7r4-unsplash.jpg);
+  background: url(../images/aziz-acharki-Zf14BckA1JA-unsplash.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
