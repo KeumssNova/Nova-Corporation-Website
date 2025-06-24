@@ -1,28 +1,39 @@
 /* header */
 #header-container {
-    color: white;
-    background-color: transparent;
-    z-index: 999;
     position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: transparent;
 }
 
 #header-container header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: transparent;
+    position: relative;
 }
 
 #header-container .logo {
-    width: 8%;
-    position: relative;
-    right: 9.25rem;
+    position: static; /* NE PAS positionner absolument ici */
+    transform: none;
+}
+@media (min-width: 768px) {
+    #header-container .logo {
+        width: 100px;
+    }
 }
 
+/* Ne pas forcer display: flex sur TOUS les navs */
 #header-container nav {
-    display: flex;
     margin: 16px;
+}
 
+/* Appliquer display:flex SEULEMENT sur la navbar desktop */
+@media (min-width: 768px) {
+    #main-nav {
+        display: flex;
+    }
 }
 
 #header-container nav a {
@@ -34,7 +45,7 @@
 
 /* ===== barre animée ===== */
 .trait {
-    padding-top: 95px;
+    padding-top: 120px;
     width: 100%;
     display: flex;
     z-index: 998;
@@ -55,7 +66,7 @@
         width: 0;
     }
     to {
-        width: 24%;
+        width: 26%;
     } /* 24 % de .trait  */
 }
 
@@ -94,11 +105,14 @@
         background-color: black;
     }
 }
-
+@media (max-width: 768px) {
+    footer p {
+        font-size: 8px;
+    }
+}
 /* nav container */
 #main-nav {
     position: relative; /* référentiel pour #marker */
-    display: flex;
     gap: 1.5rem;
 }
 
@@ -110,6 +124,9 @@
     color: #fff;
     font-family: "cousine";
     z-index: 1000;
+}
+#mobile-nav{
+    z-index: 10000;
 }
 
 /* marqueur */
@@ -130,7 +147,7 @@
 #marker::before {
     content: "";
     position: absolute;
-    top: -50px;
+    top: -52px;
     left: 50%;
     transform: translateX(-50%);
     width: 50px;

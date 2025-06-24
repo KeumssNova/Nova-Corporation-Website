@@ -45,5 +45,13 @@
     <script type="module" src="./assets/js/main.js"></script>
     <script type="module" src="assets/js/planet.js"></script>
     <script type="module" src="assets/js/stars.js"></script>
+    <script>
+      const burgerBtn = document.getElementById("burger-btn");
+      const mobileNav = document.getElementById("mobile-nav");
+    
+      burgerBtn.addEventListener("click", () => {
+        mobileNav.classList.toggle("hidden");
+      });
+    </script>
   </body>
 </html>

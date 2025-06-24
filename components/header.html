@@ -1,6 +1,7 @@
-<header>
-  <div class="navbar-gauche">
-    <nav id="main-nav">
+<header class="flex items-center justify-between w-full px-6 py-4 text-white relative z-50">
+  <!-- Zone gauche : Navigation principale -->
+  <div class="navbar-gauche hidden md:flex gap-4">
+    <nav id="main-nav" class="flex gap-4">
       <a class="link" href="/home.html">ACCUEIL</a>
       <a class="link" href="/projects.html">PROJETS</a>
       <a class="link" href="/news.html">ACTUS</a>
@@ -9,16 +10,34 @@
     </nav>
   </div>
 
-  <img
-    class="logo"
-    src="../assets/images/nova logo blanc fond noir  (2).png"
-    alt="logo nova corporation"
-  />
-
-  <div class="navbar-droite">
-    <nav>
-      <a href="/contact.html">CONTACT</a>
-    </nav>
+  <!-- Logo centré -->
+  <div class="absolute left-1/2 transform -translate-x-1/2">
+    <img class=" w-30 md:w-50" src="../assets/images/nova logo blanc fond noir  (2).png" alt="logo nova corporation" />
   </div>
+
+  <!-- Zone droite : Contact + Burger -->
+  <div class="navbar-droite flex items-center gap-4 z-50">
+    <a href="/contact.html" class="hidden md:inline">CONTACT</a>
+
+    <!-- Burger menu visible uniquement sur mobile -->
+    <button id="burger-btn" class="md:hidden flex flex-col gap-[5px]">
+      <span class="w-6 h-[2px] bg-white"></span>
+      <span class="w-6 h-[2px] bg-white"></span>
+      <span class="w-6 h-[2px] bg-white"></span>
+    </button>
+  </div>
+
+  <!-- Menu Mobile -->
+  <nav
+    id="mobile-nav"
+    class="hidden flex-col gap-4 absolute top-full left-0 w-full bg-black px-6 py-4 md:hidden z-40"
+  >
+    <a class="link" href="/home.html">ACCUEIL</a>
+    <a class="link" href="/projects.html">PROJETS</a>
+    <a class="link" href="/news.html">ACTUS</a>
+    <a class="link" href="/services.html">SERVICES</a>
+    <a class="link" href="/contact.html">CONTACT</a>
+  </nav>
 </header>
+
 

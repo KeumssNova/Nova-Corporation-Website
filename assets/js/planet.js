@@ -195,6 +195,21 @@ const bloomPass = new UnrealBloomPass(
 );
 composer.addPass(bloomPass);
 
+window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  // Met à jour la caméra
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  // Met à jour le renderer
+  renderer.setSize(width, height);
+}
+
+
 // === ANIMATION ===
 function animate() {
   requestAnimationFrame(animate);
