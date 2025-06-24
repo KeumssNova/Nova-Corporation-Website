@@ -27,7 +27,7 @@
 - ☐ Test sur Safari mobile / Firefox
 
 ## 🚀 Déploiement
-Pas de build – ouverture directe de `index.html` dans le navigateur.
+Pas de build – ouverture directe de `home.html` dans le navigateur.
 
 ## 👤 Auteur
 Projet personnel – Nova Corporation / Keumss
