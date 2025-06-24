@@ -7,7 +7,7 @@
 - Swiper.js (pour le carrousel)
 
 ## 📁 Structure rapide
-- `index.html` : page d'accueil
+- `home.html` : page d'accueil
 - `assets/` : contient les images et le style
 - `styles/` : contient les fichiers Tailwind (si buildé manuellement)
 - `js/` : fichier pour Swiper et éventuels comportements interactifs
