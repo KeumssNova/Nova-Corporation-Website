@@ -3,6 +3,7 @@
     color: white;
     background-color: transparent;
     z-index: 999;
+    position: fixed;
 }
 
 #header-container header {
@@ -33,9 +34,10 @@
 
 /* ===== barre animée ===== */
 .trait {
+    padding-top: 95px;
     width: 100%;
     display: flex;
-    z-index: 999;
+    z-index: 998;
 }
 
 .growing-bar {

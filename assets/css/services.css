@@ -36,6 +36,10 @@ main{
   color: #ffffff;
 }
 
+.swiper-button-next:after:hover, .swiper-button-prev:after:hover{
+  color: #ff0000;
+}
+
 .swiper-pagination-color{
   background-color: white;
 }
