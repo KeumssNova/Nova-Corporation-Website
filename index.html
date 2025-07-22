@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="assets/css/navbar.css" />
   <link rel="stylesheet" href="assets/css/output.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
 
@@ -47,12 +48,15 @@
   <script type="module" src="assets/js/planet.js"></script>
   <script type="module" src="assets/js/stars.js"></script>
   <script>
+  document.addEventListener("DOMContentLoaded", () => {
     const burgerBtn = document.getElementById("burger-btn");
     const mobileNav = document.getElementById("mobile-nav");
-
-    burgerBtn.addEventListener("click", () => {
-      mobileNav.classList.toggle("hidden");
-    });
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener("click", () => {
+        mobileNav.classList.toggle("hidden");
+      });
+    }
+  });
   </script>
 </body>
 

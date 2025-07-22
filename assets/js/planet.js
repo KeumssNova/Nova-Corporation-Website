@@ -1,7 +1,8 @@
-import * as THREE from "three";
- import { EffectComposer } from "/node_modules/three/examples/jsm/postprocessing/EffectComposer.js";
- import { RenderPass } from "/node_modules/three/examples/jsm/postprocessing/RenderPass.js";
- import { UnrealBloomPass } from "/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+import { EffectComposer } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 
 // === SCENE & CAMERA ===
 const scene = new THREE.Scene();
