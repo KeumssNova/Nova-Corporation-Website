@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Accueil — Nova Corporation</title>
-    <link
-      rel="shortcut icon"
-      href="assets/images/nova logo blanc fond noir  (2).png"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/home.css" />
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-    <link rel="stylesheet" href="assets/css/output.css" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <script type="importmap">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Accueil — Nova Corporation</title>
+  <link rel="shortcut icon" href="assets/images/nova logo blanc fond noir  (2).png" type="image/x-icon" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/home.css" />
+  <link rel="stylesheet" href="assets/css/navbar.css" />
+  <link rel="stylesheet" href="assets/css/output.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script type="importmap">
       {
         "imports": {
           "three": "./node_modules/three/build/three.module.js"
         }
       }
     </script>
-  </head>
-  <body>
-    <canvas id="stars-canvas"></canvas>
-    <canvas id="planet-canvas"></canvas>
-    <div id="app">
-      <div id="header-container"></div>
-      <div class="trait">
-        <hr class="growing-bar" />
-      </div>
-      <div class="slogan-container">
-        <span class="slogan">PEACE-ART-TECHNOLOGY</span>
-        <span class="slogan">31/05/2102</span>
-      </div>
-      <main>
-        <!--<div id="backgroundCanvas">
-        </div>-->
-      </main>
-      <div id="footer-container" class="w-full py-4"></div>
+</head>
+
+<body>
+  <canvas id="stars-canvas"></canvas>
+  <canvas id="planet-canvas"></canvas>
+  <div id="app">
+    <div id="header-container"></div>
+    <div class="trait">
+      <hr class="growing-bar" />
     </div>
-    <script type="module" src="./assets/js/main.js"></script>
-    <script type="module" src="assets/js/planet.js"></script>
-    <script type="module" src="assets/js/stars.js"></script>
-    <script>
-      const burgerBtn = document.getElementById("burger-btn");
-      const mobileNav = document.getElementById("mobile-nav");
-    
-      burgerBtn.addEventListener("click", () => {
-        mobileNav.classList.toggle("hidden");
-      });
-    </script>
-  </body>
+    <div class="slogan-container">
+      <span class="slogan">PEACE-ART-TECHNOLOGY</span>
+      <span class="slogan">31/05/2102</span>
+    </div>
+    <main>
+      <!--<div id="backgroundCanvas">
+        </div>-->
+    </main>
+    <div id="footer-container" class="w-full py-4"></div>
+  </div>
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module" src="assets/js/planet.js"></script>
+  <script type="module" src="assets/js/stars.js"></script>
+  <script>
+    const burgerBtn = document.getElementById("burger-btn");
+    const mobileNav = document.getElementById("mobile-nav");
+
+    burgerBtn.addEventListener("click", () => {
+      mobileNav.classList.toggle("hidden");
+    });
+  </script>
+</body>
+
 </html>
