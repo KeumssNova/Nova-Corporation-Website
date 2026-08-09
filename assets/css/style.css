@@ -5,13 +5,30 @@
   font-style: normal;
 }
 
+/* ===== échelle de z-index centralisée =====
+   Toutes les valeurs de z-index du site doivent référencer une de ces
+   variables plutôt que des nombres magiques. */
+:root {
+  --z-canvas: -1; /* canvas 3D en arrière-plan (planète, étoiles) */
+  --z-content: 10; /* contenu de page au-dessus du canvas (slogan, footer...) */
+  --z-header: 100; /* header / navigation desktop */
+  --z-overlay: 500; /* overlays ponctuels (modales, tooltips...) */
+  --z-mobile-nav: 1000; /* menu mobile, doit rester au-dessus de tout */
+}
+
 /* Utilisation globale */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 body,
 main {
   font-family: "cousine", sans-serif;
 }
-
-
 
 @keyframes slide {
   0% {
@@ -24,4 +41,3 @@ main {
 .animate-slide {
   animation: slide 30s linear infinite;
 }
-

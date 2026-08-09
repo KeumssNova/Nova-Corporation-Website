@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 999;
+    z-index: var(--z-header);
     background-color: transparent;
 }
 
@@ -48,7 +48,7 @@
     padding-top: 120px;
     width: 100%;
     display: flex;
-    z-index: 998;
+    z-index: var(--z-header);
 }
 
 .growing-bar {
@@ -58,7 +58,7 @@
     background: #ffffff91;
     width: 0; /* état de départ */
     animation: growBar 2s ease-out forwards;
-    z-index: 999;
+    z-index: var(--z-content);
 }
 
 @keyframes growBar {
@@ -75,7 +75,7 @@
     padding: 16px;
     animation: slowFlicker 4s infinite ease-in-out;
     color: white;
-    z-index: 1999;
+    z-index: var(--z-content);
 }
 
 .social {
@@ -95,7 +95,7 @@
 
 #footer-container {
     background-color: black;
-    z-index: 999;
+    z-index: var(--z-content);
     footer {
         display: flex;
         padding: 0 2.5%;
@@ -123,10 +123,10 @@
     text-decoration: none;
     color: #fff;
     font-family: "cousine";
-    z-index: 1000;
+    z-index: var(--z-header);
 }
 #mobile-nav{
-    z-index: 10000;
+    z-index: var(--z-mobile-nav);
 }
 
 /* marqueur */

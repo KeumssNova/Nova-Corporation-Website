@@ -1,21 +1,13 @@
 body,
 html {
-  margin: 0;
-  padding: 0;
   overflow: visible;
-  height: 100%;
-  width: 100%;
   background-color: black;
-  font-family: 'cousine', sans-serif;
 }
 
-
-
-main{
+main {
   color: white;
   background-color: transparent;
 }
-
 
 /* ARTISTE */
 
