@@ -34,6 +34,7 @@ const bumpMap = loader.load("/textures/elev_bump_16k.jpg");
 const specularMap = loader.load("/textures/8k_earth_specular_map.jpg");
 const normalMap = loader.load("/textures/8k_earth_normal_map.jpg");
 const cloudMap = loader.load("/textures/8k_earth_clouds.jpg");
+const nightMap = loader.load("/textures/8k_earth_nightmap.jpg");
 // const starfield = loader.load("/textures/8k_stars.jpg");
 
 // === EARTH ===
@@ -47,6 +48,50 @@ const earthMaterial = new THREE.MeshPhongMaterial({
   specular: new THREE.Color(0x444444),
   shininess: 15,
 });
+
+// Blend jour/nuit : injecte les lumieres de ville sur la face cachee du
+// soleil directement dans le shader Phong genere par Three.js, pour ne
+// pas perdre le bump/normal/specular deja en place.
+earthMaterial.onBeforeCompile = (shader) => {
+  shader.uniforms.nightMap = { value: nightMap };
+  // direction du soleil en espace monde (fixe, la Terre tourne autour)
+  shader.uniforms.nightLightDirection = {
+    value: dirLight.position.clone().normalize(),
+  };
+
+  shader.vertexShader = shader.vertexShader
+    .replace(
+      "#include <common>",
+      `#include <common>
+       varying vec3 vWorldNormal;`
+    )
+    .replace(
+      "#include <defaultnormal_vertex>",
+      `#include <defaultnormal_vertex>
+       vWorldNormal = normalize(mat3(modelMatrix) * normal);`
+    );
+
+  shader.fragmentShader = shader.fragmentShader
+    .replace(
+      "#include <common>",
+      `#include <common>
+       uniform sampler2D nightMap;
+       uniform vec3 nightLightDirection;
+       varying vec3 vWorldNormal;`
+    )
+    .replace(
+      "#include <dithering_fragment>",
+      `
+       float sunFacing = dot(vWorldNormal, nightLightDirection);
+       float dayMix = smoothstep(-0.15, 0.15, sunFacing);
+       vec3 nightColor = texture2D(nightMap, vMapUv).rgb;
+       gl_FragColor.rgb = mix(nightColor, gl_FragColor.rgb, dayMix);
+       #include <dithering_fragment>`
+    );
+
+  earthMaterial.userData.shader = shader;
+};
+
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 
@@ -97,7 +142,7 @@ function createStarField(count, radius) {
   const material = new THREE.ShaderMaterial({
     uniforms: {
       color: { value: new THREE.Color(0xffffff) },
-      texture: { value: new THREE.TextureLoader().load('/textures/8k_stars.jpg') },
+      pointTexture: { value: new THREE.TextureLoader().load('/textures/8k_stars.jpg') },
     },
     vertexShader: `
       attribute float size;
@@ -112,10 +157,10 @@ function createStarField(count, radius) {
     `,
     fragmentShader: `
       uniform vec3 color;
-      uniform sampler2D texture;
+      uniform sampler2D pointTexture;
       varying float vOpacity;
       void main() {
-        vec4 texColor = texture2D(texture, gl_PointCoord);
+        vec4 texColor = texture2D(pointTexture, gl_PointCoord);
         if(texColor.a < 0.1) discard;
         gl_FragColor = vec4(color, vOpacity) * texColor;
       }
@@ -212,6 +257,20 @@ function onWindowResize() {
   renderer.setSize(width, height);
 }
 
+// === PARALLAX SOURIS ===
+// La caméra suit doucement le curseur (effet de profondeur), la terre
+// continue de tourner sur elle-même independamment.
+const PARALLAX_STRENGTH = 0.35;
+const PARALLAX_EASE = 0.05;
+let mouseX = 0;
+let mouseY = 0;
+let parallaxX = 0;
+let parallaxY = 0;
+
+window.addEventListener('pointermove', (event) => {
+  mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+  mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+});
 
 // === ANIMATION ===
 function animate() {
@@ -220,6 +279,13 @@ function animate() {
   clouds.rotation.y += 0.0004;
   atmosphere.rotation.y += 0.0035;
   stars.rotation.y += 0.0001;
+
+  parallaxX += (mouseX * PARALLAX_STRENGTH - parallaxX) * PARALLAX_EASE;
+  parallaxY += (-mouseY * PARALLAX_STRENGTH - parallaxY) * PARALLAX_EASE;
+  camera.position.x = parallaxX;
+  camera.position.y = parallaxY;
+  camera.lookAt(0, 0, 0);
+
   composer.render();
 }
 animate();
