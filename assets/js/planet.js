@@ -6,6 +6,38 @@ import { UnrealBloomPass } from "https://esm.sh/three@0.158.0/examples/jsm/postp
 
 
 
+// === QUALITE (fallback mobile / GPU faible) ===
+// Pas de detection par user-agent (peu fiable) : on se base sur des
+// signaux materiels/d'entree. Un faux positif (desktop bascule en
+// "low") coute juste un peu de finesse visuelle ; un faux negatif
+// (mobile bas de gamme en pleine qualite) coute des frames perdues.
+const isLowPower =
+  window.matchMedia('(pointer: coarse)').matches ||
+  window.innerWidth <= 768 ||
+  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
+const QUALITY = isLowPower
+  ? {
+      earthSegments: 64,
+      cloudSegments: 32,
+      atmosphereSegments: 32,
+      haloSegments: 24,
+      starCount: 350,
+      pixelRatio: 1,
+      antialias: false,
+      bloom: false,
+    }
+  : {
+      earthSegments: 264,
+      cloudSegments: 128,
+      atmosphereSegments: 128,
+      haloSegments: 64,
+      starCount: 1000,
+      pixelRatio: Math.min(window.devicePixelRatio, 2),
+      antialias: true,
+      bloom: true,
+    };
+
 // === SCENE & CAMERA ===
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -14,11 +46,11 @@ camera.position.z = 4;
 // === RENDERER ===
 const renderer = new THREE.WebGLRenderer({
   canvas: document.getElementById('planet-canvas'),
-  antialias: true,
+  antialias: QUALITY.antialias,
   alpha: true // permet de voir les étoiles derrière
 });
 renderer.setClearColor(0x000000, 0); // transparent
-renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setPixelRatio(QUALITY.pixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // === LIGHTS ===
@@ -38,7 +70,7 @@ const nightMap = loader.load("/textures/8k_earth_nightmap.jpg");
 // const starfield = loader.load("/textures/8k_stars.jpg");
 
 // === EARTH ===
-const earthGeometry = new THREE.SphereGeometry(1, 264, 264);
+const earthGeometry = new THREE.SphereGeometry(1, QUALITY.earthSegments, QUALITY.earthSegments);
 const earthMaterial = new THREE.MeshPhongMaterial({
   map: earthMap,
   bumpMap: bumpMap,
@@ -96,7 +128,7 @@ const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 
 // === CLOUDS ===
-const cloudGeometry = new THREE.SphereGeometry(1.02, 128, 128);
+const cloudGeometry = new THREE.SphereGeometry(1.02, QUALITY.cloudSegments, QUALITY.cloudSegments);
 const cloudMaterial = new THREE.MeshPhongMaterial({
   map: cloudMap,
   transparent: true,
@@ -173,12 +205,12 @@ function createStarField(count, radius) {
   return new THREE.Points(geometry, material);
 }
 
-const stars = createStarField(1000, 10); 
+const stars = createStarField(QUALITY.starCount, 10);
 scene.add(stars);
 
 // === BLACK HALO ===
 
-const spaceHaloGeometry = new THREE.SphereGeometry(1.07, 64, 64);
+const spaceHaloGeometry = new THREE.SphereGeometry(1.07, QUALITY.haloSegments, QUALITY.haloSegments);
 const spaceHaloMaterial = new THREE.MeshBasicMaterial({
   color: 0x000000,
   transparent: true,
@@ -190,7 +222,7 @@ const spaceHalo = new THREE.Mesh(spaceHaloGeometry, spaceHaloMaterial);
 scene.add(spaceHalo);
 
 // === ATMOSPHERE ===
-const atmosphereGeometry = new THREE.SphereGeometry(1.05, 128, 128);
+const atmosphereGeometry = new THREE.SphereGeometry(1.05, QUALITY.atmosphereSegments, QUALITY.atmosphereSegments);
 const atmosphereMaterial = new THREE.ShaderMaterial({
   vertexShader: `
     varying vec3 vNormal;
@@ -230,18 +262,25 @@ scene.add(atmosphere);
 
 
 // === BLOOM ===
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
+// Passe de post-traitement la plus couteuse de la scene (plusieurs
+// render targets en cascade) : desactivee en mode faible puissance,
+// on rend alors la scene directement sans composer.
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
 
-const bloomPass = new UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
-  2.0,
-  0.8,
-  0.9
-);
-composer.addPass(bloomPass);
+let composer = null;
+if (QUALITY.bloom) {
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+
+  const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    2.0,
+    0.8,
+    0.9
+  );
+  composer.addPass(bloomPass);
+}
 
 window.addEventListener('resize', onWindowResize, false);
 
@@ -255,6 +294,12 @@ function onWindowResize() {
 
   // Met à jour le renderer
   renderer.setSize(width, height);
+  // Le composer de bloom a ses propres render targets : sans ce
+  // resize, une rotation d'ecran mobile le laissait a l'ancienne
+  // taille (bloom deforme/rogne apres un changement d'orientation).
+  if (composer) {
+    composer.setSize(width, height);
+  }
 }
 
 // === PARALLAX SOURIS ===
@@ -286,6 +331,10 @@ function animate() {
   camera.position.y = parallaxY;
   camera.lookAt(0, 0, 0);
 
-  composer.render();
+  if (composer) {
+    composer.render();
+  } else {
+    renderer.render(scene, camera);
+  }
 }
 animate();
