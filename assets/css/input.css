@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+/* ===== palette Nova Corporation =====
+   Rouge de reference du site (glow de la planete, hovers, accents).
+   Genere automatiquement les utilitaires bg-nova-red, text-nova-red,
+   border-nova-red, ring-nova-red, from-nova-red, etc. */
+@theme {
+  --color-nova-red: #ff5b5b;
+  --color-nova-red-dark: #662727;
+  --color-nova-red-light: #ff8989;
+}

@@ -133,10 +133,6 @@
     position: absolute;
     bottom: 0; /* collé au bas du lien */
     left: 0;
-    /* width: 50px;
-    height: 40px; */
-    /* border-radius: 2px; */
-    /* background: #ff5de9; */
     transition: 0.4s;
     pointer-events: none;
     z-index: 0;
@@ -152,15 +148,14 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ff5b5b, #662727);
+    background: radial-gradient(circle at 30% 30%, var(--color-nova-red), var(--color-nova-red-dark));
     box-shadow:
-        0 0 10px #ff5d5d,
-        0 0 20px #ff5d5d,
-        0 0 40px #ff5d5d,
-        inset 0 0 8px #ff8989;
+        0 0 10px var(--color-nova-red),
+        0 0 20px var(--color-nova-red),
+        0 0 40px var(--color-nova-red),
+        inset 0 0 8px var(--color-nova-red-light);
     animation: rotatePlanet 6s linear infinite;
 }
-/* #5da6ff */
 
 @keyframes rotatePlanet {
     from {

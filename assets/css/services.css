@@ -30,7 +30,7 @@ main {
 }
 
 .swiper-button-next:after:hover, .swiper-button-prev:after:hover{
-  color: #ff0000;
+  color: var(--color-nova-red);
 }
 
 .swiper-pagination-color{
