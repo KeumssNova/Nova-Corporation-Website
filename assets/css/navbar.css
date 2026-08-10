@@ -48,7 +48,6 @@
     padding-top: 120px;
     width: 100%;
     display: flex;
-    z-index: var(--z-header);
 }
 
 .growing-bar {
