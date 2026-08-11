@@ -9,6 +9,25 @@ main {
   background-color: transparent;
 }
 
+/* Le header est en position:fixed (voir navbar.css) : il ne pousse pas le
+   contenu suivant dans le flux normal. Sur les pages articles, <main> ne
+   compensait ce vide qu'avec son padding par défaut (py-12 = 48px), ce qui
+   correspond par coïncidence à la hauteur du header en mobile (48px) mais
+   pas du tout à sa hauteur en md+ (120px, le logo grossit) -- le titre se
+   retrouvait caché sous le header dès la largeur tablette. On force un
+   padding-top qui matche exactement la hauteur réelle du header à chaque
+   palier. Ciblé via .max-w-3xl : classe commune à toutes les pages
+   articles (existantes et celles générées par le pipeline blog, voir
+   lib/article-template.js), absente de contact/news/projects. */
+main.max-w-3xl {
+  padding-top: 3rem; /* 48px, hauteur du header en mobile */
+}
+@media (min-width: 768px) {
+  main.max-w-3xl {
+    padding-top: 7.5rem; /* 120px, hauteur du header à partir de md */
+  }
+}
+
 /* ARTISTE */
 
 .card {
