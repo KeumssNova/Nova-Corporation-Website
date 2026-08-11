@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Le scan automatique de Tailwind v4 parcourt tout le repo par défaut. On
+   exclut le code serveur du pipeline de blog qui ne contient aucune classe
+   Tailwind (juste de la logique/des appels API), pour éviter des faux
+   positifs (ex: "contents" pris pour la classe .contents à cause d'un
+   chemin d'API GitHub). lib/article-template.js et lib/news-card.js restent
+   scannés : ce sont eux qui génèrent le HTML des articles publiés, avec de
+   vraies classes utilitaires qui doivent être présentes dans output.css. */
+@source not "../../api";
+@source not "../../_drafts";
+@source not "../../lib/gemini.js";
+@source not "../../lib/github-app.js";
+@source not "../../lib/discord.js";
+@source not "../../lib/publish.js";
+@source not "../../lib/sanitize-fragment.js";
+@source not "../../lib/slug.js";
+
 /* ===== palette Nova Corporation =====
    Rouge de reference du site (glow de la planete, hovers, accents).
    Genere automatiquement les utilitaires bg-nova-red, text-nova-red,

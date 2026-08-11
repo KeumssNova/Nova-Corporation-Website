@@ -33,3 +33,50 @@ main {
 .animate-slide {
   animation: slide 30s linear infinite;
 }
+
+/* ===== corps d'article (pages articles/*.html, y compris celles générées
+   automatiquement par le pipeline blog) =====
+   Le contenu injecté ici n'a volontairement aucune classe Tailwind -- le
+   style visuel est appliqué ici plutôt que délégué à l'IA. */
+.article-body h1 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .article-body h1 {
+    font-size: 3rem;
+  }
+}
+.article-body h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.article-body p {
+  margin-bottom: 1rem;
+  color: #d1d5db; /* gray-300 */
+  line-height: 1.6;
+}
+.article-body ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  color: #e5e7eb; /* gray-200 */
+  margin-bottom: 1rem;
+}
+.article-body ul li + li {
+  margin-top: 0.25rem;
+}
+.article-body strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+.article-body a {
+  color: var(--color-nova-red);
+  text-decoration: underline;
+}
+.article-body a:hover {
+  color: var(--color-nova-red-light);
+}
