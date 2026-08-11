@@ -1,14 +1,20 @@
 const { waitUntil } = require("@vercel/functions");
-const { verifyDiscordRequest } = require("../lib/discord");
+const { verifyDiscordRequest, editInteractionResponse } = require("../lib/discord");
 const { publishDraft, rejectDraft } = require("../lib/publish");
+const { generateAndDraftArticle } = require("../lib/generate");
 
 // Discord signe le corps BRUT de la requête : le body-parser JSON de Vercel
 // re-sérialiserait différemment (ordre des clés, espaces...) et ferait
 // échouer la vérification -- on lit le flux nous-mêmes.
 module.exports.config = { api: { bodyParser: false } };
 
-const INTERACTION_TYPE = { PING: 1, MESSAGE_COMPONENT: 3 };
-const RESPONSE_TYPE = { PONG: 1, DEFERRED_UPDATE_MESSAGE: 6 };
+const INTERACTION_TYPE = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3 };
+const RESPONSE_TYPE = {
+  PONG: 1,
+  CHANNEL_MESSAGE_WITH_SOURCE: 4,
+  DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5,
+  DEFERRED_UPDATE_MESSAGE: 6,
+};
 
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
@@ -17,6 +23,29 @@ function readRawBody(req) {
     req.on("end", () => resolve(data));
     req.on("error", reject);
   });
+}
+
+function getOption(options, name) {
+  return options?.find((o) => o.name === name)?.value;
+}
+
+/** Traite /article en tache de fond, edite la reponse differee a la fin. */
+async function handleArticleCommand(interaction) {
+  const topic = getOption(interaction.data.options, "topic");
+  const rawText = getOption(interaction.data.options, "texte");
+
+  try {
+    const { threadId } = await generateAndDraftArticle({ topic, rawText });
+    await editInteractionResponse(interaction.token, {
+      content: `✅ Brouillon généré pour **${topic}** — <#${threadId}>`,
+    });
+  } catch (err) {
+    console.error(`generateAndDraftArticle via /article failed:`, err);
+    const detail = err.problems ? err.problems.join(" / ") : err.message;
+    await editInteractionResponse(interaction.token, {
+      content: `❌ Échec de la génération pour **${topic}** : ${detail}`,
+    });
+  }
 }
 
 module.exports = async (req, res) => {
@@ -38,6 +67,20 @@ module.exports = async (req, res) => {
 
   if (interaction.type === INTERACTION_TYPE.PING) {
     res.status(200).json({ type: RESPONSE_TYPE.PONG });
+    return;
+  }
+
+  if (interaction.type === INTERACTION_TYPE.APPLICATION_COMMAND) {
+    if (interaction.data?.name === "article") {
+      // Generation Gemini + commits GitHub + creation de thread : largement
+      // au-dela des 3s que Discord accorde pour repondre. Meme pattern que
+      // pour les boutons : accuse de reception differe, travail en tache de
+      // fond, edition de la reponse une fois termine.
+      res.status(200).json({ type: RESPONSE_TYPE.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE });
+      waitUntil(handleArticleCommand(interaction));
+      return;
+    }
+    res.status(400).json({ error: "commande non gérée" });
     return;
   }
 

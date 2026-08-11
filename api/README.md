@@ -36,12 +36,39 @@ POST /api/discord-interactions (appelé par Discord)
 
 ## Déclencher une génération
 
+**Option 1 — depuis Discord (recommandé pour l'usage quotidien)**
+
+Une fois la commande enregistrée (voir plus bas), tape directement dans le
+salon Discord :
+
+```
+/article topic: Nouveau son de Laaska texte: notes optionnelles
+```
+
+Reservée aux membres avec la permission "Gérer le serveur" (évite que
+n'importe qui déclenche des appels Gemini payants). Discord répond tout de
+suite avec un accusé de réception, puis édite le message une fois le
+brouillon prêt (avec un lien vers le thread de review).
+
+**Option 2 — curl / HTTP direct**
+
 ```bash
 curl -X POST https://<ton-domaine>/api/generate-article \
   -H "Authorization: Bearer $PUBLISH_SECRET" \
   -H "Content-Type: application/json" \
   -d '{"topic": "Titre ou sujet de l'\''article", "rawText": "notes brutes optionnelles"}'
 ```
+
+## Enregistrer la commande /article (une seule fois)
+
+```bash
+node scripts/register-discord-command.js <DISCORD_BOT_TOKEN> <DISCORD_APPLICATION_ID> <DISCORD_GUILD_ID>
+```
+
+Voir les commentaires en tête de `scripts/register-discord-command.js` pour
+savoir où trouver chaque valeur. À relancer uniquement si tu modifies la
+définition de la commande (nom, options...) -- Discord la garde en mémoire
+côté serveur sinon.
 
 ## Variables d'environnement
 

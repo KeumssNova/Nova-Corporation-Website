@@ -1,8 +1,4 @@
-const { generateArticle } = require("../lib/gemini");
-const { sanitizeFragment } = require("../lib/sanitize-fragment");
-const { slugify } = require("../lib/slug");
-const { writeFile } = require("../lib/github-app");
-const { createDraftThread } = require("../lib/discord");
+const { generateAndDraftArticle } = require("../lib/generate");
 
 function checkAuth(req) {
   const expected = process.env.PUBLISH_SECRET;
@@ -10,18 +6,6 @@ function checkAuth(req) {
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : null;
   return token === expected;
-}
-
-/** Vérifications automatiques avant d'envoyer le brouillon en review. */
-function verifyDraft({ html, sources, seoDescription }) {
-  const problems = [];
-  if (!/^<h1>/i.test(html.trim())) problems.push("le fragment ne commence pas par <h1>.");
-  if (html.trim().length < 300) problems.push("contenu anormalement court.");
-  if (sources.length < 1) problems.push("aucune source de recherche Google retournée (grounding).");
-  if (!seoDescription || seoDescription.length < 80 || seoDescription.length > 200) {
-    problems.push(`SEO_DESCRIPTION absente ou hors gabarit (140-160 caractères visés, reçu ${seoDescription?.length ?? 0}).`);
-  }
-  return problems;
 }
 
 module.exports = async (req, res) => {
@@ -41,63 +25,14 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const generated = await generateArticle({ topic, rawText });
-    const sanitizedHtml = sanitizeFragment(generated.html);
-
-    const problems = verifyDraft({
-      html: sanitizedHtml,
-      sources: generated.sources,
-      seoDescription: generated.seoDescription,
-    });
-    if (problems.length) {
-      res.status(422).json({ error: "Vérification auto échouée.", problems });
-      return;
-    }
-
-    const slug = slugify(topic);
-    const draftId = `${slug}-${Date.now().toString(36)}`;
-
-    const draft = {
-      draftId,
-      slug,
-      topic,
-      title: topic,
-      html: sanitizedHtml,
-      imagePrompt: generated.imagePrompt,
-      caption: generated.caption,
-      seoDescription: generated.seoDescription,
-      sources: generated.sources,
-      createdAt: new Date().toISOString(),
-      status: "pending",
-    };
-
-    await writeFile(
-      `_drafts/${draftId}.json`,
-      JSON.stringify(draft, null, 2),
-      `blog: brouillon "${topic}"`
-    );
-
-    const summary = sanitizedHtml.replace(/<[^>]+>/g, " ").trim().slice(0, 300);
-    const { threadId, messageId } = await createDraftThread({
-      title: topic,
-      summary,
-      imagePrompt: generated.imagePrompt,
-      caption: generated.caption,
-      seoDescription: generated.seoDescription,
-      sources: generated.sources,
-      draftId,
-    });
-
-    draft.discord = { threadId, messageId, channelId: process.env.DISCORD_CHANNEL_ID };
-    await writeFile(
-      `_drafts/${draftId}.json`,
-      JSON.stringify(draft, null, 2),
-      `blog: lien Discord pour "${topic}"`
-    );
-
-    res.status(200).json({ ok: true, draftId, threadId, sources: generated.sources });
+    const result = await generateAndDraftArticle({ topic, rawText });
+    res.status(200).json({ ok: true, ...result });
   } catch (err) {
     console.error("generate-article error:", err);
+    if (err.problems) {
+      res.status(422).json({ error: err.message, problems: err.problems });
+      return;
+    }
     res.status(500).json({ error: err.message || "Erreur inconnue." });
   }
 };
