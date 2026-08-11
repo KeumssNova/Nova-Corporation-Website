@@ -13,11 +13,14 @@ function checkAuth(req) {
 }
 
 /** Vérifications automatiques avant d'envoyer le brouillon en review. */
-function verifyDraft({ html, sources }) {
+function verifyDraft({ html, sources, seoDescription }) {
   const problems = [];
   if (!/^<h1>/i.test(html.trim())) problems.push("le fragment ne commence pas par <h1>.");
   if (html.trim().length < 300) problems.push("contenu anormalement court.");
   if (sources.length < 1) problems.push("aucune source de recherche Google retournée (grounding).");
+  if (!seoDescription || seoDescription.length < 80 || seoDescription.length > 200) {
+    problems.push(`SEO_DESCRIPTION absente ou hors gabarit (140-160 caractères visés, reçu ${seoDescription?.length ?? 0}).`);
+  }
   return problems;
 }
 
@@ -41,7 +44,11 @@ module.exports = async (req, res) => {
     const generated = await generateArticle({ topic, rawText });
     const sanitizedHtml = sanitizeFragment(generated.html);
 
-    const problems = verifyDraft({ html: sanitizedHtml, sources: generated.sources });
+    const problems = verifyDraft({
+      html: sanitizedHtml,
+      sources: generated.sources,
+      seoDescription: generated.seoDescription,
+    });
     if (problems.length) {
       res.status(422).json({ error: "Vérification auto échouée.", problems });
       return;
@@ -58,6 +65,7 @@ module.exports = async (req, res) => {
       html: sanitizedHtml,
       imagePrompt: generated.imagePrompt,
       caption: generated.caption,
+      seoDescription: generated.seoDescription,
       sources: generated.sources,
       createdAt: new Date().toISOString(),
       status: "pending",
@@ -75,6 +83,7 @@ module.exports = async (req, res) => {
       summary,
       imagePrompt: generated.imagePrompt,
       caption: generated.caption,
+      seoDescription: generated.seoDescription,
       sources: generated.sources,
       draftId,
     });
