@@ -36,15 +36,17 @@ Promise.all([
 
 
 
-// carousel services
-let swiper = new Swiper(".default-carousel", {
-  loop: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-});
+// carousel services (uniquement présent sur services.html, qui charge Swiper)
+if (typeof Swiper !== "undefined" && document.querySelector(".default-carousel")) {
+  let swiper = new Swiper(".default-carousel", {
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+}
