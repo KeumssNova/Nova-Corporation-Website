@@ -1,5 +1,6 @@
 const { waitUntil } = require("@vercel/functions");
-const { verifyDiscordRequest, editInteractionResponse } = require("../lib/discord");
+const { verifyDiscordRequest, editInteractionResponse, updateDraftMessage } = require("../lib/discord");
+const { readFile } = require("../lib/github-app");
 const { publishDraft, rejectDraft } = require("../lib/publish");
 const { generateAndDraftArticle } = require("../lib/generate");
 
@@ -48,6 +49,42 @@ async function handleArticleCommand(interaction) {
   }
 }
 
+/**
+ * Traite le clic sur un bouton "Générer l'article N" d'un message de
+ * veille. Relit la piste choisie dans _scout/<batchId>.json (le custom_id
+ * ne contient que l'index, pas le sujet -- trop long pour la limite de 100
+ * caractères de Discord), puis lance la meme generation que /article.
+ */
+async function handleScoutChoice(interaction, batchId, index) {
+  const channelId = interaction.channel_id;
+  const messageId = interaction.message?.id;
+
+  try {
+    const batchFile = await readFile(`_scout/${batchId}.json`);
+    if (!batchFile) throw new Error(`Lot de veille ${batchId} introuvable.`);
+    const batch = JSON.parse(batchFile.content);
+    const proposal = batch.proposals?.[index];
+    if (!proposal) throw new Error(`Piste #${index + 1} introuvable dans ce lot.`);
+
+    const { threadId } = await generateAndDraftArticle({ topic: proposal.topic });
+
+    if (channelId && messageId) {
+      await updateDraftMessage(channelId, messageId, {
+        statusLine: `✅ Piste **"${proposal.topic}"** choisie — brouillon prêt dans <#${threadId}>`,
+        color: 0x2ecc71,
+      });
+    }
+  } catch (err) {
+    console.error(`handleScoutChoice(${batchId}, ${index}) failed:`, err);
+    if (channelId && messageId) {
+      await updateDraftMessage(channelId, messageId, {
+        statusLine: `❌ Échec de la génération pour la piste #${index + 1} : ${err.message}`,
+        color: 0xe74c3c,
+      });
+    }
+  }
+}
+
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).end();
@@ -86,8 +123,15 @@ module.exports = async (req, res) => {
 
   if (interaction.type === INTERACTION_TYPE.MESSAGE_COMPONENT) {
     const customId = interaction.data?.custom_id || "";
-    const [action, draftId] = customId.split(":");
+    const [action, refId, scoutIndex] = customId.split(":");
 
+    if (action === "scout" && refId && scoutIndex !== undefined) {
+      res.status(200).json({ type: RESPONSE_TYPE.DEFERRED_UPDATE_MESSAGE });
+      waitUntil(handleScoutChoice(interaction, refId, Number(scoutIndex)));
+      return;
+    }
+
+    const draftId = refId;
     if (action === "publish" && draftId) {
       // Le travail réel (lecture GitHub, téléchargement image, plusieurs
       // commits) dépasse largement les 3s que Discord accorde pour

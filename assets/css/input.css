@@ -9,7 +9,10 @@
    vraies classes utilitaires qui doivent être présentes dans output.css. */
 @source not "../../api";
 @source not "../../_drafts";
+@source not "../../_scout";
 @source not "../../lib/gemini.js";
+@source not "../../lib/scout.js";
+@source not "../../lib/generate.js";
 @source not "../../lib/github-app.js";
 @source not "../../lib/discord.js";
 @source not "../../lib/publish.js";
