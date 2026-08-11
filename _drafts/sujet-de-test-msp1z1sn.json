@@ -34,5 +34,10 @@
     }
   ],
   "createdAt": "2026-08-11T19:28:04.824Z",
-  "status": "pending"
+  "status": "pending",
+  "discord": {
+    "threadId": "1536818514265112697",
+    "messageId": "1536818514265112697",
+    "channelId": "1469272704879296523"
+  }
 }
