@@ -10,8 +10,7 @@ html {
   min-height: 100vh;
 }
 
-#planet-canvas,
-#stars-canvas {
+#planet-canvas {
   position: fixed;
   top: 0;
   left: 0;
