@@ -209,13 +209,32 @@ const stars = createStarField(QUALITY.starCount, 10);
 scene.add(stars);
 
 // === BLACK HALO ===
-
-const spaceHaloGeometry = new THREE.SphereGeometry(1.07, QUALITY.haloSegments, QUALITY.haloSegments);
-const spaceHaloMaterial = new THREE.MeshBasicMaterial({
-  color: 0x000000,
-  transparent: true,
-  opacity: 0.6,
+// Vignette sombre juste derriere l'atmosphere, pour faire ressortir le
+// glow bleu par contraste. A l'origine une simple sphere a opacite fixe
+// (MeshBasicMaterial) : ca cree un bord geometrique dur (un vrai cercle
+// net) contre le fond noir -- rendu "brut". Un shader avec son propre
+// degrade fresnel (dense pres de la planete, qui s'estompe vers rien en
+// s'eloignant) fond la vignette dans le noir au lieu de laisser un
+// contour visible, comme le fait deja l'atmosphere.
+const spaceHaloGeometry = new THREE.SphereGeometry(1.09, QUALITY.haloSegments, QUALITY.haloSegments);
+const spaceHaloMaterial = new THREE.ShaderMaterial({
+  vertexShader: `
+    varying vec3 vNormal;
+    void main() {
+      vNormal = normalize(normalMatrix * normal);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vNormal;
+    void main() {
+      float rim = 1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0)));
+      float fade = pow(clamp(rim, 0.0, 1.0), 2.2);
+      gl_FragColor = vec4(0.0, 0.0, 0.0, fade * 0.55);
+    }
+  `,
   side: THREE.BackSide,
+  transparent: true,
   depthWrite: false,
 });
 const spaceHalo = new THREE.Mesh(spaceHaloGeometry, spaceHaloMaterial);
