@@ -4,5 +4,18 @@
       "path": "/api/scout-topics",
       "schedule": "0 8 * * *"
     }
+  ],
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/projects.html", "destination": "/projets", "permanent": true },
+    { "source": "/news.html", "destination": "/actus", "permanent": true },
+    { "source": "/services.html", "destination": "/services", "permanent": true },
+    { "source": "/contact.html", "destination": "/contact", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/projets", "destination": "/projects.html" },
+    { "source": "/actus", "destination": "/news.html" },
+    { "source": "/services", "destination": "/services.html" },
+    { "source": "/contact", "destination": "/contact.html" }
   ]
 }

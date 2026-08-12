@@ -10,11 +10,11 @@ publie une couverture éditoriale régulière de l'actualité de cette scène
 
 ## Pages principales
 
-- [Accueil](https://nova-corporation-nine.vercel.app/index.html)
-- [Projets](https://nova-corporation-nine.vercel.app/projects.html) : artistes signés et projets en cours
-- [Actus](https://nova-corporation-nine.vercel.app/news.html) : articles sur la scène underground FR, mis à jour régulièrement
-- [Services](https://nova-corporation-nine.vercel.app/services.html)
-- [Contact](https://nova-corporation-nine.vercel.app/contact.html)
+- [Accueil](https://nova-corporation-nine.vercel.app/)
+- [Projets](https://nova-corporation-nine.vercel.app/projets) : artistes signés et projets en cours
+- [Actus](https://nova-corporation-nine.vercel.app/actus) : articles sur la scène underground FR, mis à jour régulièrement
+- [Services](https://nova-corporation-nine.vercel.app/services)
+- [Contact](https://nova-corporation-nine.vercel.app/contact)
 
 ## À propos du contenu éditorial
 
