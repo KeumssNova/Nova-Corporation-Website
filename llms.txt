@@ -1,0 +1,29 @@
+# Nova Corporation
+
+> Label indépendant français dédié à la scène musicale underground
+> (rap/trap en majorité, mais aussi chant, alternatif et toute musique
+> underground FR). Peace, Art, Technology.
+
+Nova Corporation repère et accompagne des artistes underground français, et
+publie une couverture éditoriale régulière de l'actualité de cette scène
+(sorties, clips, tournées, collaborations) sur son blog Actus.
+
+## Pages principales
+
+- [Accueil](https://nova-corporation-nine.vercel.app/index.html)
+- [Projets](https://nova-corporation-nine.vercel.app/projects.html) : artistes signés et projets en cours
+- [Actus](https://nova-corporation-nine.vercel.app/news.html) : articles sur la scène underground FR, mis à jour régulièrement
+- [Services](https://nova-corporation-nine.vercel.app/services.html)
+- [Contact](https://nova-corporation-nine.vercel.app/contact.html)
+
+## À propos du contenu éditorial
+
+Chaque article du blog Actus est rédigé à partir de recherches récentes,
+avec au moins une source vérifiée citée en bas de l'article. Publié sous la
+marque Nova Corporation (pas de byline individuelle). Voir sitemap.xml pour
+la liste complète des articles publiés.
+
+## Réseaux
+
+- Instagram : https://www.instagram.com/nova.corporation/
+- YouTube : https://www.youtube.com/@Nova.corporation0/featured

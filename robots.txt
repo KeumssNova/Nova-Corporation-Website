@@ -1,0 +1,41 @@
+# Nova Corporation -- robots.txt
+# Site vitrine + blog editorial : aucune raison de bloquer l'indexation.
+# Autorise explicitement les crawlers IA (moteurs de reponse generative,
+# citations dans les AI Overviews / assistants) en plus des moteurs
+# classiques -- c'est du contenu fait pour etre trouve et cite, pas protege.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_drafts/
+Disallow: /_scout/
+
+# Crawlers IA / moteurs de reponse generative -- explicitement autorises
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://nova-corporation-nine.vercel.app/sitemap.xml

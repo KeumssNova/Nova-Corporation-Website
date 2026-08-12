@@ -110,8 +110,9 @@ dans Vercel > Project Settings > Environment Variables.
 - `lib/gemini.js` — appel API Gemini avec grounding (recherche Google) pour la rédaction, parsing de la réponse
 - `lib/scout.js` — appel API Gemini pour la veille, parsing des propositions
 - `lib/sanitize-fragment.js` — sanitisation défensive du HTML généré (allowlist de balises)
-- `lib/article-template.js` — gabarit HTML déterministe (calqué sur articles/*.html existants), balises SEO/Open Graph
+- `lib/article-template.js` — gabarit HTML déterministe (calqué sur articles/*.html existants), balises SEO/Open Graph/JSON-LD (schema.org NewsArticle) + bloc "Sources" visible en bas de page
 - `lib/news-card.js` — insertion de la carte dans news.html
+- `lib/sitemap.js` — regénère sitemap.xml (pages statiques + tous les articles, extraits de news.html) à chaque publication
 - `lib/github-app.js` — auth GitHub App (JWT RS256 → token d'installation) + lecture/écriture/suppression de fichiers
 - `lib/discord.js` — vérification de signature, création de thread/messages, lecture des pièces jointes, mise à jour/édition de message
 - `lib/generate.js` — génération + vérification + commit du brouillon + création du thread (logique partagée entre `/article` et le curl direct)
@@ -121,6 +122,34 @@ dans Vercel > Project Settings > Environment Variables.
 - `api/discord-interactions.js` — reçoit tous les événements Discord (commande /article, boutons de veille, boutons Publier/Rejeter)
 - `_drafts/` — brouillons d'articles en attente de validation, au format JSON. Nettoyés automatiquement après publication/rejet.
 - `_scout/` — lots de propositions de veille, au format JSON. Conservés (pas de nettoyage automatique) comme historique des pistes proposées.
+
+## GEO / visibilité dans les réponses IA
+
+Avec les AI Overviews (Google), Perplexity, etc., une part croissante des
+recherches n'aboutit plus à un clic sur un site -- l'IA répond directement.
+On ne peut pas empêcher ça, mais on peut maximiser les chances que Nova
+Corporation soit la source citée dans cette réponse (et pas juste absorbée
+sans attribution) :
+
+- `robots.txt` autorise explicitement les crawlers IA (GPTBot,
+  Google-Extended, PerplexityBot, ClaudeBot...) en plus des moteurs
+  classiques -- un site qu'on ne peut pas crawler ne peut pas être cité.
+- `llms.txt` (convention émergente) résume le site pour les LLM qui le
+  consultent directement.
+- JSON-LD (`Organization` sur toutes les pages, `NewsArticle`/`Article` sur
+  chaque page d'article, avec `citation` reprenant les sources) -- donne aux
+  moteurs de réponse un signal structuré propre plutôt qu'à extraire du
+  texte libre, et augmente les chances d'attribution nominative.
+- Chaque article publié affiche désormais ses sources en bas de page (pas
+  seulement dans le thread Discord de review) -- crédibilité éditoriale
+  (E-E-A-T) et matière concrète à citer pour une IA qui reprend l'article.
+- `sitemap.xml` tenu à jour automatiquement à chaque publication.
+
+Ce que ça ne résout pas : la perte de clic elle-même. La vraie parade est
+ailleurs -- des canaux qui ne dépendent pas d'un clic Google (Discord,
+Instagram, YouTube, une éventuelle newsletter/RSS) et du contenu que l'IA ne
+peut pas résumer à ta place (le son lui-même, un angle éditorial affirmé,
+pas juste un résumé factuel).
 
 ## Limitations connues (v1)
 
