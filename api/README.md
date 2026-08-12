@@ -45,7 +45,7 @@ GET/POST /api/scout-topics
 POST /api/discord-interactions (appelé par Discord)
         │
         ▼
-  commit image + articles/<slug>.html + carte dans news.html
+  commit image (convertie en WebP) + articles/<slug>.html + carte dans news.html
         │
         ▼
   Vercel redéploie automatiquement, message Discord mis à jour
@@ -115,7 +115,7 @@ dans Vercel > Project Settings > Environment Variables.
 - `lib/github-app.js` — auth GitHub App (JWT RS256 → token d'installation) + lecture/écriture/suppression de fichiers
 - `lib/discord.js` — vérification de signature, création de thread/messages, lecture des pièces jointes, mise à jour/édition de message
 - `lib/generate.js` — génération + vérification + commit du brouillon + création du thread (logique partagée entre `/article` et le curl direct)
-- `lib/publish.js` — orchestration de la publication finale (appelée depuis discord-interactions.js)
+- `lib/publish.js` — orchestration de la publication finale (appelée depuis discord-interactions.js), convertit l'image déposée en WebP (qualité 82) avant de la committer
 - `api/scout-topics.js` — déclenché par Vercel Cron (ou manuellement), poste les propositions du jour
 - `api/generate-article.js` — déclenchement HTTP direct (curl)
 - `api/discord-interactions.js` — reçoit tous les événements Discord (commande /article, boutons de veille, boutons Publier/Rejeter)

@@ -2,6 +2,7 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",
     "@vercel/functions": "^1.5.0",
+    "sharp": "^0.35.3",
     "tweetnacl": "^1.0.3"
   },
   "name": "nova-corporation-website",
