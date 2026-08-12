@@ -16,27 +16,30 @@
   </div>
 
   <!-- Zone droite : Contact + Burger -->
-  <div class="navbar-droite flex items-center gap-4 z-50">
+  <div class="navbar-droite flex items-center gap-4">
     <a href="/contact.html" class="hidden md:inline">CONTACT</a>
 
     <!-- Burger menu visible uniquement sur mobile -->
-    <button id="burger-btn" class="md:hidden flex flex-col gap-[5px]">
-      <span class="w-6 h-[2px] bg-white"></span>
-      <span class="w-6 h-[2px] bg-white"></span>
-      <span class="w-6 h-[2px] bg-white"></span>
+    <button
+      id="burger-btn"
+      class="burger-btn md:hidden"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
     </button>
   </div>
 
   <!-- Menu Mobile -->
-  <nav
-    id="mobile-nav"
-    class="hidden flex-col gap-4 absolute top-full left-0 w-full bg-black px-6 py-4 md:hidden z-40"
-  >
-    <a class="link" href="/index.html">ACCUEIL</a>
-    <a class="link" href="/projects.html">PROJETS</a>
-    <a class="link" href="/news.html">ACTUS</a>
-    <a class="link" href="/services.html">SERVICES</a>
-    <a class="link" href="/contact.html">CONTACT</a>
+  <nav id="mobile-nav" class="mobile-nav md:hidden" aria-hidden="true">
+    <a class="mobile-link" href="/index.html" style="--i: 0">ACCUEIL</a>
+    <a class="mobile-link" href="/projects.html" style="--i: 1">PROJETS</a>
+    <a class="mobile-link" href="/news.html" style="--i: 2">ACTUS</a>
+    <a class="mobile-link" href="/services.html" style="--i: 3">SERVICES</a>
+    <a class="mobile-link" href="/contact.html" style="--i: 4">CONTACT</a>
   </nav>
 </header>
 

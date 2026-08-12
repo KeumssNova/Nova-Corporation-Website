@@ -18,18 +18,30 @@ Promise.all([
   const mobileNav = document.getElementById("mobile-nav");
 
   if (burgerBtn && mobileNav) {
+    const setOpen = (open) => {
+      burgerBtn.classList.toggle("open", open);
+      mobileNav.classList.toggle("open", open);
+      burgerBtn.setAttribute("aria-expanded", String(open));
+      mobileNav.setAttribute("aria-hidden", String(!open));
+      burgerBtn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+      document.body.classList.toggle("no-scroll", open);
+    };
+
     burgerBtn.addEventListener("click", () => {
-      mobileNav.classList.toggle("hidden");
+      setOpen(!mobileNav.classList.contains("open"));
     });
 
-    // Ferme le menu après clic sur un lien (mobile)
-    const links = mobileNav.querySelectorAll("a");
-    links.forEach(link => {
-      link.addEventListener("click", () => {
-        if (window.innerWidth < 768) {
-          mobileNav.classList.add("hidden");
-        }
-      });
+    // Ferme le menu au clic sur un lien, sur le fond, ou via Echap
+    mobileNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    mobileNav.addEventListener("click", (e) => {
+      if (e.target === mobileNav) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
     });
   }
 });
