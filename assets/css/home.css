@@ -1,7 +1,12 @@
 body,
 html {
   overflow: hidden;
-  background-color: transparent;
+  /* Le canvas Three.js est rendu avec un fond alpha=0 (clearColor
+     0x000000, 0) : ses zones "vides" (l'espace au-dela du halo/des
+     etoiles) laissent transparaitre ce qu'il y a derriere. Si body/html
+     sont eux-memes transparents, ca finit par montrer le blanc par
+     defaut du navigateur -- pas de noir nulle part dans la chaine. */
+  background-color: black;
 }
 
 #app {

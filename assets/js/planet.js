@@ -237,12 +237,16 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
     void main() {
       float rim = 0.7 - dot(vNormal, vec3(0.0, 0.0, 1.2));
       rim = clamp(rim, 0.0, 1.0);
-      rim = pow(rim, 3.1);
+      // Exposant plus bas = degrade plus large/doux (effet "flou") sans
+      // le cout d'un vrai flou post-traitement. Compense l'absence de
+      // bloom sur mobile (QUALITY.bloom: false), ou le halo rendait dur
+      // et anguleux au lieu de vaporeux.
+      float rimSoft = pow(rim, 1.6);
       float litSide = max(dot(vNormal, lightDirection), 0.0);
       litSide = smoothstep(0.0, 0.5, litSide);
-      float glow = rim * litSide;
-      vec3 color = vec3(0.0, 0.5, 1.0) * glow;
-      gl_FragColor = vec4(color, glow);
+      float glow = rimSoft * litSide;
+      vec3 color = vec3(0.05, 0.55, 1.0) * glow;
+      gl_FragColor = vec4(color, glow * 0.85);
     }
   `,
   uniforms: {
