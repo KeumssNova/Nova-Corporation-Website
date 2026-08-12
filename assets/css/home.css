@@ -1,12 +1,7 @@
 body,
 html {
   overflow: hidden;
-  /* Le canvas Three.js est rendu avec un fond alpha=0 (clearColor
-     0x000000, 0) : ses zones "vides" (l'espace au-dela du halo/des
-     etoiles) laissent transparaitre ce qu'il y a derriere. Si body/html
-     sont eux-memes transparents, ca finit par montrer le blanc par
-     defaut du navigateur -- pas de noir nulle part dans la chaine. */
-  background-color: black;
+  background-color: transparent;
 }
 
 #app {
@@ -24,6 +19,19 @@ html {
   display: block;
   pointer-events: none;
   z-index: var(--z-canvas);
+  /* Fond noir porte par le canvas lui-meme, pas par body/html. C'etait
+     le schema d'origine du site (position:absolute + z-index positif +
+     background-color:black directement sur #stars-canvas) avant un
+     refactor qui l'a fait passer en position:fixed + z-index negatif
+     SANS reporter le background -- bug connu sur mobile (WebKit/iOS
+     notamment) : un element position:fixed en z-index negatif peut ne
+     pas composer correctement avec le fond d'un ancetre (body/html),
+     et disparaitre completement au lieu de laisser transparaitre le
+     fond attendu. Porter le noir directement sur le canvas evite ce
+     probleme : c'est son propre fond de boite, peint avant le rendu
+     WebGL, independamment de tout comportement d'empilement avec ses
+     ancetres. */
+  background-color: black;
 }
 
 canvas {
