@@ -256,16 +256,18 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
     void main() {
       float rim = 0.7 - dot(vNormal, vec3(0.0, 0.0, 1.2));
       rim = clamp(rim, 0.0, 1.0);
-      // Exposant plus bas = degrade plus large/doux (effet "flou") sans
-      // le cout d'un vrai flou post-traitement. Compense l'absence de
-      // bloom sur mobile (QUALITY.bloom: false), ou le halo rendait dur
-      // et anguleux au lieu de vaporeux.
-      float rimSoft = pow(rim, 1.6);
+      // Exposant encore plus bas = degrade plus large/doux (effet "flou")
+      // sans le cout d'un vrai flou post-traitement. Compense l'absence de
+      // bloom sur mobile (QUALITY.bloom: false). Le halo ressortait comme
+      // un anneau net et sature contre le fond noir -- exposant abaisse +
+      // couleur moins saturee + alpha reduit pour un vrai fondu dans le
+      // noir plutot qu'un contour qui "colle" a la planete.
+      float rimSoft = pow(rim, 1.15);
       float litSide = max(dot(vNormal, lightDirection), 0.0);
       litSide = smoothstep(0.0, 0.5, litSide);
       float glow = rimSoft * litSide;
-      vec3 color = vec3(0.05, 0.55, 1.0) * glow;
-      gl_FragColor = vec4(color, glow * 0.85);
+      vec3 color = vec3(0.16, 0.42, 0.75) * glow;
+      gl_FragColor = vec4(color, glow * 0.4);
     }
   `,
   uniforms: {
