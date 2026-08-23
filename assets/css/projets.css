@@ -13,7 +13,7 @@ main {
    contenu suivant dans le flux normal. Sur les pages articles, <main> ne
    compensait ce vide qu'avec son padding par défaut (py-12 = 48px), ce qui
    correspond par coïncidence à la hauteur du header en mobile (48px) mais
-   pas du tout à sa hauteur en md+ (120px, le logo grossit) -- le titre se
+   pas du tout à sa hauteur en md+ (120px, le logo grossit), le titre se
    retrouvait caché sous le header dès la largeur tablette. On force un
    padding-top qui matche exactement la hauteur réelle du header à chaque
    palier. Ciblé via .max-w-3xl : classe commune à toutes les pages
@@ -55,7 +55,7 @@ main.max-w-3xl {
 
 /* ===== corps d'article (pages articles/*.html, y compris celles générées
    automatiquement par le pipeline blog) =====
-   Le contenu injecté ici n'a volontairement aucune classe Tailwind -- le
+   Le contenu injecté ici n'a volontairement aucune classe Tailwind : le
    style visuel est appliqué ici plutôt que délégué à l'IA. */
 .article-body h1 {
   font-size: 2.25rem;

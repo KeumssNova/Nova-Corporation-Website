@@ -62,13 +62,17 @@ surveiller.
 Vérification :
 
 ```bash
-grep -rn '—\|–\| -- ' --include='*.md' --include='*.html' --include='*.js' --include='*.txt' . | grep -v node_modules
+grep -rnI '—\|–\| -- ' . | grep -vE 'node_modules|\.git/'
 ```
 
-Deux occurrences légitimes attendues, et deux seulement : la règle 5 de
-`prompts/article-generation.md` et la règle ci-dessus, qui nomment toutes
-deux les caractères qu'elles interdisent. La commande ne se montre pas
-elle-même, son propre `grep -v node_modules` l'exclut du résultat.
+Trois occurrences légitimes attendues : la règle 5 de
+`prompts/article-generation.md`, la règle ci-dessus, et le rappel du
+README, qui nomment toutes les caractères qu'elles interdisent. La
+commande ne se montre pas elle-même, son propre `grep -v` l'exclut.
+
+`-I` saute les binaires et il n'y a **pas de filtre par extension** :
+une version filtrée par `--include` avait laissé passer des `--` dans
+`.env.example` et dans deux fichiers CSS.
 
 ## Section « Le fond prime sur le style »
 

@@ -23,7 +23,7 @@ html {
      le schema d'origine du site (position:absolute + z-index positif +
      background-color:black directement sur #stars-canvas) avant un
      refactor qui l'a fait passer en position:fixed + z-index negatif
-     SANS reporter le background -- bug connu sur mobile (WebKit/iOS
+     SANS reporter le background, bug connu sur mobile (WebKit/iOS
      notamment) : un element position:fixed en z-index negatif peut ne
      pas composer correctement avec le fond d'un ancetre (body/html),
      et disparaitre completement au lieu de laisser transparaitre le
