@@ -7,6 +7,17 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "nova-corporation-nine.vercel.app"
+        }
+      ],
+      "destination": "https://novacorporation.fr/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
