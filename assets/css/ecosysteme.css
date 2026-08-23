@@ -1,0 +1,100 @@
+/* ===== Section Écosystème (projects.html) =====
+   Feuille dédiée plutôt que des utilitaires Tailwind : output.css est
+   compilé et committé, et le repo n'a pas ses node_modules ici. Ajouter
+   des classes non encore générées aurait obligé à recompiler output.css,
+   donc à produire un gros diff sur un fichier que d'autres branches
+   touchent aussi. Les classes de mise en page réellement utilisées dans
+   le HTML (grid, gap-6, mx-8, py-20) existent déjà. */
+
+.eco-intro {
+  max-width: 46rem;
+  margin: 0 2rem 3rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+}
+
+.eco-card {
+  display: block;
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Seule la carte d'un projet réellement en ligne est un lien : pas de
+   faux bouton qui ne mène nulle part. */
+a.eco-card:hover,
+a.eco-card:focus-visible {
+  border-color: rgba(255, 91, 91, 0.55);
+  background: rgba(255, 91, 91, 0.06);
+  transform: translateY(-3px);
+}
+
+.eco-statut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.eco-statut::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.eco-statut.est-en-ligne {
+  color: #ff5b5b;
+}
+
+.eco-statut.est-en-pause {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.eco-nom {
+  margin: 0.9rem 0 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.eco-role {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.eco-texte {
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+}
+
+.eco-lien {
+  margin: 1.4rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff5b5b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-card {
+    transition: none;
+  }
+  a.eco-card:hover,
+  a.eco-card:focus-visible {
+    transform: none;
+  }
+}

@@ -38,4 +38,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://nova-corporation-nine.vercel.app/sitemap.xml
+Sitemap: https://novacorporation.fr/sitemap.xml
