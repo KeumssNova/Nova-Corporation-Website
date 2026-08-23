@@ -62,11 +62,13 @@ surveiller.
 Vérification :
 
 ```bash
-grep -rn '—\|–\| -- ' --include='*.md' --include='*.html'   --include='*.js' --include='*.txt' . | grep -v node_modules
+grep -rn '—\|–\| -- ' --include='*.md' --include='*.html' --include='*.js' --include='*.txt' . | grep -v node_modules
 ```
 
-Seule occurrence légitime attendue : la règle 5 elle-même, qui nomme les
-caractères qu'elle interdit.
+Deux occurrences légitimes attendues, et deux seulement : la règle 5 de
+`prompts/article-generation.md` et la règle ci-dessus, qui nomment toutes
+deux les caractères qu'elles interdisent. La commande ne se montre pas
+elle-même, son propre `grep -v node_modules` l'exclut du résultat.
 
 ## Section « Le fond prime sur le style »
 
