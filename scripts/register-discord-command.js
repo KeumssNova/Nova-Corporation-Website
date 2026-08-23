@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Enregistre la commande slash /article aupres de Discord. A lancer UNE
- * SEULE FOIS en local (pas sur Vercel) apres avoir cree le bot -- Discord
+ * SEULE FOIS en local (pas sur Vercel) apres avoir cree le bot : Discord
  * garde la commande enregistree cote serveur, pas besoin de relancer ce
  * script a chaque deploiement.
  *

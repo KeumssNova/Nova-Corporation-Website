@@ -212,7 +212,7 @@ scene.add(stars);
 // Vignette sombre juste derriere l'atmosphere, pour faire ressortir le
 // glow bleu par contraste. A l'origine une simple sphere a opacite fixe
 // (MeshBasicMaterial) : ca cree un bord geometrique dur (un vrai cercle
-// net) contre le fond noir -- rendu "brut". Un shader avec son propre
+// net) contre le fond noir, rendu "brut". Un shader avec son propre
 // degrade fresnel (dense pres de la planete, qui s'estompe vers rien en
 // s'eloignant) fond la vignette dans le noir au lieu de laisser un
 // contour visible, comme le fait deja l'atmosphere.
@@ -259,7 +259,7 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
       // Exposant encore plus bas = degrade plus large/doux (effet "flou")
       // sans le cout d'un vrai flou post-traitement. Compense l'absence de
       // bloom sur mobile (QUALITY.bloom: false). Le halo ressortait comme
-      // un anneau net et sature contre le fond noir -- exposant abaisse +
+      // un anneau net et sature contre le fond noir : exposant abaisse +
       // couleur moins saturee + alpha reduit pour un vrai fondu dans le
       // noir plutot qu'un contour qui "colle" a la planete.
       float rimSoft = pow(rim, 1.15);

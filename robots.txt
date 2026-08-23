@@ -1,8 +1,8 @@
-# Nova Corporation -- robots.txt
+# Nova Corporation / robots.txt
 # Site vitrine + blog editorial : aucune raison de bloquer l'indexation.
 # Autorise explicitement les crawlers IA (moteurs de reponse generative,
 # citations dans les AI Overviews / assistants) en plus des moteurs
-# classiques -- c'est du contenu fait pour etre trouve et cite, pas protege.
+# classiques : c'est du contenu fait pour etre trouve et cite, pas protege.
 
 User-agent: *
 Allow: /
@@ -10,7 +10,7 @@ Disallow: /api/
 Disallow: /_drafts/
 Disallow: /_scout/
 
-# Crawlers IA / moteurs de reponse generative -- explicitement autorises
+# Crawlers IA / moteurs de reponse generative, explicitement autorises
 User-agent: GPTBot
 Allow: /
 

@@ -6,7 +6,7 @@ const { generateAndDraftArticle } = require("../lib/generate");
 
 // Discord signe le corps BRUT de la requête : le body-parser JSON de Vercel
 // re-sérialiserait différemment (ordre des clés, espaces...) et ferait
-// échouer la vérification -- on lit le flux nous-mêmes.
+// échouer la vérification : on lit le flux nous-mêmes.
 module.exports.config = { api: { bodyParser: false } };
 
 const INTERACTION_TYPE = { PING: 1, APPLICATION_COMMAND: 2, MESSAGE_COMPONENT: 3 };
@@ -38,7 +38,7 @@ async function handleArticleCommand(interaction) {
   try {
     const { threadId } = await generateAndDraftArticle({ topic, rawText });
     await editInteractionResponse(interaction.token, {
-      content: `✅ Brouillon généré pour **${topic}** — <#${threadId}>`,
+      content: `✅ Brouillon généré pour **${topic}** dans <#${threadId}>`,
     });
   } catch (err) {
     console.error(`generateAndDraftArticle via /article failed:`, err);
@@ -52,7 +52,7 @@ async function handleArticleCommand(interaction) {
 /**
  * Traite le clic sur un bouton "Générer l'article N" d'un message de
  * veille. Relit la piste choisie dans _scout/<batchId>.json (le custom_id
- * ne contient que l'index, pas le sujet -- trop long pour la limite de 100
+ * ne contient que l'index, pas le sujet : trop long pour la limite de 100
  * caractères de Discord), puis lance la meme generation que /article.
  */
 async function handleScoutChoice(interaction, batchId, index) {
@@ -70,7 +70,7 @@ async function handleScoutChoice(interaction, batchId, index) {
 
     if (channelId && messageId) {
       await updateDraftMessage(channelId, messageId, {
-        statusLine: `✅ Piste **"${proposal.topic}"** choisie — brouillon prêt dans <#${threadId}>`,
+        statusLine: `✅ Piste **"${proposal.topic}"** choisie, brouillon prêt dans <#${threadId}>`,
         color: 0x2ecc71,
       });
     }

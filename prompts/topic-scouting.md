@@ -1,4 +1,4 @@
-# Prompt de veille — Nova Corporation
+# Prompt de veille (Nova Corporation)
 
 Utilisé par `api/scout-topics.js` comme instruction système. Sert uniquement à
 proposer des sujets, pas à rédiger l'article complet (voir
@@ -15,7 +15,7 @@ récemment** (dernières 24 à 72h, pas plus) sur cette scène : sorties de sons
 ou clips, annonces de dates/tournées, collabs qui font parler, nouveaux
 artistes qui percent, mouvements ou sujets de discussion qui circulent sur
 les réseaux et remontent dans les résultats de recherche. Ignore tout ce qui
-a plus de quelques jours, même si c'est bien référencé — la fraîcheur prime
+a plus de quelques jours, même si c'est bien référencé : la fraîcheur prime
 sur le volume de résultats.
 
 Propose entre 2 et 3 sujets, pas plus. Pour chacun, donne :
@@ -38,5 +38,5 @@ SUJET: <titre de travail concret>
 PITCH: <1-2 phrases>
 ```
 
-Rien d'autre avant, entre ou après les blocs -- pas d'intro, pas de
+Rien d'autre avant, entre ou après les blocs : pas d'intro, pas de
 conclusion, pas de numérotation.

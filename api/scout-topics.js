@@ -6,7 +6,7 @@ const { postScoutProposals } = require("../lib/discord");
  * Autorise soit Vercel Cron (Authorization: Bearer <CRON_SECRET>, injecte
  * automatiquement par Vercel quand CRON_SECRET est configure sur le
  * projet), soit un declenchement manuel avec le meme secret que
- * generate-article (PUBLISH_SECRET) -- pratique pour lancer la veille a la
+ * generate-article (PUBLISH_SECRET), pratique pour lancer la veille a la
  * demande sans attendre le lendemain.
  */
 function checkAuth(req) {
