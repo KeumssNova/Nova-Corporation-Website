@@ -1,8 +1,10 @@
 # Contexte du dépôt Nova Corporation (site vitrine)
 
-Note laissée le 2026-08-17 depuis une session travaillant sur **Arkive**
-(l'autre projet de l'écosystème). Elle sert à éviter à la prochaine
-session Claude les deux pièges sur lesquels je suis tombé.
+Notes accumulées par les sessions Claude successives, la première le
+2026-08-17 depuis une session travaillant sur **Arkive** (l'autre projet
+de l'écosystème). Dernière mise à jour : **2026-08-28**. Elles servent à
+éviter à la session suivante les pièges déjà rencontrés et à lui donner
+l'état réel du chantier.
 
 ## ⚠️ Piège n°1 : le README est très en retard sur le code
 
@@ -15,29 +17,38 @@ boutons Discord, publication par commit via GitHub App.
 
 Ne pas conclure « ce projet n'a pas de X » à partir du README seul.
 
-## ⚠️ Piège n°2 : l'état des branches locales
+## ⚠️ Piège n°2 : les clones périmés (deux sessions s'y sont fait prendre)
 
-Constaté sur le clone de l'utilisateur (`~/Bureau/Nova-Corporation-Website`) :
+**État du remote au 2026-08-28** : `main`, `v1-static` et
+`claude/nova-css-cleanup-iharrr` pointent toutes sur le **même commit**
+(`0f16bda`). Les trois branches `claude/domaine-et-ecosysteme`,
+`claude/prompt-fond-editorial` et `claude/purge-tiret-cadratin` sont
+entièrement fusionnées dans `main` (zéro commit exclusif) et peuvent être
+supprimées : l'utilisateur n'a pas encore tranché. Vercel déploie depuis
+`main`.
 
-- La branche de travail habituelle est `claude/nova-css-cleanup-iharrr`,
-  qui pointait sur le **même commit qu'`origin/main`** : c'est elle qui
-  est à jour, pas `main`.
-- Le `main` **local** était *en avance de 2 commits et en retard de 39*
-  sur `origin/main`. Il est périmé et divergent : **ne pas s'en servir
-  comme référence, ne pas pousser depuis lui** sans que l'utilisateur ait
-  tranché ce qu'il veut faire de ses 2 commits locaux.
-
-Réflexe à prendre avant toute affirmation sur le contenu du dépôt :
+Réflexe à prendre **avant toute affirmation** sur le contenu du dépôt :
 
 ```bash
 git fetch --all
+git ls-remote --heads origin          # quelles branches existent vraiment ?
 git log --oneline HEAD..origin/main   # suis-je en retard ?
 git branch -vv                        # quelle branche est réellement à jour ?
 ```
 
-J'ai personnellement affirmé à l'utilisateur que ce projet n'avait aucune
-automatisation d'articles, en lisant un clone en retard de 39 commits.
-C'était faux et ça lui a fait perdre du temps.
+`git branch -r` seul ne suffit pas : il liste les branches **déjà connues
+du clone**, pas celles apparues depuis. Seul `ls-remote` (ou un `fetch`
+préalable) montre l'état réel du remote.
+
+Deux incidents, la même cause :
+
+- **2026-08-17** : une session a affirmé à l'utilisateur que ce projet
+  n'avait aucune automatisation d'articles, en lisant un clone en retard
+  de 39 commits. Faux, et ça lui a fait perdre du temps.
+- **2026-08-28** : j'ai affirmé qu'il n'existait pas de branche pour le
+  chantier domaine. Mon clone ignorait 3 branches et `main` avait 16
+  commits d'avance : la branche existait bien et le travail était déjà
+  fusionné. L'utilisateur, lui, se souvenait juste bien.
 
 ## Règles d'écriture
 
@@ -106,8 +117,56 @@ dans 11 fichiers (canoniques, Open Graph, JSON-LD, `sitemap.xml`,
 **`SITE_URL` n'est lue qu'au moment où le pipeline génère quelque chose**,
 les pages déjà écrites ne se mettent pas à jour toutes seules.
 
-Défaut préexistant connu, laissé tel quel : `articles/vaisseau-mere.html`
-n'a aucune balise canonique, contrairement aux deux autres articles.
+## État du pipeline de blog : codé, très peu éprouvé (2026-08-28)
+
+Le code est complet et déployé, mais **presque rien n'a jamais tourné
+pour de vrai**. Ne pas le présenter comme fonctionnel à l'utilisateur.
+
+**Prouvé une fois** (test « sujet de test », commits `ee08428` puis
+`63858a4` puis `071f0d9`) : génération Gemini, sanitisation, commit du
+brouillon via GitHub App, création du thread Discord, et le bouton
+❌ Rejeter.
+
+**Jamais exécuté, pas une seule fois :**
+
+- **La publication complète** (bouton ✅ Publier). C'est le gros trou :
+  aucun article n'est jamais passé par le pipeline, `articles/` ne
+  contient que les deux articles écrits à la main. Ce chemin couvre le
+  téléchargement de l'image Discord, la conversion WebP, le commit de
+  l'article, l'insertion de la carte dans `news.html`, la régénération du
+  `sitemap.xml` et la mise à jour du message Discord. **La conversion
+  WebP et le sitemap ont été codés après ce test**, donc ces bouts de
+  code n'ont jamais été exercés du tout.
+- **La veille** (`/api/scout-topics`) : `_scout/` est vide.
+- **La commande Discord `/article`** : l'utilisateur n'a jamais confirmé
+  avoir lancé `scripts/register-discord-command.js`. Sans ça la commande
+  n'existe pas côté Discord (la veille et le curl direct, eux, n'en ont
+  pas besoin).
+- **Le Cron quotidien** de `vercel.json`.
+
+**Ce qui bloque** : Gemini renvoie un `429 RESOURCE_EXHAUSTED`
+« prepayment credits are depleted » alors que le compte est bien
+approvisionné. C'est un **bug connu côté Google** (nombreux signalements
+sur leur forum développeurs entre juin et août 2026), pas une erreur de
+configuration de l'utilisateur : ne pas lui faire refaire sa facturation.
+Deux issues : attendre la resynchronisation (souvent quelques jours), ou
+migrer vers **Vertex AI** (mêmes modèles, même prix au token, facturation
+via Google Cloud) au prix d'un vrai chantier d'authentification dans
+`lib/gemini.js`, clé API simple vers compte de service. L'utilisateur a
+choisi d'attendre.
+
+Nuance utile : le chemin « publication » **n'appelle pas Gemini**, il ne
+lit qu'un brouillon existant. Il serait donc testable sans Gemini en
+fabriquant un `_drafts/<id>.json` à la main, mais il faut un vrai thread
+Discord associé, donc c'est du bricolage.
+
+Commandes de test, une seule ligne (l'utilisateur est sous Git Bash, où
+la continuation par `\` casse dès qu'une espace traîne derrière) :
+
+```bash
+curl -X POST https://novacorporation.fr/api/scout-topics -H "Authorization: Bearer $CRON_SECRET"
+curl -X POST https://novacorporation.fr/api/generate-article -H "Authorization: Bearer $PUBLISH_SECRET" -H "Content-Type: application/json" -d '{"topic": "sujet de test"}'
+```
 
 ## Lien avec l'écosystème
 
