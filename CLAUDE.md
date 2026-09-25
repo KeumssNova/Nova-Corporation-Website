@@ -170,56 +170,172 @@ curl -X POST https://novacorporation.fr/api/generate-article -H "Authorization: 
 
 ## Modèle économique et stratégie éditoriale (2026-09-25)
 
-Posé par l'utilisateur. **C'est ce qui donne son sens au reste du dépôt**,
-notamment au travail GEO et au pipeline d'articles : les lire sans ça
-fait passer le blog pour un gadget alors que c'est le produit.
+Posé par l'utilisateur, puis affiné par une session de recherche avec
+données à l'appui. **C'est ce qui donne son sens au reste du dépôt** :
+sans ça, le travail GEO et le pipeline d'articles passent pour un gadget
+alors que c'est le produit.
 
-**Positionnement** : Nova devient un **média pour artistes** de la scène
-underground française. Le différenciateur assumé, face aux innombrables
-médias Instagram pour petits artistes : **le web**. Un post Instagram est
-mort en 48h, un article indexé se positionne sur le nom de l'artiste
-pendant des années. Être couvert par une vraie page web donne un poids
-que ne donne pas un carrousel.
+### Positionnement
 
-**Séquence en trois temps, dans cet ordre** :
+Nova devient un **média pour artistes** de la scène underground
+française. Le différenciateur face aux médias Instagram : **le web**. Un
+post meurt en 48h, une page indexée se positionne sur le nom de l'artiste
+pendant des années.
 
-1. **Construire l'audience.** Les premiers articles servent d'abord le
-   site lui-même : des sujets précis, une niche, mais une grosse niche.
-   Objectif : ramener du monde.
-2. **Vendre des articles** directement sur le site, une fois le volume
-   là.
-3. **Affiliation** et assimilés, permis par le même volume.
+Séquence, dans cet ordre : **1.** construire l'audience, **2.** vendre des
+articles, **3.** affiliation. Les deux revenus dérivent de l'audience,
+donc **le positionnement dans les moteurs est l'actif**. Tout ce qui le
+met en danger met en danger les deux revenus. C'est la raison d'être de
+la section « le fond prime sur le style » de
+`prompts/article-generation.md` : elle protège le modèle, ce n'est pas
+une coquetterie.
 
-**Conséquence à garder en tête pour toute décision technique** : les deux
-sources de revenus dérivent de l'audience, donc **le positionnement dans
-les moteurs est l'actif**. Tout ce qui le met en danger met en danger les
-deux revenus à la fois. C'est la raison d'être de la section « le fond
-prime sur le style » de `prompts/article-generation.md` : elle n'est pas
-une coquetterie éditoriale, elle protège le modèle.
+Phase 2 venue, deux disciplines non négociables : déclarer l'article
+sponsorisé, et mettre `rel="sponsored"` sur les liens payés.
 
-**Quand la phase 2 arrivera** (articles vendus), deux disciplines non
-négociables, pour la même raison : le dire dans l'article, et mettre
-`rel="sponsored"` sur les liens payés. Un article sponsorisé non déclaré
-se paie en déclassement, c'est-à-dire en destruction de ce qu'on vend.
+### Le coeur : un catalogue d'entités, pas un fil d'actu
 
-**Chantier identifié, pas encore fait** : le JSON-LD des articles
-(`lib/article-template.js`) déclare l'article et Nova comme éditeur, mais
-**ne dit rien de l'artiste**. Il manque un champ `about` de type
-`MusicGroup` ou `Person` avec un `sameAs` vers ses profils (Spotify,
-Instagram, YouTube). C'est le mécanisme par lequel un moteur rattache une
-page à l'entité artiste, donc c'est « donner du poids à l'artiste » rendu
-lisible par la machine. Peu de code, mais il faut que le pipeline
-produise ces informations à la génération.
+Le modèle est celui d'Arkive (un catalogue de fiches maintenues) et non
+celui d'un média d'actualité. **L'entité est l'artiste underground.**
 
-**Tension à trancher** : `prompts/topic-scouting.md` impose une fraîcheur
-stricte (24 à 72h, rien de plus vieux). C'est un réglage de fil
-d'actualité. Or une actu de sortie a une durée de vie de trafic très
-courte et affronte tout le monde en même temps, alors que la phase 1 vise
-du trafic durable. Le contenu qui se positionne dans le temps est plutôt
-de nature référence (portrait, biographie, panorama d'un courant,
-explication d'un phénomène). La veille telle qu'elle est réglée
-aujourd'hui travaille donc contre l'objectif de la phase 1. À arbitrer
-avec l'utilisateur avant de produire en série.
+**La fenêtre de tir, mesurée :**
+
+- **Borne basse** : assez de fanbase pour générer des recherches, environ
+  300 par mois minimum. En dessous, personne ne cherche, la fiche ne sert
+  à rien (erreur commise en séance : proposer de cataloguer des artistes
+  inconnus, qui n'ont aucune demande).
+- **Borne haute** : le seuil Wikipédia. Au-dessus, Wikipédia, Konbini et
+  le panneau Google occupent déjà la place.
+
+**Diagnostic immédiat par le panneau Google** (trouvé par l'utilisateur,
+gratuit, visible en trois secondes sur un téléphone) :
+
+| Panneau observé | Lecture | Action |
+|---|---|---|
+| Aucun panneau (ex. Bedry) | terrain vierge | y aller |
+| Panneau musical seul, pochettes et titres, **sans aperçu ni date de naissance** (ex. Hologram Lo') | **cible idéale** : demande réelle, aucun fait publié | prioritaire |
+| Panneau complet avec aperçu Wikipédia (ex. H JeuneCrack) | pris | passer, ou n'y aller que sur les angles profonds |
+
+### Données mesurées (Google Keyword Planner, FR, septembre 2026)
+
+Artistes underground, recherches mensuelles : zamdane 8 100, jolagreen23
+6 600, lesram 4 400, yvnnis 2 900, h jeunecrack 2 400, zed yun pavarotti
+1 900, winnterzuko 1 600, rounhaa 1 600, ashe 22 1 600, bedry 720, prince
+waly 720, slimka 590, khali 480, la fève 390, squidji 210.
+
+**Environ 34 000 recherches par mois pour quinze noms**, moyenne 2 300.
+La scène en compte largement plus de cent dans cette fourchette, soit un
+gisement de l'ordre de 100 000 à 300 000 recherches mensuelles.
+
+**Cluster secondaire : les concerts.** zamdane concert + concert zamdane
+= 1 040, zed yun pavarotti concert 210, lesram concert 170, plus les
+requêtes de salles (« lesram la cigale », « ashe 22 zénith », « prince
+waly olympia »). C'est récurrent à chaque tournée et **c'est le seul
+contenu où l'intérêt de Nova et celui de l'artiste sont parfaitement
+alignés**, donc le meilleur prétexte de prise de contact.
+
+**Producteurs** : hologram lo 720, myth syzer 720, junior alaprod 320,
+puis chute brutale (diabi 10, ponko 0). Ce n'est **pas un pilier**, mais
+c'est précieux autrement : une fiche producteur relie 20 ou 30 fiches
+artistes (maillage, donc autorité thématique), les producteurs sont plus
+faciles à obtenir que les artistes et servent de **portes** vers eux, et
+personne ne compile les crédits. Les 10 à 20 premiers méritent leur
+fiche, le reste enrichit les autres pages.
+
+### Pistes explorées et écartées, avec la raison
+
+**Ne pas les relancer sans élément nouveau.**
+
+- **Guides et tutos pour artistes** : volume trop faible en français.
+  Tout le cluster fait quelques milliers de recherches par mois, et le
+  seul gros morceau (home studio, 1 900, forte concurrence) empiète sur
+  Arkive. Les tutos marchent, mais **en vidéo**, pas en article français.
+- **Scènes géographiques** (rap marseillais 5 400, rap toulouse 210) :
+  demande réelle, mais c'est un angle secondaire, pas le coeur.
+- **Artistes mainstream** : le volume est sur le nom (freeze corleone
+  27 100) et il est verrouillé par Genius, Wikipédia et Booska. Les
+  modificateurs autour font 10 à 140, des miettes. Seul le cluster
+  « origine » sort (niska origine 1 300), et c'est du contenu ferme à
+  clics, hors ligne éditoriale.
+- **Fiches d'artistes totalement inconnus** : aucune demande de
+  recherche. Zéro concurrence n'est pas une opportunité.
+
+### Ce que l'artiste gagne, et pourquoi ce n'est pas un service gratuit
+
+Erreur à ne pas refaire : proposer « photo pro et interview gratuites ».
+Un artiste à 200 000 vues par clip qui remplit des salles peut se les
+payer. Il ne veut pas un service, il veut **exister**.
+
+**Critères pour obtenir un panneau Google** (sources : agences
+spécialisées, donc mode d'emploi crédible mais non officiel, Google ne
+garantit rien) :
+
+- une **entrée Wikidata**, et c'est le levier central car **Wikidata
+  n'exige pas la notoriété de Wikipédia**
+- **MusicBrainz** et **Discogs**, bases de référence du secteur,
+  MusicBrainz étant le chemin le plus rapide vers le Knowledge Graph
+- **3 à 5 sources indépendantes** aux descriptions cohérentes
+- des **données structurées cohérentes** (le `about: MusicGroup` ci-dessous)
+- délai annoncé : 4 à 12 semaines une fois l'ensemble en place
+
+**D'où l'offre réelle de Nova** : écrire la fiche (la source), puis créer
+MusicBrainz, Discogs et Wikidata en la citant. Résultat : le panneau de
+l'artiste apparaît. C'est mécanique, démontrable, et **totalement
+indépendant du trafic de Nova**, ce qui règle le problème d'amorçage.
+
+Corollaire : Wikipédia ne peut pas occuper cette niche, ses règles de
+notoriété le lui interdisent. Wikipédia agrège des sources secondaires,
+il ne peut pas être la source. Nova, si.
+
+**Méthode d'approche** : ne pas demander la permission d'être catalogué.
+Publier la page, puis prévenir l'artiste qu'il y est et lui demander de
+corriger ou compléter. Quelqu'un qui ignore une demande d'interview
+répond à une erreur sur sa fiche. C'est ainsi que Discogs, Genius et
+Wikipédia se sont remplis.
+
+**Amorçage** : le trafic initial ne vient pas de Google mais des fanbases
+des artistes couverts, denses et engagées (un artiste peut remplir des
+salles avec peu d'abonnés). Le rapport de force s'inverse quand le
+catalogue est assez complet pour qu'en être absent se remarque. Les six
+premiers mois se construisent sans compter là-dessus.
+
+### Conséquences techniques
+
+- **Le JSON-LD ne dit rien de l'artiste.** `lib/article-template.js`
+  déclare l'article et Nova comme éditeur, rien d'autre. Il manque un
+  `about` de type `MusicGroup` ou `Person` avec un `sameAs` vers Spotify,
+  Instagram, YouTube, **et désormais MusicBrainz, Discogs, Wikidata**.
+  C'est un des critères du panneau, donc ce n'est plus du confort.
+- **La veille change de rôle.** `prompts/topic-scouting.md` impose une
+  fraîcheur de 24 à 72h : c'est un réglage de fil d'actu, inadapté. Elle
+  doit détecter **les artistes qui entrent dans la fenêtre** (volume
+  suffisant, panneau absent ou sans faits) et les changements sur les
+  entités suivies. C'est mesurable, donc automatisable.
+- **Une URL stable par entité, mise à jour**, plutôt qu'un article de
+  plus à chaque sortie. Une page forte qui accumule de l'autorité bat dix
+  posts maigres.
+- **Le maillage est le moteur de l'autorité** : chaque fiche renvoie vers
+  les featurings, le collectif, le producteur. C'est le graphe de la
+  scène qui fait la différence, pas les pages isolées.
+
+### Ce qu'une fiche doit contenir, et ne pas contenir
+
+Le panneau Google répond déjà aux faits bruts quand il les a (nom, âge,
+label, titres). Une fiche qui se contente de ça est morte pour les
+artistes qui ont un panneau complet. Elle doit porter ce qu'un panneau ne
+peut structurellement pas contenir : **le récit, la filiation dans la
+scène, les crédits complets, l'historique live, et un point de vue
+assumé**.
+
+Gisement de matière que les concurrents n'exploitent pas : les
+**interviews audio et vidéo ne sont pas transcrites**, donc leur contenu
+n'existe nulle part en texte et personne ne l'a écrit. S'y ajoutent les
+crédits éparpillés (descriptions YouTube, Genius, Spotify), l'historique
+live reconstituable via les pages de salles, et le graphe des
+collaborations.
+
+Les photos des panneaux sont créditées à des médias (RapCity, YARD). Avec
+un photographe en interne, cette place est atteignable.
 
 ## Lien avec l'écosystème
 
