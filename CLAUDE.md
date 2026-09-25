@@ -2,7 +2,7 @@
 
 Notes accumulées par les sessions Claude successives, la première le
 2026-08-17 depuis une session travaillant sur **Arkive** (l'autre projet
-de l'écosystème). Dernière mise à jour : **2026-08-28**. Elles servent à
+de l'écosystème). Dernière mise à jour : **2026-09-25**. Elles servent à
 éviter à la session suivante les pièges déjà rencontrés et à lui donner
 l'état réel du chantier.
 
@@ -167,6 +167,59 @@ la continuation par `\` casse dès qu'une espace traîne derrière) :
 curl -X POST https://novacorporation.fr/api/scout-topics -H "Authorization: Bearer $CRON_SECRET"
 curl -X POST https://novacorporation.fr/api/generate-article -H "Authorization: Bearer $PUBLISH_SECRET" -H "Content-Type: application/json" -d '{"topic": "sujet de test"}'
 ```
+
+## Modèle économique et stratégie éditoriale (2026-09-25)
+
+Posé par l'utilisateur. **C'est ce qui donne son sens au reste du dépôt**,
+notamment au travail GEO et au pipeline d'articles : les lire sans ça
+fait passer le blog pour un gadget alors que c'est le produit.
+
+**Positionnement** : Nova devient un **média pour artistes** de la scène
+underground française. Le différenciateur assumé, face aux innombrables
+médias Instagram pour petits artistes : **le web**. Un post Instagram est
+mort en 48h, un article indexé se positionne sur le nom de l'artiste
+pendant des années. Être couvert par une vraie page web donne un poids
+que ne donne pas un carrousel.
+
+**Séquence en trois temps, dans cet ordre** :
+
+1. **Construire l'audience.** Les premiers articles servent d'abord le
+   site lui-même : des sujets précis, une niche, mais une grosse niche.
+   Objectif : ramener du monde.
+2. **Vendre des articles** directement sur le site, une fois le volume
+   là.
+3. **Affiliation** et assimilés, permis par le même volume.
+
+**Conséquence à garder en tête pour toute décision technique** : les deux
+sources de revenus dérivent de l'audience, donc **le positionnement dans
+les moteurs est l'actif**. Tout ce qui le met en danger met en danger les
+deux revenus à la fois. C'est la raison d'être de la section « le fond
+prime sur le style » de `prompts/article-generation.md` : elle n'est pas
+une coquetterie éditoriale, elle protège le modèle.
+
+**Quand la phase 2 arrivera** (articles vendus), deux disciplines non
+négociables, pour la même raison : le dire dans l'article, et mettre
+`rel="sponsored"` sur les liens payés. Un article sponsorisé non déclaré
+se paie en déclassement, c'est-à-dire en destruction de ce qu'on vend.
+
+**Chantier identifié, pas encore fait** : le JSON-LD des articles
+(`lib/article-template.js`) déclare l'article et Nova comme éditeur, mais
+**ne dit rien de l'artiste**. Il manque un champ `about` de type
+`MusicGroup` ou `Person` avec un `sameAs` vers ses profils (Spotify,
+Instagram, YouTube). C'est le mécanisme par lequel un moteur rattache une
+page à l'entité artiste, donc c'est « donner du poids à l'artiste » rendu
+lisible par la machine. Peu de code, mais il faut que le pipeline
+produise ces informations à la génération.
+
+**Tension à trancher** : `prompts/topic-scouting.md` impose une fraîcheur
+stricte (24 à 72h, rien de plus vieux). C'est un réglage de fil
+d'actualité. Or une actu de sortie a une durée de vie de trafic très
+courte et affronte tout le monde en même temps, alors que la phase 1 vise
+du trafic durable. Le contenu qui se positionne dans le temps est plutôt
+de nature référence (portrait, biographie, panorama d'un courant,
+explication d'un phénomène). La veille telle qu'elle est réglée
+aujourd'hui travaille donc contre l'objectif de la phase 1. À arbitrer
+avec l'utilisateur avant de produire en série.
 
 ## Lien avec l'écosystème
 
