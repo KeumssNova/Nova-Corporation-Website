@@ -1,8 +1,9 @@
 @font-face {
   font-family: "cousine";
-  src: url("../fonts/Cousine-Regular.ttf") format("truetype"); /* ou woff2/otf */
+  src: url("../fonts/Cousine-Regular.woff2") format("woff2"), url("../fonts/Cousine-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ===== échelle de z-index centralisée =====

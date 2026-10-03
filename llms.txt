@@ -1,27 +1,34 @@
 # Nova Corporation
 
-> Label indépendant français dédié à la scène musicale underground
-> (rap/trap en majorité, mais aussi chant, alternatif et toute musique
-> underground FR). Peace, Art, Technology.
+> Label indépendant français et média du rap français : classements, certifications,
+> nouveaux rappeurs et concerts, mis à jour chaque semaine à partir de données publiques.
+> Peace, Art and Technology.
 
-Nova Corporation repère et accompagne des artistes underground français, et
-publie une couverture éditoriale régulière de l'actualité de cette scène
-(sorties, clips, tournées, collaborations) sur son blog Actus.
+Nova Corporation accompagne des artistes underground français et publie un média de données
+sur le rap français. Chaque page est construite à partir de sources publiques, citées en bas
+de page, et mise à jour à adresse fixe. Les éditions précédentes restent consultables.
+
+## Le média (mis à jour automatiquement)
+
+- [Top 10 rap FR de la semaine](https://novacorporation.fr/articles/top-10-rap-fr-de-la-semaine.html) : les dix titres rap francophones les plus écoutés en France sur Spotify, chaque samedi. Source : classement hebdomadaire Spotify France.
+- [Certifications rap FR du mois](https://novacorporation.fr/articles/certifications-rap-fr-du-mois.html) : toutes les certifications (or, platine, diamant) des artistes rap francophones constatées par le SNEP, chaque mois.
+- [Nouveaux rappeurs à suivre](https://novacorporation.fr/articles/nouveaux-rappeurs-a-suivre.html) : dix rappeurs underground en progression, toutes les deux semaines. Sources : YouTube et Deezer.
+- [Agenda des concerts rap en France](https://novacorporation.fr/articles/agenda-concerts-rap.html) : tous les concerts rap à venir, sur une carte, chaque lundi. Source : Ticketmaster et Live Nation.
+- Concerts rap par ville : [Paris](https://novacorporation.fr/articles/concerts-rap-paris.html), [Lyon](https://novacorporation.fr/articles/concerts-rap-lyon.html), [Marseille](https://novacorporation.fr/articles/concerts-rap-marseille.html), [Lille](https://novacorporation.fr/articles/concerts-rap-lille.html), [Bordeaux](https://novacorporation.fr/articles/concerts-rap-bordeaux.html), [Toulouse](https://novacorporation.fr/articles/concerts-rap-toulouse.html), [Nantes](https://novacorporation.fr/articles/concerts-rap-nantes.html), [Montpellier](https://novacorporation.fr/articles/concerts-rap-montpellier.html), [Strasbourg](https://novacorporation.fr/articles/concerts-rap-strasbourg.html), [Nice](https://novacorporation.fr/articles/concerts-rap-nice.html), [Rennes](https://novacorporation.fr/articles/concerts-rap-rennes.html).
 
 ## Pages principales
 
+- [Actus](https://novacorporation.fr/actus) : toutes les rubriques et toutes les éditions
 - [Accueil](https://novacorporation.fr/)
-- [Projets](https://novacorporation.fr/projets) : artistes signés et projets en cours
-- [Actus](https://novacorporation.fr/actus) : articles sur la scène underground FR, mis à jour régulièrement
+- [Projets](https://novacorporation.fr/projets) : artistes et projets de Nova
 - [Services](https://novacorporation.fr/services)
 - [Contact](https://novacorporation.fr/contact)
 
-## À propos du contenu éditorial
+## Méthode
 
-Chaque article du blog Actus est rédigé à partir de recherches récentes,
-avec au moins une source vérifiée citée en bas de l'article. Publié sous la
-marque Nova Corporation (pas de byline individuelle). Voir sitemap.xml pour
-la liste complète des articles publiés.
+Les chiffres viennent directement des sources (écoutes Spotify, certifications du SNEP, vues YouTube,
+billetteries). Rien n'est estimé ni inventé. La date de mise à jour de chaque page est indiquée.
+Liste complète des pages : https://novacorporation.fr/sitemap.xml
 
 ## Réseaux
 
