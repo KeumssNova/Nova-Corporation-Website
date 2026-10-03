@@ -1,0 +1,467 @@
+/* Média Nova : page Actus et composants des pages d'articles (classements, vidéos, carte des concerts).
+   DA Nova : noir, blanc, un seul accent rouge, police mono Cousine. Thème sombre uniquement (identité de la marque).
+   Rayons : tout carré (0), sauf les pastilles interactives (999px). */
+
+@font-face {
+  font-family: "cousine";
+  src: url("../fonts/Cousine-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "cousine";
+  src: url("../fonts/Cousine-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --nv-canvas: #050506;
+  --nv-surface: #0e0e10;
+  --nv-surface-2: #16161a;
+  --nv-line: #26262c;
+  --nv-line-strong: #3a3a42;
+  --nv-ink: #f4f4f5;
+  --nv-ink-muted: #b9b9c0;
+  --nv-ink-subtle: #8a8a93;
+  --nv-red: #ff5b5b;
+  --nv-red-soft: rgba(255, 91, 91, 0.16);
+  --nv-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nv-max: 1240px;
+}
+
+/* ---------- page Actus ---------- */
+.nv-page {
+  max-width: var(--nv-max);
+  margin: 0 auto;
+  padding: 6rem 1rem 5rem; /* le header du site est fixe (navbar.css) */
+  color: var(--nv-ink);
+}
+@media (min-width: 768px) {
+  .nv-page { padding: 8rem 2rem 6rem; }
+}
+.nv-page section + section { margin-top: 4.5rem; }
+@media (min-width: 1024px) {
+  .nv-page section + section { margin-top: 6rem; }
+}
+
+.nv-tete h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  margin: 0;
+}
+.nv-tete p {
+  margin: 1rem 0 0;
+  max-width: 52ch;
+  color: var(--nv-ink-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.nv-h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 1.5rem;
+}
+.nv-h2 a { color: inherit; text-decoration: none; }
+
+/* À la une : grille asymétrique, une case par rendez-vous */
+.nv-une {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 768px) {
+  .nv-une { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 15rem; }
+  .nv-une > :nth-child(1) { grid-column: span 4; grid-row: span 2; }
+  .nv-une > :nth-child(2) { grid-column: span 2; grid-row: span 2; }
+  .nv-une > :nth-child(3) { grid-column: span 3; }
+  .nv-une > :nth-child(4) { grid-column: span 3; }
+}
+
+.nv-carte {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 19rem;
+  overflow: hidden;
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line);
+  color: var(--nv-ink);
+  text-decoration: none;
+  isolation: isolate;
+}
+@media (min-width: 768px) {
+  .nv-carte { min-height: 0; }
+}
+.nv-carte img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+  z-index: -2;
+  transition: transform 0.9s var(--nv-ease);
+}
+.nv-carte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* voile assez sombre pour que le texte reste lisible sur une photo claire */
+  background:
+    radial-gradient(120% 70% at 0% 100%, rgba(5, 5, 6, 0.85) 0%, rgba(5, 5, 6, 0) 70%),
+    linear-gradient(180deg, rgba(5, 5, 6, 0.05) 15%, rgba(5, 5, 6, 0.72) 50%, rgba(5, 5, 6, 0.97) 100%);
+}
+.nv-carte__texte { padding: 1.25rem; max-width: 46ch; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7); }
+@media (min-width: 1024px) {
+  .nv-carte__texte { padding: 1.75rem; }
+}
+.nv-carte__rubrique {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nv-red);
+  margin-bottom: 0.6rem;
+}
+.nv-carte h3 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.nv-une > :nth-child(1) h3 { font-size: clamp(1.5rem, 2.6vw, 2.2rem); }
+.nv-carte p { margin: 0.6rem 0 0; color: var(--nv-ink-muted); font-size: 0.9rem; line-height: 1.5; }
+.nv-carte time { display: block; margin-top: 0.8rem; color: var(--nv-ink-subtle); font-size: 0.8rem; }
+.nv-carte:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .nv-carte:hover img { transform: scale(1.04); }
+}
+
+/* Les sons : clips YouTube des titres, lecteur chargé seulement au clic */
+.nv-sons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(15rem, 82%);
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nv-line-strong) transparent;
+}
+@media (min-width: 640px) { .nv-sons { grid-auto-columns: minmax(15rem, 46%); } }
+@media (min-width: 1024px) { .nv-sons { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; } }
+.nv-son { scroll-snap-align: start; margin: 0; }
+.nv-son figcaption { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.4; }
+.nv-son figcaption a { color: var(--nv-ink); text-decoration: none; }
+.nv-son figcaption a:hover { text-decoration: underline; }
+.nv-son figcaption span { display: block; color: var(--nv-ink-subtle); font-size: 0.8rem; margin-top: 0.2rem; }
+
+.nv-clip {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line);
+  overflow: hidden;
+}
+.nv-clip img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.75); transition: filter 0.3s var(--nv-ease); }
+.nv-clip iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.nv-clip__lire {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--nv-canvas);
+  background: var(--nv-ink);
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nv-clip__lire:hover { background: var(--nv-red); color: var(--nv-ink); }
+.nv-clip__lire:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 3px; }
+.nv-clip:hover img { filter: brightness(0.9); }
+.nv-clip__legende { margin: 0.6rem 0 0; color: var(--nv-ink-muted); font-size: 0.85rem; }
+.nv-clip-article { margin: 0 0 2.5rem; }
+
+/* Concerts de la semaine : rangée défilante + lien vers la carte */
+.nv-concerts-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; margin-bottom: 1.5rem; }
+.nv-concerts-tete .nv-h2 { margin: 0; }
+.nv-bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border: 1px solid var(--nv-ink);
+  color: var(--nv-ink);
+  background: transparent;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s var(--nv-ease), color 0.25s var(--nv-ease);
+}
+.nv-bouton:hover { background: var(--nv-ink); color: var(--nv-canvas); }
+.nv-bouton:active { transform: translateY(1px); }
+.nv-bouton:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
+.nv-rangee {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(15rem, 78%);
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nv-line-strong) transparent;
+}
+@media (min-width: 640px) { .nv-rangee { grid-auto-columns: minmax(15rem, 40%); } }
+@media (min-width: 1024px) { .nv-rangee { grid-auto-columns: minmax(15rem, 23%); } }
+.nv-concert {
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line);
+  color: var(--nv-ink);
+  text-decoration: none;
+  min-height: 100%;
+}
+.nv-concert__img { aspect-ratio: 3 / 2; background: var(--nv-surface-2); overflow: hidden; }
+.nv-concert__img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(0.25); }
+.nv-concert__corps { display: grid; grid-template-columns: auto 1fr; gap: 0 0.9rem; padding: 0.9rem; align-items: start; }
+.nv-date { text-align: center; line-height: 1; min-width: 2.8rem; }
+.nv-date b { display: block; font-size: 1.9rem; color: var(--nv-red); font-weight: 700; }
+.nv-date span { display: block; font-size: 0.7rem; color: var(--nv-ink-muted); margin-top: 0.3rem; text-transform: uppercase; }
+.nv-concert strong { display: block; font-size: 1rem; line-height: 1.25; }
+.nv-concert small { display: block; color: var(--nv-ink-subtle); font-size: 0.8rem; margin-top: 0.3rem; line-height: 1.4; }
+.nv-concert:hover strong { text-decoration: underline; }
+.nv-concert:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
+
+/* Squelette pendant le chargement */
+.nv-squelette {
+  background: linear-gradient(90deg, var(--nv-surface) 0%, var(--nv-surface-2) 50%, var(--nv-surface) 100%);
+  background-size: 200% 100%;
+  min-height: 15rem;
+  border: 1px solid var(--nv-line);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nv-squelette { animation: nv-reflet 1.4s linear infinite; }
+}
+@keyframes nv-reflet { to { background-position: -200% 0; } }
+
+/* Toutes les éditions : colonnes groupées par rubrique */
+.nv-editions { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 640px) { .nv-editions { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .nv-editions { grid-template-columns: repeat(4, 1fr); } }
+.nv-editions h3 { font-size: 1rem; margin: 0 0 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--nv-line-strong); }
+.nv-editions h3 a { color: var(--nv-ink); text-decoration: none; }
+.nv-editions h3 a:hover { color: var(--nv-red); }
+.nv-editions ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.nv-editions li a { color: var(--nv-ink-muted); text-decoration: none; font-size: 0.875rem; line-height: 1.4; }
+.nv-editions li a:hover { color: var(--nv-ink); text-decoration: underline; }
+
+/* La Nova : image et texte côte à côte */
+.nv-nova { display: grid; grid-template-columns: 1fr; border: 1px solid var(--nv-line); background: var(--nv-surface); }
+@media (min-width: 768px) { .nv-nova { grid-template-columns: 1.15fr 1fr; } }
+.nv-nova__img { position: relative; min-height: 16rem; overflow: hidden; }
+.nv-nova__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.nv-nova__texte { padding: 1.75rem; display: flex; flex-direction: column; justify-content: center; gap: 1rem; }
+@media (min-width: 1024px) { .nv-nova__texte { padding: 3rem; } }
+.nv-nova__texte h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15; letter-spacing: -0.02em; }
+.nv-nova__texte p { margin: 0; color: var(--nv-ink-muted); line-height: 1.6; max-width: 48ch; }
+.nv-nova__texte .nv-bouton { align-self: flex-start; }
+
+/* ---------- pages d'articles ---------- */
+.nv-large {
+  width: min(var(--nv-max), calc(100vw - 2rem));
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* classement illustré (top 10, certifs, rookies) */
+.article-body ol.nv-rang { list-style: none; margin: 1.5rem 0 2rem; padding: 0; display: grid; gap: 0.6rem; }
+.article-body ol.nv-rang li + li { margin-top: 0; }
+.nv-rang li {
+  display: grid;
+  grid-template-columns: 2.4rem 4.5rem 1fr auto;
+  gap: 0.9rem;
+  align-items: center;
+  padding: 0.6rem;
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line);
+}
+@media (min-width: 640px) { .nv-rang li { grid-template-columns: 3rem 5.5rem 1fr auto; } }
+.nv-rang__num { font-size: 1.6rem; font-weight: 700; color: var(--nv-red); text-align: center; line-height: 1; }
+.nv-rang img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: var(--nv-surface-2); }
+.nv-rang__txt { min-width: 0; line-height: 1.4; }
+.nv-rang__txt strong { display: block; font-size: 1rem; }
+.nv-rang__txt span { display: block; color: var(--nv-ink-muted); font-size: 0.875rem; overflow-wrap: anywhere; }
+.nv-rang__txt small { display: block; color: var(--nv-ink-subtle); font-size: 0.8rem; margin-top: 0.25rem; }
+.nv-rang__txt a { color: var(--nv-ink); }
+
+/* ---------- carte des concerts ---------- */
+.nv-carte-concerts { margin: 2rem 0 2.5rem; display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 1024px) {
+  .nv-carte-concerts { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 2rem; }
+}
+.nv-carte-concerts__carte { position: relative; background: var(--nv-surface); border: 1px solid var(--nv-line); }
+@media (min-width: 1024px) { .nv-carte-concerts__carte { position: sticky; top: 1rem; } }
+.nv-carte-concerts svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.nv-ville { cursor: pointer; outline: none; }
+.nv-ville circle.nv-ville__point { fill: var(--nv-ink); transition: fill 0.2s; }
+.nv-ville circle.nv-ville__halo { fill: rgba(255, 255, 255, 0.08); }
+.nv-ville:hover circle.nv-ville__point,
+.nv-ville:focus-visible circle.nv-ville__point { fill: var(--nv-red); }
+.nv-ville:focus-visible circle.nv-ville__halo { fill: var(--nv-red-soft); }
+.nv-ville.is-actif circle.nv-ville__point { fill: var(--nv-red); }
+.nv-ville.is-actif circle.nv-ville__halo { fill: var(--nv-red-soft); }
+.nv-ville text { fill: var(--nv-ink-muted); font-size: 13px; font-family: "cousine", monospace; pointer-events: none; }
+.nv-ville.is-actif text { fill: var(--nv-ink); }
+.nv-carte-concerts__legende { position: absolute; left: 0.9rem; bottom: 0.8rem; font-size: 0.75rem; color: var(--nv-ink-subtle); margin: 0; }
+
+.nv-filtres { display: grid; gap: 0.9rem; margin-bottom: 1rem; }
+.nv-filtres label { display: grid; gap: 0.45rem; font-size: 0.8rem; color: var(--nv-ink-muted); }
+.nv-filtres input {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--nv-ink);
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line-strong);
+  padding: 0.75rem 0.9rem;
+  border-radius: 0;
+}
+.nv-filtres input::placeholder { color: var(--nv-ink-subtle); }
+.nv-filtres input:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 0; border-color: transparent; }
+.nv-pastilles { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none; }
+.nv-pastille {
+  flex: none;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--nv-ink-muted);
+  background: transparent;
+  border: 1px solid var(--nv-line-strong);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nv-pastille:hover { color: var(--nv-ink); border-color: var(--nv-ink-muted); }
+.nv-pastille[aria-pressed="true"] { color: var(--nv-canvas); background: var(--nv-ink); border-color: var(--nv-ink); }
+.nv-pastille:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
+
+.nv-resultat { margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--nv-ink-subtle); }
+.article-body ul.nv-liste-concerts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.article-body ul.nv-liste-concerts li + li { margin-top: 0; }
+.nv-liste-concerts li {
+  display: grid;
+  grid-template-columns: 3rem 4.5rem 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.55rem;
+  background: var(--nv-surface);
+  border: 1px solid var(--nv-line);
+}
+@media (max-width: 479px) {
+  .nv-liste-concerts li { grid-template-columns: 2.8rem 1fr auto; }
+  .nv-liste-concerts .nv-liste-concerts__img { display: none; }
+}
+.nv-liste-concerts__img { aspect-ratio: 3 / 2; background: var(--nv-surface-2); overflow: hidden; }
+.nv-liste-concerts__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nv-liste-concerts strong { display: block; font-size: 0.95rem; line-height: 1.3; }
+.nv-liste-concerts small { display: block; color: var(--nv-ink-subtle); font-size: 0.8rem; line-height: 1.4; }
+.article-body .nv-liste-concerts a.nv-billets {
+  font-size: 0.8rem;
+  color: var(--nv-ink);
+  border: 1px solid var(--nv-line-strong);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.article-body .nv-liste-concerts a.nv-billets:hover { border-color: var(--nv-ink); }
+.nv-vide { padding: 2rem 1rem; text-align: center; color: var(--nv-ink-muted); border: 1px dashed var(--nv-line-strong); }
+.nv-plus { margin-top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-carte img, .nv-bouton { transition: none; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.nv-autres:not(:has(.nv-carte)) { display: none; }
+.nv-autres .nv-une > .nv-carte { grid-column: auto; grid-row: auto; min-height: 16rem; }
+.nv-rang--sans-num li { grid-template-columns: 4.5rem 1fr auto; }
+@media (min-width: 640px) { .nv-rang--sans-num li { grid-template-columns: 5.5rem 1fr auto; } }
+/* bouton "Écouter" d'une ligne, et lecteur qui s'ouvre dessous */
+.nv-ecouter {
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--nv-ink);
+  background: transparent;
+  border: 1px solid var(--nv-line-strong);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nv-ecouter:hover, .nv-ecouter[aria-expanded="true"] { border-color: var(--nv-red); color: var(--nv-red); }
+.nv-ecouter:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
+.article-body ol.nv-rang li.nv-rang__lecteur { display: block; padding: 0; border: 0; background: none; }
+.nv-rang__lecteur .nv-clip { border-color: var(--nv-line-strong); }
+
+/* tant qu'aucun son n'est trouvé, la section reste cachée */
+.nv-section-sons:not(:has(.nv-clip)) { display: none; }
+
+/* audit web-design-guidelines (2026-10-04) */
+:root { color-scheme: dark; }
+.nv-tete h1, .nv-h2, .nv-carte h3, .nv-nova__texte h2, .article-body h1, .article-body h2 { text-wrap: balance; }
+.nv-date b, .nv-rang__num { font-variant-numeric: tabular-nums; }
+.nv-bouton, .nv-pastille, .nv-ecouter, .nv-clip__lire, .nv-carte, .nv-concert, .nv-ville { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.nv-evitement {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: var(--z-mobile-nav, 1000);
+  background: var(--nv-ink);
+  color: var(--nv-canvas);
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+}
+.nv-evitement:focus { top: 1rem; }
+.nv-carte__texte, .nv-rang__txt, .nv-concert strong { overflow-wrap: anywhere; }
+
+/* mobile : le bouton "Écouter" passe sous le texte, la colonne de texte garde toute sa largeur */
+@media (max-width: 639px) {
+  .nv-rang li { grid-template-columns: 2rem 3.75rem 1fr; align-items: start; }
+  .nv-rang li > .nv-ecouter { grid-column: 3; justify-self: start; margin-top: 0.1rem; }
+  .nv-rang--sans-num li { grid-template-columns: 3.75rem 1fr; }
+  .nv-rang--sans-num li > .nv-ecouter { grid-column: 2; }
+  .nv-rang__num { padding-top: 0.6rem; }
+}

@@ -31,19 +31,7 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://novacorporation.fr/articles/nova-corporation.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://novacorporation.fr/articles/artistes-nova.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://novacorporation.fr/articles/agenda-concerts-rap.html</loc>
+    <loc>https://novacorporation.fr/articles/top-10-rap-fr-de-la-semaine.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -61,13 +49,31 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://novacorporation.fr/articles/top-10-rap-fr-de-la-semaine.html</loc>
+    <loc>https://novacorporation.fr/articles/agenda-concerts-rap.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://novacorporation.fr/articles/top-10-rap-fr-semaine-du-1er-octobre-2026.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://novacorporation.fr/articles/certifications-rap-fr-septembre-2026.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://novacorporation.fr/articles/nouveaux-rappeurs-a-suivre-4-octobre-2026.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://novacorporation.fr/articles/nouveaux-rappeurs-a-suivre-3-octobre-2026.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -139,13 +145,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://novacorporation.fr/articles/nouveaux-rappeurs-a-suivre-3-octobre-2026.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://novacorporation.fr/articles/top-10-rap-fr-semaine-du-1er-octobre-2026.html</loc>
+    <loc>https://novacorporation.fr/articles/nova-corporation.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

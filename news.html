@@ -3,19 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Actualités - Nova Corporation</title>
-    <meta name="description" content="Actus de la scène musicale underground française : sorties, clips, collaborations et actualités des artistes Nova Corporation." />
+    <title>Actus rap FR : classements, certifs, rookies et concerts - Nova Corporation</title>
+    <meta name="description" content="Le rap français en chiffres : top 10 de la semaine, certifications du mois, rookies à suivre et agenda des concerts, mis à jour chaque semaine." />
     <link rel="canonical" href="https://novacorporation.fr/actus" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Nova Corporation" />
-    <meta property="og:title" content="Actualités" />
-    <meta property="og:description" content="Actus de la scène musicale underground française : sorties, clips, collaborations et actualités des artistes Nova Corporation." />
+    <meta property="og:title" content="Actus rap FR" />
+    <meta property="og:description" content="Le rap français en chiffres : top 10 de la semaine, certifications du mois, rookies à suivre et agenda des concerts, mis à jour chaque semaine." />
     <meta property="og:url" content="https://novacorporation.fr/actus" />
     <meta property="og:image" content="https://novacorporation.fr/assets/images/og/og-news.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#050506" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Nova Corporation","url":"https://novacorporation.fr","logo":"https://novacorporation.fr/assets/images/nova-logo-blanc-fond-noir.png","sameAs":["https://www.instagram.com/nova.corporation/","https://www.youtube.com/@Nova.corporation0/featured"],"description":"Label indépendant français dédié à la scène musicale underground (rap, trap, chant, alternatif)."}</script>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -23,245 +25,171 @@
     <link rel="stylesheet" href="assets/css/output.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/navbar.css" />
-    <link rel="stylesheet" href="assets/css/projets.css" />
+    <link rel="stylesheet" href="assets/css/media.css" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
   </head>
 
   <body class="bg-black text-white">
+    <a class="nv-evitement" href="#contenu">Aller au contenu</a>
     <div id="header-container"></div>
 
-    <main class="mx-auto space-y-24">
-      <!-- HERO ARTICLE -->
-      <section id="hero-article" class="min-h-screen">
-        <div
-          class="h-full min-h-screen bg-cover bg-center p-6 shadow-lg flex items-end justify-start "
-          style="background-image: url('assets/images/muneeb-syed-4_M8uIfPEZw-unsplash.jpg')"
-        >
-          <div class="flex-1 bg-black/60 p-6 rounded-lg self-end">
-            <h2 class="text-3xl font-semibold mb-2 text-white">
-              Présentation de Nova Corporation
-            </h2>
-            <p class="text-sm text-gray-300 mb-2">Publié en août 2025</p>
-            <p class="text-gray-200 mb-4">
-              Nova est un label indépendant qui mise sur le talent brut plutôt
-              que les chiffres. Notre mission : révéler des artistes
-              authentiques et les aider à devenir autonomes.
-            </p>
-            <a
-              href="articles/nova-corporation.html"
-              class="inline-block px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-300 transition"
-              >Voir plus</a
-            >
-          </div>
+    <main class="nv-page" id="contenu">
+      <header class="nv-tete">
+        <h1>Actus</h1>
+        <p>Le rap français en chiffres : classements, certifications, rookies et concerts, mis à jour chaque semaine.</p>
+      </header>
+
+      <section aria-labelledby="titre-une" style="margin-top: 2.5rem">
+        <h2 id="titre-une" class="sr-only">À la une</h2>
+        <div class="nv-une">
+<!-- AUTO:une -->
+          <a class="nv-carte" href="articles/top-10-rap-fr-de-la-semaine.html">
+            <img src="assets/images/articles/top-10-rap-fr-de-la-semaine.webp" alt="" width="1200" height="1200" fetchpriority="high" decoding="async" />
+            <div class="nv-carte__texte">
+              <span class="nv-carte__rubrique">Chaque samedi</span>
+              <h3>Top 10 rap FR de la semaine</h3>
+              <p>Vacra garde la tête.</p>
+              <time datetime="2026-10-01">1er octobre 2026</time>
+            </div>
+          </a>
+          <a class="nv-carte" href="articles/certifications-rap-fr-du-mois.html">
+            <img src="assets/images/articles/certifications-rap-fr-du-mois.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async" />
+            <div class="nv-carte__texte">
+              <span class="nv-carte__rubrique">Chaque mois</span>
+              <h3>Certifications rap FR du mois</h3>
+              <p>Gambi en tête.</p>
+              <time datetime="2026-10-04">4 octobre 2026</time>
+            </div>
+          </a>
+          <a class="nv-carte" href="articles/nouveaux-rappeurs-a-suivre.html">
+            <img src="assets/images/articles/nouveaux-rappeurs-a-suivre.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async" />
+            <div class="nv-carte__texte">
+              <span class="nv-carte__rubrique">Toutes les deux semaines</span>
+              <h3>Nouveaux rappeurs à suivre</h3>
+              <p>sim01, BAG Jeune B, La Bourse et sept autres rappeurs encore underground.</p>
+              <time datetime="2026-10-04">4 octobre 2026</time>
+            </div>
+          </a>
+          <a class="nv-carte" href="articles/agenda-concerts-rap.html">
+            <img src="assets/images/articles/agenda-concerts-rap.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async" />
+            <div class="nv-carte__texte">
+              <span class="nv-carte__rubrique">Chaque lundi</span>
+              <h3>Agenda des concerts rap</h3>
+              <p>506 dates dans 70 villes, sur une carte de France.</p>
+              <time datetime="2026-10-04">4 octobre 2026</time>
+            </div>
+          </a>
+<!-- /AUTO:une -->
         </div>
       </section>
 
-      <!-- AUTRE A -->
+      <section aria-labelledby="titre-concerts">
+        <div class="nv-concerts-tete">
+          <h2 id="titre-concerts" class="nv-h2">Concerts cette semaine</h2>
+          <a class="nv-bouton" href="articles/agenda-concerts-rap.html">Voir la carte</a>
+        </div>
+        <div class="nv-rangee" id="nv-concerts-semaine" data-src="assets/data/concerts.json" aria-live="polite" aria-busy="true">
+          <div class="nv-squelette"></div>
+          <div class="nv-squelette"></div>
+          <div class="nv-squelette"></div>
+          <div class="nv-squelette"></div>
+        </div>
+      </section>
 
-      <section class="w-full px-4 py-12 space-y-24">
-        <!-- POPULAIRE -->
-        <section id="popular-news" class="space-y-6">
-          <h2 class="text-3xl font-bold">Populaires</h2>
-          <div class="grid md:grid-cols-2 gap-8">
-            <!-- Article 1 -->
-            <div class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/muneeb-syed-4_M8uIfPEZw-unsplash.jpg"
-                alt="Présentation Nova"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-6">
-                <div>
-                  <h3 class="text-xl font-semibold text-white mb-1">
-                    Présentation de Nova Corporation
-                  </h3>
-                  <p class="text-sm text-gray-300 mb-2">août 2025</p>
-                  <p class="text-gray-200 mb-4">
-                    Un label fondé sur l’authenticité et l’indépendance.
-                  </p>
-                  <a
-                    href="articles/nova-corporation.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
+      <section class="nv-section-sons" aria-labelledby="titre-sons">
+        <h2 id="titre-sons" class="nv-h2">Les sons</h2>
+        <div class="nv-sons">
+<!-- AUTO:videos -->
+          <figure class="nv-son">
+            <div class="nv-clip" data-yt="PhfdpyI6h1Y">
+              <img src="https://i.ytimg.com/vi/PhfdpyI6h1Y/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <button type="button" class="nv-clip__lire" aria-label="Lire Vacra, « Fille à Papa »">Lire le son</button>
             </div>
-
-            <!-- Article 2 -->
-            <div class=" opacity-100 hover:opacity-75 transition-opacity duration-300 relative h-64 rounded-lg overflow-hidden shadow-lg">
-              <img
-                src="assets/images/laaska2.jpg"
-                alt="Artistes Nova"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-6">
-                <div>
-                  <h3 class="text-xl font-semibold text-white mb-1">
-                    Les artistes de la Nova
-                  </h3>
-                  <p class="text-sm text-gray-300 mb-2">juin 2025</p>
-                  <p class="text-gray-200 mb-4">
-                    Focus sur MSK, Laaska et Sixko. L’élite montante.
-                  </p>
-                  <a
-                    href="articles/artistes-nova.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
+            <figcaption>Vacra, « Fille à Papa »<span><a href="articles/top-10-rap-fr-de-la-semaine.html">Top 10 rap FR de la semaine</a></span></figcaption>
+          </figure>
+          <figure class="nv-son">
+            <div class="nv-clip" data-yt="6yxRvLRKEPw">
+              <img src="https://i.ytimg.com/vi/6yxRvLRKEPw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <button type="button" class="nv-clip__lire" aria-label="Lire Mauvais djo, « Maladie »">Lire le son</button>
             </div>
-          </div>
-        </section>
+            <figcaption>Mauvais djo, « Maladie »<span><a href="articles/certifications-rap-fr-du-mois.html">Certifications rap FR du mois</a></span></figcaption>
+          </figure>
+          <figure class="nv-son">
+            <div class="nv-clip" data-yt="ArPeoP43bRI">
+              <img src="https://i.ytimg.com/vi/ArPeoP43bRI/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <button type="button" class="nv-clip__lire" aria-label="Lire sim01, « JMENDORSPASLESOIR »">Lire le son</button>
+            </div>
+            <figcaption>sim01, « JMENDORSPASLESOIR »<span><a href="articles/nouveaux-rappeurs-a-suivre.html">Nouveaux rappeurs à suivre</a></span></figcaption>
+          </figure>
+<!-- /AUTO:videos -->
+        </div>
+      </section>
 
-        <!-- ALL NEWS -->
-        <section id="all-news" class="space-y-6">
-          <h2 class="text-3xl font-bold">Toutes les news</h2>
-          <div class="grid md:grid-cols-3 gap-6">
-            <!-- Article généré automatiquement -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/articles/agenda-concerts-rap.webp"
-                alt="Agenda des concerts rap"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Agenda des concerts rap
-                  </h3>
-                  <p class="text-sm text-gray-300">3 octobre 2026</p>
-                  <a
-                    href="articles/agenda-concerts-rap.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
-            <!-- Article généré automatiquement -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/articles/certifications-rap-fr-du-mois.webp"
-                alt="Certifications rap FR du mois"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Certifications rap FR du mois
-                  </h3>
-                  <p class="text-sm text-gray-300">3 octobre 2026</p>
-                  <a
-                    href="articles/certifications-rap-fr-du-mois.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
-            <!-- Article généré automatiquement -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/articles/nouveaux-rappeurs-a-suivre.webp"
-                alt="Nouveaux rappeurs à suivre"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Nouveaux rappeurs à suivre
-                  </h3>
-                  <p class="text-sm text-gray-300">3 octobre 2026</p>
-                  <a
-                    href="articles/nouveaux-rappeurs-a-suivre.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
-            <!-- Article généré automatiquement -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/articles/top-10-rap-fr-de-la-semaine.webp"
-                alt="Top 10 rap FR de la semaine"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Top 10 rap FR de la semaine
-                  </h3>
-                  <p class="text-sm text-gray-300">1er octobre 2026</p>
-                  <a
-                    href="articles/top-10-rap-fr-de-la-semaine.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
-            <!-- Article 1 -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/muneeb-syed-4_M8uIfPEZw-unsplash.jpg"
-                alt="Nova"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Présentation de Nova Corporation
-                  </h3>
-                  <p class="text-sm text-gray-300">août 2025</p>
-                  <a
-                    href="articles/nova-corporation.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
-
-            <!-- Article 2 -->
-            <article class="relative h-64 rounded-lg overflow-hidden shadow-lg opacity-100 hover:opacity-75 transition-opacity duration-300">
-              <img
-                src="assets/images/laaska2.jpg"
-                alt="Artistes Nova"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 bg-black/50"></div>
-              <div class="relative z-10 h-full flex items-end p-4">
-                <div>
-                  <h3 class="text-xl font-semibold text-white">
-                    Les artistes de la Nova
-                  </h3>
-                  <p class="text-sm text-gray-300">juin 2025</p>
-                  <a
-                    href="articles/artistes-nova.html"
-                    class="text-sm underline text-white hover:text-gray-300"
-                    >Voir plus</a
-                  >
-                </div>
-              </div>
-            </article>
+      <section aria-labelledby="titre-editions">
+        <h2 id="titre-editions" class="nv-h2">Toutes les éditions</h2>
+        <div class="nv-editions">
+<!-- AUTO:editions -->
+          <div>
+            <h3><a href="articles/top-10-rap-fr-de-la-semaine.html">Top 10 rap FR de la semaine</a></h3>
+            <ul>
+              <li><a href="articles/top-10-rap-fr-semaine-du-1er-octobre-2026.html">Semaine du 1er octobre 2026</a></li>
+            </ul>
           </div>
-        </section>
+          <div>
+            <h3><a href="articles/certifications-rap-fr-du-mois.html">Certifications rap FR du mois</a></h3>
+            <ul>
+              <li><a href="articles/certifications-rap-fr-septembre-2026.html">Septembre 2026</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3><a href="articles/nouveaux-rappeurs-a-suivre.html">Nouveaux rappeurs à suivre</a></h3>
+            <ul>
+              <li><a href="articles/nouveaux-rappeurs-a-suivre-4-octobre-2026.html">Sélection du 4 octobre 2026</a></li>
+              <li><a href="articles/nouveaux-rappeurs-a-suivre-3-octobre-2026.html">Sélection du 3 octobre 2026</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3><a href="articles/agenda-concerts-rap.html">Agenda des concerts rap</a></h3>
+            <ul>
+              <li><a href="articles/concerts-rap-bordeaux.html">Bordeaux</a></li>
+              <li><a href="articles/concerts-rap-lille.html">Lille</a></li>
+              <li><a href="articles/concerts-rap-lyon.html">Lyon</a></li>
+              <li><a href="articles/concerts-rap-marseille.html">Marseille</a></li>
+              <li><a href="articles/concerts-rap-montpellier.html">Montpellier</a></li>
+              <li><a href="articles/concerts-rap-nantes.html">Nantes</a></li>
+              <li><a href="articles/concerts-rap-nice.html">Nice</a></li>
+              <li><a href="articles/concerts-rap-paris.html">Paris et Île-de-France</a></li>
+              <li><a href="articles/concerts-rap-rennes.html">Rennes</a></li>
+              <li><a href="articles/concerts-rap-strasbourg.html">Strasbourg</a></li>
+              <li><a href="articles/concerts-rap-toulouse.html">Toulouse</a></li>
+            </ul>
+          </div>
+<!-- /AUTO:editions -->
+        </div>
+      </section>
+
+      <section class="nv-autres" aria-labelledby="titre-autres">
+        <h2 id="titre-autres" class="nv-h2">Autres articles</h2>
+        <div class="nv-une">
+<!-- AUTO:autres -->
+        </div>
+      </section>
+
+      <section class="nv-nova" aria-labelledby="titre-nova">
+        <div class="nv-nova__img">
+          <img src="assets/images/articles/nova-corporation.webp" alt="Tournage d'un clip de la Nova" width="1600" height="900" loading="lazy" decoding="async" />
+        </div>
+        <div class="nv-nova__texte">
+          <h2 id="titre-nova">Présentation de Nova Corporation</h2>
+          <p>Nova est un label indépendant qui mise sur le talent brut plutôt que les chiffres. Sa mission : révéler des artistes authentiques et les aider à devenir autonomes.</p>
+          <a class="nv-bouton" href="articles/nova-corporation.html">Lire la présentation</a>
+        </div>
       </section>
     </main>
 
     <div id="footer-container" class="w-full py-4"></div>
 
-    <!-- Inject header/footer -->
     <script type="module" src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/actus.js"></script>
   </body>
 </html>

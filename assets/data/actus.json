@@ -1,0 +1,57 @@
+{
+ "rubriques": {
+  "top-10-rap-fr-de-la-semaine": {
+   "ordre": 1,
+   "rubrique": "Chaque samedi",
+   "titre": "Top 10 rap FR de la semaine",
+   "accroche": "Vacra garde la tête.",
+   "date": "1er octobre 2026",
+   "dateISO": "2026-10-01",
+   "image": "assets/images/articles/top-10-rap-fr-de-la-semaine.webp",
+   "clip": {
+    "id": "PhfdpyI6h1Y",
+    "libelle": "Vacra, « Fille à Papa »"
+   },
+   "archives": "top-10-rap-fr-semaine-du-"
+  },
+  "agenda-concerts-rap": {
+   "ordre": 4,
+   "rubrique": "Chaque lundi",
+   "titre": "Agenda des concerts rap",
+   "accroche": "506 dates dans 70 villes, sur une carte de France.",
+   "date": "4 octobre 2026",
+   "dateISO": "2026-10-04",
+   "image": "assets/images/articles/agenda-concerts-rap.webp",
+   "clip": null,
+   "archives": "concerts-rap-"
+  },
+  "certifications-rap-fr-du-mois": {
+   "ordre": 2,
+   "rubrique": "Chaque mois",
+   "titre": "Certifications rap FR du mois",
+   "accroche": "Gambi en tête.",
+   "date": "4 octobre 2026",
+   "dateISO": "2026-10-04",
+   "image": "assets/images/articles/certifications-rap-fr-du-mois.webp",
+   "clip": {
+    "id": "6yxRvLRKEPw",
+    "libelle": "Mauvais djo, « Maladie »"
+   },
+   "archives": "certifications-rap-fr-"
+  },
+  "nouveaux-rappeurs-a-suivre": {
+   "ordre": 3,
+   "rubrique": "Toutes les deux semaines",
+   "titre": "Nouveaux rappeurs à suivre",
+   "accroche": "sim01, BAG Jeune B, La Bourse et sept autres rappeurs encore underground.",
+   "date": "4 octobre 2026",
+   "dateISO": "2026-10-04",
+   "image": "assets/images/articles/nouveaux-rappeurs-a-suivre.webp",
+   "clip": {
+    "id": "ArPeoP43bRI",
+    "libelle": "sim01, « JMENDORSPASLESOIR »"
+   },
+   "archives": "nouveaux-rappeurs-a-suivre-"
+  }
+ }
+}

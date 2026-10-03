@@ -52,6 +52,11 @@
       "source": "/contact.html",
       "destination": "/contact",
       "permanent": true
+    },
+    {
+      "source": "/articles/artistes-nova.html",
+      "destination": "/actus",
+      "permanent": true
     }
   ],
   "rewrites": [
