@@ -8,6 +8,17 @@ async function loadComponent(containerId, url) {
 
 import { initMarker } from "./marker.js";
 
+// Mesure d'audience Vercel Web Analytics : sans cookie, donc sans bandeau de consentement.
+// Chargée ici, une seule fois pour toutes les pages (y compris celles générées par les scripts du média),
+// et seulement sur le domaine de production pour ne pas compter les aperçus ni le local.
+if (location.hostname === "novacorporation.fr") {
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  const va = document.createElement("script");
+  va.defer = true;
+  va.src = "/_vercel/insights/script.js";
+  document.head.appendChild(va);
+}
+
 Promise.all([
   loadComponent("header-container", "/components/header.html"),
   loadComponent("footer-container", "/components/footer.html"),
