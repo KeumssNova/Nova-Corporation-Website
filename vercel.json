@@ -54,6 +54,11 @@
       "permanent": true
     },
     {
+      "source": "/mentions-legales.html",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
       "source": "/articles/artistes-nova.html",
       "destination": "/actus",
       "permanent": true
@@ -75,6 +80,10 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/mentions-legales",
+      "destination": "/mentions-legales.html"
     }
   ]
 }
