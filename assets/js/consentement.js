@@ -2,8 +2,8 @@
 // Google Analytics dépose des cookies : en France, la CNIL impose de demander l'accord avant (Vercel Web Analytics, lui,
 // n'en dépose pas et reste actif sans bandeau). Rien de Google n'est chargé avant un clic sur "Accepter".
 // Refuser est aussi simple qu'accepter, et le choix se modifie depuis la page Mentions légales.
-// Désactivé tant que GA_ID est vide : y mettre l'identifiant de mesure GA4 ("G-XXXXXXXXXX").
-const GA_ID = "";
+// Vider GA_ID pour couper Google Analytics.
+const GA_ID = "G-PBX41BCP5L"; // propriété GA4 de novacorporation.fr (2026-10-04)
 const CLE = "nova-consentement"; // "oui" ou "non", gardé 13 mois au plus (recommandation CNIL)
 const DUREE = 13 * 30 * 24 * 3600 * 1000;
 
