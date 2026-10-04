@@ -7,6 +7,7 @@ async function loadComponent(containerId, url) {
 }
 
 import { initMarker } from "./marker.js";
+import { initConsentement } from "./consentement.js";
 
 // Mesure d'audience Vercel Web Analytics : sans cookie, donc sans bandeau de consentement.
 // Chargée ici, une seule fois pour toutes les pages (y compris celles générées par les scripts du média),
@@ -18,6 +19,9 @@ if (location.hostname === "novacorporation.fr") {
   va.src = "/_vercel/insights/script.js";
   document.head.appendChild(va);
 }
+
+// Google Analytics : seulement après accord (bandeau), inactif tant qu'aucun identifiant n'est réglé (consentement.js)
+initConsentement();
 
 Promise.all([
   loadComponent("header-container", "/components/header.html"),
