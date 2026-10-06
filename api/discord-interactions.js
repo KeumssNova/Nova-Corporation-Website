@@ -2,6 +2,7 @@ const { waitUntil } = require("@vercel/functions");
 const { verifyDiscordRequest, editInteractionResponse, updateDraftMessage } = require("../lib/discord");
 const { readFile } = require("../lib/github-app");
 const { publishDraft, rejectDraft } = require("../lib/publish");
+const { validerPost, rejeterPost } = require("../lib/posts");
 const { generateAndDraftArticle } = require("../lib/generate");
 
 // Discord signe le corps BRUT de la requête : le body-parser JSON de Vercel
@@ -55,6 +56,40 @@ async function handleArticleCommand(interaction) {
  * ne contient que l'index, pas le sujet : trop long pour la limite de 100
  * caractères de Discord), puis lance la meme generation que /article.
  */
+/**
+ * Validation d'un post du media depuis le salon Discord.
+ * Le resultat est ecrit dans le message lui-meme (et les boutons retires) : sur telephone, c'est le
+ * seul endroit ou l'utilisateur regarde. Une erreur s'y affiche telle quelle plutot que de disparaitre
+ * dans les journaux Vercel, sans quoi un echec ressemblerait a une validation.
+ */
+async function handlePostChoice(interaction, action, tag) {
+  const channelId = interaction.channel_id;
+  const messageId = interaction.message?.id;
+  try {
+    if (action === "postpublier") {
+      const { deja } = await validerPost(tag);
+      await updateDraftMessage(channelId, messageId, {
+        statusLine: deja
+          ? "✅ **Déjà validé** (il était déjà dans la file)"
+          : "✅ **Validé** : il part au prochain créneau (12, 15, 18 ou 21 h)",
+        color: 0x2ecc71,
+      });
+    } else {
+      await rejeterPost(tag);
+      await updateDraftMessage(channelId, messageId, {
+        statusLine: "❌ **Rejeté** : le post ne sortira pas, la release est supprimée",
+        color: 0x808080,
+      });
+    }
+  } catch (err) {
+    console.error(`handlePostChoice(${action}, ${tag}) failed:`, err);
+    await updateDraftMessage(channelId, messageId, {
+      statusLine: `⚠️ **Échec** : ${String(err.message || err).slice(0, 300)}`,
+      color: 0xe67e22,
+    }).catch(() => {});
+  }
+}
+
 async function handleScoutChoice(interaction, batchId, index) {
   const channelId = interaction.channel_id;
   const messageId = interaction.message?.id;
@@ -128,6 +163,15 @@ module.exports = async (req, res) => {
     if (action === "scout" && refId && scoutIndex !== undefined) {
       res.status(200).json({ type: RESPONSE_TYPE.DEFERRED_UPDATE_MESSAGE });
       waitUntil(handleScoutChoice(interaction, refId, Number(scoutIndex)));
+      return;
+    }
+
+    // Validation d'un post du media (Reel ou carrousel) fabrique par nova-brain. refId est le tag
+    // de la release. Meme pattern que plus bas : accuse de reception immediat, travail en tache de
+    // fond, puis edition du message pour que le salon porte le resultat et non deux boutons morts.
+    if ((action === "postpublier" || action === "postrejeter") && refId) {
+      res.status(200).json({ type: RESPONSE_TYPE.DEFERRED_UPDATE_MESSAGE });
+      waitUntil(handlePostChoice(interaction, action, refId));
       return;
     }
 
