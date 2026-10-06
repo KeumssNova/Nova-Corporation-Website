@@ -149,10 +149,23 @@ nova-brain, à partir d'un sujet choisi par la veille. Il appelle les
 modules de **ce dépôt** à travers `outils/top10-rap-fr/build.js` :
 `lib/article-template.js`, `lib/news-card.js`, `lib/sitemap.js`, et
 `lib/sanitize-fragment.js`. **Ces quatre fichiers sont donc vivants et
-utilisés, même si `api/` ne l'est pas** : toucher à l'un d'eux casse les
-éditions automatiques. Le reste (`api/`, `lib/gemini.js`,
-`lib/discord.js`, `lib/generate.js`, `lib/publish.js`, `lib/github-app.js`,
-`lib/scout.js`, `prompts/topic-scouting.md`) ne sert plus.
+utilisés, même si le pipeline d'articles d'`api/` ne l'est pas** : toucher
+à l'un d'eux casse les éditions automatiques.
+
+**Quatre autres fichiers sont redevenus vivants le 2026-10-06**, pour une
+raison qui n'a rien à voir avec les articles : `api/discord-interactions.js`,
+`lib/discord.js`, `lib/github-app.js` et le nouveau `lib/posts.js` servent à
+**valider les posts Instagram depuis Discord**. Les posts sont fabriqués par
+nova-brain et déposés en brouillon de release là-bas ; nova-brain poste la
+vidéo dans le salon avec deux boutons, et les boutons atterrissent ici parce
+qu'une interaction Discord exige une adresse joignable en permanence, ce
+qu'un workflow GitHub ne peut pas offrir. Raison du changement : « tout gérer
+sur GitHub par rapport aux validations c'est un réel calvaire sur téléphone ».
+
+Ne servent plus : `api/generate-article.js`, `api/scout-topics.js`, le
+chemin « article » de `api/discord-interactions.js`, `lib/gemini.js`,
+`lib/generate.js`, `lib/publish.js`, `lib/scout.js`,
+`prompts/topic-scouting.md`.
 
 `prompts/article-generation.md` est un cas à part : il ne tourne plus ici,
 mais `outils/actu/couvrir-prompt.md` de nova-brain reprend ses règles de
@@ -164,8 +177,10 @@ disparu le 2026-10-04 une fois les crédits prépayés chargés : ce n'était
 donc pas le bug Google supposé, et il n'y a plus aucune raison de migrer
 vers Vertex AI.
 
-Supprimer `api/` et les modules morts serait du nettoyage légitime, mais
-l'utilisateur n'a pas tranché : ne pas le faire sans le lui demander.
+Supprimer les modules morts serait du nettoyage légitime, mais l'utilisateur
+n'a pas tranché, et **`api/` ne peut plus être supprimé en bloc** depuis que
+la validation des posts passe par son endpoint Discord : ne rien retirer sans
+vérifier d'abord la liste ci-dessus.
 
 ## Modèle économique et stratégie éditoriale (2026-09-25)
 
