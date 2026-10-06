@@ -8,14 +8,19 @@ l'état réel du chantier.
 
 ## ⚠️ Piège n°1 : le README est très en retard sur le code
 
-`README.md` décrit un simple site statique (HTML/Tailwind/Swiper) et ne
-mentionne **rien** du pipeline de blog automatisé. C'est faux : le dépôt
-contient un système complet : veille Gemini quotidienne, validation par
-boutons Discord, publication par commit via GitHub App.
+`README.md` décrit un simple site statique (HTML/Tailwind/Swiper). C'est
+faux depuis longtemps : ce site est aussi un média, dont les pages
+(classements, certifications, rookies, agenda des concerts, actus de la
+scène) sont écrites et poussées automatiquement.
 
-**La vraie documentation est `api/README.md`.** La lire en premier.
+**Mais pas par ce dépôt.** Elles le sont par **nova-brain**, et
+`api/README.md` documente un pipeline abandonné : voir le piège n°3 plus
+bas avant de lire quoi que ce soit dans `api/`. La documentation qui
+compte est, dans nova-brain, `outils/auto/Automatisation, mode d'emploi.md`
+et `outils/Site média, mode d'emploi.md`.
 
-Ne pas conclure « ce projet n'a pas de X » à partir du README seul.
+Ne pas conclure « ce projet n'a pas de X » à partir du README seul, et ne
+pas conclure « ce projet fait X » à partir du seul code présent ici.
 
 ## ⚠️ Piège n°2 : les clones périmés (deux sessions s'y sont fait prendre)
 
@@ -117,56 +122,50 @@ dans 11 fichiers (canoniques, Open Graph, JSON-LD, `sitemap.xml`,
 **`SITE_URL` n'est lue qu'au moment où le pipeline génère quelque chose**,
 les pages déjà écrites ne se mettent pas à jour toutes seules.
 
-## État du pipeline de blog : codé, très peu éprouvé (2026-08-28)
+## ⚠️ Piège n°3 : le pipeline `api/` est abandonné (2026-10-06)
 
-Le code est complet et déployé, mais **presque rien n'a jamais tourné
-pour de vrai**. Ne pas le présenter comme fonctionnel à l'utilisateur.
+**Ne pas reprendre le chantier du pipeline de blog de ce dépôt.** Le code
+d'`api/` (veille Gemini, validation par boutons Discord, publication par
+commit via GitHub App) est complet et déployé, mais il **n'a jamais tourné
+une seule fois en entier** et il ne tournera pas : l'éditorial vit
+désormais dans **nova-brain** (`KeumssNova/nova-brain`, cloné en local dans
+`~/nova-brain`).
 
-**Prouvé une fois** (test « sujet de test », commits `ee08428` puis
-`63858a4` puis `071f0d9`) : génération Gemini, sanitisation, commit du
-brouillon via GitHub App, création du thread Discord, et le bouton
-❌ Rejeter.
+La décision date du 2026-10-03 pour le média et du 2026-10-06 pour les
+articles. Les raisons, pour ne pas la redéfaire :
 
-**Jamais exécuté, pas une seule fois :**
+- nova-brain a déjà la clé Gemini, l'accès en écriture à ce dépôt (clé de
+  déploiement `SITE_DEPLOY_KEY`), le moteur vidéo Remotion, et une
+  validation que l'utilisateur **utilise vraiment** (les brouillons de
+  release GitHub) ;
+- la validation Discord d'`api/` exige en plus de déposer une image à la
+  main dans le fil avant de publier, ce que personne ne fera à chaque
+  article ;
+- garder les deux voulait dire deux veilles, deux prompts et deux systèmes
+  de validation à maintenir, pour un seul site.
 
-- **La publication complète** (bouton ✅ Publier). C'est le gros trou :
-  aucun article n'est jamais passé par le pipeline, `articles/` ne
-  contient que les deux articles écrits à la main. Ce chemin couvre le
-  téléchargement de l'image Discord, la conversion WebP, le commit de
-  l'article, l'insertion de la carte dans `news.html`, la régénération du
-  `sitemap.xml` et la mise à jour du message Discord. **La conversion
-  WebP et le sitemap ont été codés après ce test**, donc ces bouts de
-  code n'ont jamais été exercés du tout.
-- **La veille** (`/api/scout-topics`) : `_scout/` est vide.
-- **La commande Discord `/article`** : l'utilisateur n'a jamais confirmé
-  avoir lancé `scripts/register-discord-command.js`. Sans ça la commande
-  n'existe pas côté Discord (la veille et le curl direct, eux, n'en ont
-  pas besoin).
-- **Le Cron quotidien** de `vercel.json`.
+**Ce qui écrit les pages aujourd'hui** : `outils/actu/couvrir.py` dans
+nova-brain, à partir d'un sujet choisi par la veille. Il appelle les
+modules de **ce dépôt** à travers `outils/top10-rap-fr/build.js` :
+`lib/article-template.js`, `lib/news-card.js`, `lib/sitemap.js`, et
+`lib/sanitize-fragment.js`. **Ces quatre fichiers sont donc vivants et
+utilisés, même si `api/` ne l'est pas** : toucher à l'un d'eux casse les
+éditions automatiques. Le reste (`api/`, `lib/gemini.js`,
+`lib/discord.js`, `lib/generate.js`, `lib/publish.js`, `lib/github-app.js`,
+`lib/scout.js`, `prompts/topic-scouting.md`) ne sert plus.
 
-**Ce qui bloque** : Gemini renvoie un `429 RESOURCE_EXHAUSTED`
-« prepayment credits are depleted » alors que le compte est bien
-approvisionné. C'est un **bug connu côté Google** (nombreux signalements
-sur leur forum développeurs entre juin et août 2026), pas une erreur de
-configuration de l'utilisateur : ne pas lui faire refaire sa facturation.
-Deux issues : attendre la resynchronisation (souvent quelques jours), ou
-migrer vers **Vertex AI** (mêmes modèles, même prix au token, facturation
-via Google Cloud) au prix d'un vrai chantier d'authentification dans
-`lib/gemini.js`, clé API simple vers compte de service. L'utilisateur a
-choisi d'attendre.
+`prompts/article-generation.md` est un cas à part : il ne tourne plus ici,
+mais `outils/actu/couvrir-prompt.md` de nova-brain reprend ses règles de
+voix et sa section « le fond prime sur le style ». **Si la voix de Nova
+change, elle change dans les deux fichiers.**
 
-Nuance utile : le chemin « publication » **n'appelle pas Gemini**, il ne
-lit qu'un brouillon existant. Il serait donc testable sans Gemini en
-fabriquant un `_drafts/<id>.json` à la main, mais il faut un vrai thread
-Discord associé, donc c'est du bricolage.
+Le `429 RESOURCE_EXHAUSTED` de Gemini qui bloquait tout depuis septembre a
+disparu le 2026-10-04 une fois les crédits prépayés chargés : ce n'était
+donc pas le bug Google supposé, et il n'y a plus aucune raison de migrer
+vers Vertex AI.
 
-Commandes de test, une seule ligne (l'utilisateur est sous Git Bash, où
-la continuation par `\` casse dès qu'une espace traîne derrière) :
-
-```bash
-curl -X POST https://novacorporation.fr/api/scout-topics -H "Authorization: Bearer $CRON_SECRET"
-curl -X POST https://novacorporation.fr/api/generate-article -H "Authorization: Bearer $PUBLISH_SECRET" -H "Content-Type: application/json" -d '{"topic": "sujet de test"}'
-```
+Supprimer `api/` et les modules morts serait du nettoyage légitime, mais
+l'utilisateur n'a pas tranché : ne pas le faire sans le lui demander.
 
 ## Modèle économique et stratégie éditoriale (2026-09-25)
 
