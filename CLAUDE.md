@@ -2,7 +2,7 @@
 
 Notes accumulées par les sessions Claude successives, la première le
 2026-08-17 depuis une session travaillant sur **Arkive** (l'autre projet
-de l'écosystème). Dernière mise à jour : **2026-09-25**. Elles servent à
+de l'écosystème). Dernière mise à jour : **2026-10-06**. Elles servent à
 éviter à la session suivante les pièges déjà rencontrés et à lui donner
 l'état réel du chantier.
 
