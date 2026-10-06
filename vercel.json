@@ -62,6 +62,16 @@
       "source": "/articles/artistes-nova.html",
       "destination": "/actus",
       "permanent": true
+    },
+    {
+      "source": "/confidentialite.html",
+      "destination": "/confidentialite",
+      "permanent": true
+    },
+    {
+      "source": "/conditions.html",
+      "destination": "/conditions",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -84,6 +94,14 @@
     {
       "source": "/mentions-legales",
       "destination": "/mentions-legales.html"
+    },
+    {
+      "source": "/confidentialite",
+      "destination": "/confidentialite.html"
+    },
+    {
+      "source": "/conditions",
+      "destination": "/conditions.html"
     }
   ]
 }
