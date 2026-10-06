@@ -72,6 +72,11 @@
       "source": "/conditions.html",
       "destination": "/conditions",
       "permanent": true
+    },
+    {
+      "source": "/redaction.html",
+      "destination": "/redaction",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -102,6 +107,10 @@
     {
       "source": "/conditions",
       "destination": "/conditions.html"
+    },
+    {
+      "source": "/redaction",
+      "destination": "/redaction.html"
     }
   ]
 }
