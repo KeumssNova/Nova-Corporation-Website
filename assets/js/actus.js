@@ -110,3 +110,51 @@ async function initConcertsSemaine() {
 
 initSons();
 initConcertsSemaine();
+
+/**
+ * « Voir plus » du fil d'actus.
+ *
+ * Un bouton plutôt qu'un défilement infini : pour une collection petite ou moyenne, c'est la
+ * recommandation du Nielsen Norman Group, et surtout le pied de page reste atteignable, ce que le
+ * défilement infini interdit.
+ *
+ * Les cartes au-delà du premier lot sont **dans la page** et cachées par ce script : sans
+ * JavaScript tout s'affiche, et rien n'est soustrait aux moteurs de recherche. L'inverse, les
+ * charger au clic, rendrait le fil invisible tant que personne ne clique.
+ */
+const PAS = 6;
+
+function initVoirPlus() {
+  const fil = document.getElementById("nv-fil");
+  const bouton = document.getElementById("nv-fil-plus");
+  if (!fil || !bouton) return;
+
+  const cartes = Array.from(fil.querySelectorAll(".nv-carte"));
+  if (cartes.length <= PAS) return; // rien à cacher, le bouton reste absent
+
+  let montrees = PAS;
+  const appliquer = () => {
+    cartes.forEach((c, i) => c.classList.toggle("nv-carte--masquee", i >= montrees));
+    const reste = cartes.length - montrees;
+    bouton.hidden = reste <= 0;
+    bouton.textContent = reste > 0 ? `Voir plus d'articles (${reste})` : "";
+  };
+
+  bouton.addEventListener("click", () => {
+    const premiere = montrees; // la première carte qui va apparaître
+    montrees = Math.min(montrees + PAS, cartes.length);
+    appliquer();
+    // Le clavier et les lecteurs d'écran atterrissent sur ce qui vient d'apparaître, et non au
+    // début du fil : sans ça, le bouton semble n'avoir rien fait.
+    const cible = cartes[premiere];
+    if (cible) {
+      cible.setAttribute("tabindex", "-1");
+      cible.focus({ preventScroll: true });
+      cible.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  });
+
+  appliquer();
+}
+
+initVoirPlus();

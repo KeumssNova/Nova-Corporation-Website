@@ -198,7 +198,9 @@
 
       <section class="nv-autres" aria-labelledby="titre-autres">
         <h2 id="titre-autres" class="nv-h2">Les actus</h2>
-        <div class="nv-une">
+        <!-- Grille propre au fil : il héritait de celle des rendez-vous, où chaque carte occupe un
+             sixième de la largeur. Trois articles passaient, vingt auraient fait un mur de bandes. -->
+        <div class="nv-fil" id="nv-fil">
 <!-- AUTO:autres -->
 <a class="nv-carte" href="articles/so-la-lune-annonce-offshore-omega-avec-le-single-espera.html">
             <img src="assets/images/articles/so-la-lune-annonce-offshore-omega-avec-le-single-espera.webp" alt="" loading="lazy" decoding="async" />
@@ -222,6 +224,10 @@
             </div>
           </a>
         </div>
+        <!-- Révélé par assets/js/actus.js seulement s'il reste des articles à montrer. Les cartes
+             cachées restent dans la page : sans JavaScript, tout s'affiche, et rien n'est soustrait
+             aux moteurs. -->
+        <button type="button" class="nv-voir-plus" id="nv-fil-plus" hidden>Voir plus d'articles</button>
       </section>
 
       <section class="nv-nova" aria-labelledby="titre-nova">

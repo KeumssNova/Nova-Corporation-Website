@@ -431,7 +431,34 @@
   border: 0;
 }
 .nv-autres:not(:has(.nv-carte)) { display: none; }
-.nv-autres .nv-une > .nv-carte { grid-column: auto; grid-row: auto; min-height: 16rem; }
+
+/* Le fil : des cartes de taille égale, qui se réorganisent selon la place disponible. Pas de
+   points de rupture à tenir, la grille compte elle-même combien de colonnes tiennent. */
+.nv-fil {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 0.75rem;
+}
+.nv-fil > .nv-carte { min-height: 16rem; }
+/* Cachée par le script, donc ni visible ni atteignable au clavier. */
+.nv-carte--masquee { display: none; }
+
+.nv-voir-plus {
+  display: block;
+  margin: 1.5rem auto 0;
+  padding: 0.85rem 2rem;
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nv-ink);
+  background: transparent;
+  border: 1px solid var(--nv-line);
+  cursor: pointer;
+  transition: border-color 0.2s var(--nv-ease), color 0.2s var(--nv-ease);
+}
+.nv-voir-plus:hover { border-color: var(--nv-red); color: var(--nv-red); }
+.nv-voir-plus:focus-visible { outline: 2px solid var(--nv-red); outline-offset: 2px; }
 .nv-rang--sans-num li { grid-template-columns: 4.5rem 1fr auto; }
 @media (min-width: 640px) { .nv-rang--sans-num li { grid-template-columns: 5.5rem 1fr auto; } }
 /* bouton "Écouter" d'une ligne, et lecteur qui s'ouvre dessous */
