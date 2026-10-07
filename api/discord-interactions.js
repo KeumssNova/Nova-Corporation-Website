@@ -86,6 +86,8 @@ async function handlePostChoice(interaction, action, tag) {
     await updateDraftMessage(channelId, messageId, {
       statusLine: `⚠️ **Échec** : ${String(err.message || err).slice(0, 300)}`,
       color: 0xe67e22,
+      // Rien n'a ete fait : les boutons restent, pour pouvoir reessayer une fois la cause levee.
+      garderBoutons: true,
     }).catch(() => {});
   }
 }
