@@ -1,10 +1,4 @@
 {
-  "crons": [
-    {
-      "path": "/api/scout-topics",
-      "schedule": "0 8 * * *"
-    }
-  ],
   "redirects": [
     {
       "source": "/",

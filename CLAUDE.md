@@ -167,6 +167,25 @@ chemin « article » de `api/discord-interactions.js`, `lib/gemini.js`,
 `lib/generate.js`, `lib/publish.js`, `lib/scout.js`,
 `prompts/topic-scouting.md`.
 
+**« Abandonné » ne veut pas dire « arrêté » (2026-10-07).** Le pipeline
+d'`api/` a continué de tourner tous les matins pendant quatre jours après
+la décision, parce qu'un **cron Vercel** était resté dans `vercel.json` :
+
+```json
+"crons": [{ "path": "/api/scout-topics", "schedule": "0 8 * * *" }]
+```
+
+À 8 h UTC chaque jour il proposait trois sujets dans le salon Discord
+`#articles-logs` avec des boutons « Générer l'article N », et commitait un
+`_scout/<date>-<id>.json` sur `main` sous l'identité `nova-blog-publisher[bot]`
+(commits `050a6fe`, `996945e`, `cebd43a`, des 5, 6 et 7 octobre). Taper un
+bouton répondait « L'application n'a pas répondu à temps ». Le cron a été
+retiré. Les fichiers `_scout/` déjà commités restent, ils ne gênent rien.
+
+Leçon pour toute décision d'abandon dans ce dépôt : **chercher ce qui
+appelle le code, pas seulement le code**. Un cron Vercel n'est visible ni
+dans les workflows GitHub ni dans le code des modules.
+
 `prompts/article-generation.md` est un cas à part : il ne tourne plus ici,
 mais `outils/actu/couvrir-prompt.md` de nova-brain reprend ses règles de
 voix et sa section « le fond prime sur le style ». **Si la voix de Nova
