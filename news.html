@@ -46,8 +46,29 @@
         <p>Le rap français en chiffres : classements, certifications, rookies et concerts, mis à jour chaque semaine.</p>
       </header>
 
+      <!-- À la une : UN seul article, le plus récent, en grand. Un seul, parce qu'une page qui met
+           tout en avant ne met rien en avant : la taille est ce qui signale l'importance. Le bloc est
+           tenu par lib/news-card.js, qui y place le dernier article publié et fait descendre le
+           précédent dans « Les actus ». -->
+      <section class="nv-vedette-section" aria-labelledby="titre-vedette">
+        <h2 id="titre-vedette" class="nv-h2">À la une</h2>
+        <div class="nv-vedette-grille">
+<!-- AUTO:vedette -->
+          <a class="nv-carte nv-vedette" href="articles/ben-plg-lhistoire-sans-fin-album-social-ultime.html">
+            <img src="assets/images/articles/ben-plg-lhistoire-sans-fin-album-social-ultime.webp" alt="" fetchpriority="high" decoding="async" />
+            <div class="nv-carte__texte">
+              <span class="nv-carte__rubrique">À la une</span>
+              <h3>Ben PLG : L&#39;histoire sans fin, l&#39;album social ultime</h3>
+              <p>Notre chronique complète de L&#39;histoire sans fin, sorti le 2 octobre 2026, avec Orelsan et Mathilde en featurings marquants.</p>
+              <time datetime="2026-10-07">7 octobre 2026</time>
+            </div>
+          </a>
+<!-- /AUTO:vedette -->
+        </div>
+      </section>
+
       <section aria-labelledby="titre-une" style="margin-top: 2.5rem">
-        <h2 id="titre-une" class="sr-only">À la une</h2>
+        <h2 id="titre-une" class="nv-h2">Les rendez-vous</h2>
         <div class="nv-une">
 <!-- AUTO:une -->
           <a class="nv-carte" href="articles/top-10-rap-fr-de-la-semaine.html">
@@ -176,21 +197,14 @@
       </section>
 
       <section class="nv-autres" aria-labelledby="titre-autres">
-        <h2 id="titre-autres" class="nv-h2">Autres articles</h2>
+        <h2 id="titre-autres" class="nv-h2">Les actus</h2>
         <div class="nv-une">
 <!-- AUTO:autres -->
-          <a class="nv-carte" href="articles/ben-plg-lhistoire-sans-fin-album-social-ultime.html">
-            <img src="assets/images/articles/ben-plg-lhistoire-sans-fin-album-social-ultime.webp" alt="" loading="lazy" decoding="async" />
-            <div class="nv-carte__texte">
-              <h3>Ben PLG : L&#39;histoire sans fin, l&#39;album social ultime</h3>
-              <time>7 octobre 2026</time>
-            </div>
-          </a>
-          <a class="nv-carte" href="articles/so-la-lune-annonce-offshore-omega-avec-le-single-espera.html">
+<a class="nv-carte" href="articles/so-la-lune-annonce-offshore-omega-avec-le-single-espera.html">
             <img src="assets/images/articles/so-la-lune-annonce-offshore-omega-avec-le-single-espera.webp" alt="" loading="lazy" decoding="async" />
             <div class="nv-carte__texte">
               <h3>So La Lune annonce Offshore Oméga avec le single Espera</h3>
-              <time>7 octobre 2026</time>
+              <time datetime="2026-10-07">7 octobre 2026</time>
             </div>
           </a>
           <a class="nv-carte" href="articles/la-mano-1-9-mixtape-blessed.html">

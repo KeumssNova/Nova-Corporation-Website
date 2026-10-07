@@ -71,7 +71,22 @@
 }
 .nv-h2 a { color: inherit; text-decoration: none; }
 
-/* À la une : grille asymétrique, une case par rendez-vous */
+/* À la une : un seul article, le plus récent, et le plus gros élément de la page.
+   Trois tailles de carte au total et pas davantage, pour que la hiérarchie reste lisible :
+   la vedette, la première carte des rendez-vous, puis toutes les autres.
+   La section disparaît tant qu'aucun article n'y est placé, plutôt que de laisser un titre seul. */
+.nv-vedette-section { margin-top: 2.5rem; }
+.nv-vedette-section:not(:has(.nv-carte)) { display: none; }
+.nv-vedette-grille { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+.nv-vedette { min-height: 24rem; }
+@media (min-width: 768px) {
+  .nv-vedette { min-height: 30rem; }
+}
+.nv-vedette h3 { font-size: clamp(1.9rem, 4.5vw, 3rem); }
+.nv-vedette .nv-carte__texte { max-width: 60ch; }
+.nv-vedette p { font-size: 1rem; }
+
+/* Les rendez-vous : grille asymétrique, une case par rendez-vous */
 .nv-une {
   display: grid;
   grid-template-columns: 1fr;
