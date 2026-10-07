@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/articles/la-mano-1-9-hausse-le-ton-avec-sa-mixtape-blessed.html",
+      "destination": "/articles/la-mano-1-9-mixtape-blessed.html",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [
         {
