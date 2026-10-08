@@ -35,12 +35,39 @@ function cleValide(fournie) {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
+/**
+ * Ce que veut dire un refus de GitHub sur l'API Actions, en nommant la cause.
+ *
+ * Piège qui a coûté un test le 08/10 : installer l'App sur un dépôt ne suffit pas, il faut encore
+ * qu'elle ait la **permission Actions en écriture**. Celle des releases est Contents, et les deux
+ * sont indépendantes : les boutons de validation marchaient, le lancement de workflow non. GitHub
+ * répond 403 ou 404 selon les cas, et un code nu n'apprend rien à qui lit sur son téléphone.
+ */
+async function detailActions(r) {
+  const corps = (await r.text()).slice(0, 200);
+  if (r.status === 404 || r.status === 403) {
+    return (
+      `GitHub refuse (${r.status}). Deux causes possibles, dans cet ordre : il manque à l'App GitHub ` +
+      `la permission **Actions : lecture et écriture** (celle des releases est Contents, elle ne suffit pas, ` +
+      `et une nouvelle permission doit être approuvée sur l'installation) ; ou l'App n'est pas installée ` +
+      `sur ${DEPOT}. Réponse de GitHub : ${corps}`
+    );
+  }
+  return `${r.status} ${corps}`;
+}
+
 /** Un lancement a-t-il déjà eu lieu dans la fenêtre ? Renvoie l'heure du dernier, ou null. */
 async function dejaLance() {
   const res = await githubRequest(
     `/repos/${DEPOT}/actions/workflows/${WORKFLOW}/runs?event=workflow_dispatch&per_page=5`
   );
-  if (!res.ok) return null; // ne pas bloquer une publication parce que la lecture a échoué
+  // Ne pas bloquer une publication parce que la lecture a échoué, mais le dire : cette lecture
+  // demande la permission Actions, exactement comme le lancement qui suit. Si elle échoue, le
+  // lancement échouera aussi, et son message nommera la cause.
+  if (!res.ok) {
+    console.warn(`creneau: lecture des runs impossible (${res.status})`);
+    return null;
+  }
   const { workflow_runs: runs = [] } = await res.json();
   const limite = Date.now() - FENETRE_MINUTES * 60 * 1000;
   const recent = runs.find((r) => new Date(r.created_at).getTime() >= limite);
@@ -71,10 +98,7 @@ module.exports = async (req, res) => {
       body: JSON.stringify({ ref: "main", inputs: { essai: "false" } }),
     });
     if (!r.ok) {
-      const detail = r.status === 404
-        ? `dépôt ${DEPOT} ou workflow ${WORKFLOW} introuvable : l'App GitHub y est-elle installée ?`
-        : `${r.status} ${(await r.text()).slice(0, 200)}`;
-      res.status(502).json({ lance: false, erreur: detail });
+      res.status(502).json({ lance: false, erreur: await detailActions(r) });
       return;
     }
     res.status(200).json({ lance: true, depot: DEPOT, workflow: WORKFLOW });
