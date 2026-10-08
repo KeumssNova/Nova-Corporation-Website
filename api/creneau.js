@@ -18,6 +18,7 @@
  */
 const crypto = require("crypto");
 const { githubRequest } = require("../lib/github-app");
+const { annoncer } = require("../lib/discord");
 
 const DEPOT = process.env.NOVA_BRAIN_REPO || "KeumssNova/nova-brain";
 const WORKFLOW = "publier.yml";
@@ -98,11 +99,17 @@ module.exports = async (req, res) => {
       body: JSON.stringify({ ref: "main", inputs: { essai: "false" } }),
     });
     if (!r.ok) {
-      res.status(502).json({ lance: false, erreur: await detailActions(r) });
+      const erreur = await detailActions(r);
+      // Le planificateur n'affiche que le code HTTP, et la cause resterait invisible : elle part
+      // donc dans le salon, la ou les pannes se lisent deja (constate le 08/10 avec un 502 muet).
+      await annoncer("⚠️ Le créneau n'a pas pu être lancé", erreur);
+      res.status(502).json({ lance: false, erreur });
       return;
     }
     res.status(200).json({ lance: true, depot: DEPOT, workflow: WORKFLOW });
   } catch (err) {
-    res.status(500).json({ lance: false, erreur: String(err.message || err).slice(0, 300) });
+    const erreur = String(err.message || err).slice(0, 300);
+    await annoncer("⚠️ Le créneau a planté", erreur);
+    res.status(500).json({ lance: false, erreur });
   }
 };
