@@ -91,6 +91,14 @@ module.exports = async (req, res) => {
   }
 
   try {
+    // Diagnostic en lecture seule : `?diag=1` dit ce que l'installation peut vraiment faire, et ne
+    // lance rien. Il force un token neuf, parce que c'est precisement la question a trancher quand
+    // un 403 persiste apres avoir accorde la permission : droit absent, ou token perime en memoire ?
+    if (url.searchParams.get("diag")) {
+      res.status(200).json({ lance: false, droits: await droitsAccordes({ frais: true }) });
+      return;
+    }
+
     const recent = await dejaLance();
     if (recent) {
       res.status(200).json({ lance: false, raison: `déjà lancé à ${recent}` });
