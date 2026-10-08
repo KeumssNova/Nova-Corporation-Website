@@ -17,7 +17,7 @@
  * la file de publication.
  */
 const crypto = require("crypto");
-const { githubRequest } = require("../lib/github-app");
+const { githubRequest, droitsAccordes } = require("../lib/github-app");
 const { annoncer } = require("../lib/discord");
 
 const DEPOT = process.env.NOVA_BRAIN_REPO || "KeumssNova/nova-brain";
@@ -47,11 +47,15 @@ function cleValide(fournie) {
 async function detailActions(r) {
   const corps = (await r.text()).slice(0, 200);
   if (r.status === 404 || r.status === 403) {
+    // Au lieu d'enumerer des causes possibles, on affiche ce que l'installation a vraiment : si
+    // `actions: write` n'y figure pas, la permission a ete ajoutee sur l'App mais pas acceptee sur
+    // l'installation, et c'est exactement ce qu'on ne pouvait pas distinguer autrement (08/10).
+    const droits = await droitsAccordes();
     return (
-      `GitHub refuse (${r.status}). Deux causes possibles, dans cet ordre : il manque à l'App GitHub ` +
-      `la permission **Actions : lecture et écriture** (celle des releases est Contents, elle ne suffit pas, ` +
-      `et une nouvelle permission doit être approuvée sur l'installation) ; ou l'App n'est pas installée ` +
-      `sur ${DEPOT}. Réponse de GitHub : ${corps}`
+      `GitHub refuse (${r.status}). Ce que l'installation a réellement : ${droits}. ` +
+      `Il faut **actions: write**. S'il manque, c'est que la permission a été accordée sur l'App mais ` +
+      `pas encore acceptée sur l'installation (Réglages, Applications, l'App, accepter les nouvelles ` +
+      `permissions). Réponse de GitHub : ${corps}`
     );
   }
   return `${r.status} ${corps}`;
