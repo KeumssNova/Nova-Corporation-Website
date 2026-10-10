@@ -162,6 +162,23 @@ qu'une interaction Discord exige une adresse joignable en permanence, ce
 qu'un workflow GitHub ne peut pas offrir. Raison du changement : « tout gérer
 sur GitHub par rapport aux validations c'est un réel calvaire sur téléphone ».
 
+**Un cinquième fichier est né le 2026-10-08, et il est en service** : `api/creneau.js`. C'est le
+déclencheur ponctuel des créneaux de publication Instagram. Un planificateur extérieur
+(cron-job.org) l'appelle aux heures de Paris 12, 15, 18 et 21 h, avec la clé partagée
+`NOVA_CRENEAU_SECRET` dans l'en-tête `x-nova-cle`, et il ne fait qu'une chose : lancer le workflow
+de publication de nova-brain. **Raison d'être** : le planificateur de GitHub ne tient pas ses
+heures, mesuré créneau par créneau (de 3h22 à 6h24 de retard le 06/10, aucune livraison de la
+journée le 07/10). `/api/creneau?diag=1` est un diagnostic en lecture seule qui dit les permissions
+réelles de l'App GitHub, sans rien lancer. Détail dans nova-brain,
+`decisions/Qui déclenche les créneaux de publication.md`.
+
+**Piège rencontré le 08/10** : lancer un workflow demande la permission **Actions** de l'App GitHub,
+qui est indépendante de **Contents** (celle des releases, qui faisait déjà marcher les boutons
+Discord). Et une permission ajoutée sur l'App **reste inactive tant que l'installation ne l'a pas
+acceptée**. Le refus est un `403 Resource not accessible by integration`, qui ne distingue pas les
+deux cas : c'est pour ça que `lib/github-app.js` sait maintenant afficher les permissions
+réellement accordées plutôt que d'énumérer des causes.
+
 Ne servent plus : `api/generate-article.js`, `api/scout-topics.js`, le
 chemin « article » de `api/discord-interactions.js`, `lib/gemini.js`,
 `lib/generate.js`, `lib/publish.js`, `lib/scout.js`,
