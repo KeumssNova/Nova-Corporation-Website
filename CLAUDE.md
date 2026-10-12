@@ -55,6 +55,28 @@ Deux incidents, la même cause :
   commits d'avance : la branche existait bien et le travail était déjà
   fusionné. L'utilisateur, lui, se souvenait juste bien.
 
+## L'argent se mesure avant d'être dépensé
+
+Règle posée par l'utilisateur le 2026-10-12, après que les crédits prépayés
+de l'API Gemini se sont vidés sans que personne puisse dire où ils étaient
+passés. **Elle vaut dans tous les contextes**, pas seulement les appels
+d'API : abonnements, nom de domaine, hébergement, publicité, outils payants,
+stockage.
+
+- **Avant** : dire ce que ça coûte et sur quelle base. Quand le tarif n'est
+  pas connu de source sûre, le dire plutôt que de l'estimer. Un prix inventé
+  vaut moins que pas de prix.
+- **Pendant** : toute dépense récurrente doit afficher ce qu'elle consomme
+  quelque part où quelqu'un le lit.
+- **Un plafond, toujours.** Rien de nouveau qui dépense ne part sans sa
+  limite.
+- **Ne jamais repayer ce qui est déjà payé** (caches, réutilisation).
+
+Côté production, c'est `nova-brain` qui dépense : `outils/actu/depense.py`
+affiche les jetons de chaque appel et borne les exécutions payantes du jour.
+Arkive tire sur la **même clé Gemini** que Nova : une dépense d'un projet
+vide le porte-monnaie de l'autre.
+
 ## Règles d'écriture
 
 **Aucun tiret cadratin, nulle part.** Ni `—`, ni `–`, ni le double tiret
