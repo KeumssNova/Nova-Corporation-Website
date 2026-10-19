@@ -49,8 +49,8 @@
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://novacorporation.fr/articles/so-la-lune-bikini-toulouse-concert-melo-trap.html</loc>
-    <lastmod>2026-10-17</lastmod>
+    <loc>https://novacorporation.fr/articles/26keuss-viens-shaz-single-rap.html</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -183,6 +183,12 @@
   <url>
     <loc>https://novacorporation.fr/articles/concerts-rap-toulouse.html</loc>
     <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://novacorporation.fr/articles/so-la-lune-bikini-toulouse-concert-melo-trap.html</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
