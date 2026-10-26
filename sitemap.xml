@@ -49,8 +49,8 @@
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://novacorporation.fr/articles/a2h-les-gosses-effrayes-album-rap.html</loc>
-    <lastmod>2026-10-25</lastmod>
+    <loc>https://novacorporation.fr/articles/ino-casablanca-reedite-extasiaaaaaa-avec-dix-inedits.html</loc>
+    <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -195,6 +195,12 @@
   <url>
     <loc>https://novacorporation.fr/articles/concerts-rap-toulouse.html</loc>
     <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://novacorporation.fr/articles/a2h-les-gosses-effrayes-album-rap.html</loc>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
