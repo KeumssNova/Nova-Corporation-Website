@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova Games : guides et astuces jeux vidéo en français, GTA 6</title>
+<meta name="description" content="Guides GTA 6 en français : heure de sortie, argent rapide, astuces et tracker de progression gratuit pour suivre ton 100 %.">
+<link rel="canonical" href="https://novacorporation.fr/jeux/">
+<meta property="og:title" content="GTA 6 FR : guides et astuces en français">
+<meta property="og:description" content="Heure de sortie, argent rapide, astuces et tracker de progression GTA 6.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cousine:wght@400;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/jeux/assets/style.css">
+</head>
+<body>
+<header><nav>
+<a class="brand" href="/jeux/"><img src="/jeux/assets/nova-logo.png" alt="Nova Corporation"><span>NOVA <b>GAMES</b></span></a>
+<div class="links">
+<a href="/jeux/gta-6/sortie-prix-editions/">Sortie et prix</a>
+<a href="/jeux/gta-6/argent-rapide/">Argent rapide</a>
+<a href="/jeux/gta-6/tracker-100/">Tracker 100 %</a>
+<a href="/">Nova</a>
+</div>
+</nav></header>
+
+<main>
+<section class="hero">
+<div class="kicker">Nova Corporation / Jeux vidéo</div>
+<h1>GTA 6<br>en français</h1>
+<p>Guides, astuces et tracker de progression, mis à jour au fil du jeu.</p>
+<div class="countdown" id="cd">
+<div><b id="d">0</b><small>jours</small></div>
+<div><b id="h">0</b><small>heures</small></div>
+<div><b id="m">0</b><small>min</small></div>
+<div><b id="s">0</b><small>sec</small></div>
+</div>
+<div class="quick">
+<div><small>Sortie France</small><b>19 nov. 00h00</b></div>
+<div><small>Consoles</small><b>PS5 · Xbox Series</b></div>
+<div><small>Prix Standard</small><b>79,99 €</b></div>
+<div><small>Version PC</small><b>Pas au lancement</b></div>
+</div>
+</section>
+
+<div class="grid">
+<a class="card" href="/jeux/gta-6/sortie-prix-editions/"><span class="tag">Sortie</span><h2>Sortie, prix et éditions</h2><p>Minuit le 19 novembre, Standard ou Ultimate, ce qu'il faut savoir avant de lancer le jeu.</p><span class="go">Voir les infos →</span></a>
+<a class="card" href="/jeux/gta-6/argent-rapide/"><span class="tag">Guide</span><h2>Gagner de l'argent rapidement dans GTA 6</h2><p>Les meilleures méthodes pour remplir ton compte en début de partie.</p><span class="go">Lire le guide →</span></a>
+<a class="card" href="/jeux/gta-6/tracker-100/"><span class="tag">Outil</span><h2>Tracker de progression 100 %</h2><p>Coche missions, collectibles et défis. Sauvegardé dans ton navigateur.</p><span class="go">Ouvrir le tracker →</span></a>
+</div>
+
+<p class="section-title">À venir</p>
+<div class="grid">
+<div class="card"><span class="tag">Bientôt</span><h3>Liste des missions</h3><p>Toutes les missions de l'histoire avec Jason et Lucia.</p></div>
+<div class="card"><span class="tag">Bientôt</span><h3>Codes de triche</h3><p>Les codes PS5 et Xbox Series dès qu'ils sont trouvés.</p></div>
+<div class="card"><span class="tag">Bientôt</span><h3>Carte de Leonida</h3><p>Vice City et ses environs, lieux clés et secrets.</p></div>
+</div>
+</main>
+<nav class="tabbar"><a href="/jeux/" data-v="accueil" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d='M3 11l9-8 9 8v10h-6v-6H9v6H3z'/></svg>Accueil</a><a href="/jeux/gta-6/sortie-prix-editions/" data-v="sortie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/></svg>Sortie</a><a href="/jeux/gta-6/argent-rapide/" data-v="argent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d='M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/></svg>Argent</a><a href="/jeux/gta-6/tracker-100/" data-v="tracker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d='M9 11l3 3 8-8'/><path d='M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'/></svg>Tracker</a></nav>
+
+<footer>Nova Games, la branche jeux vidéo de <a href="/">Nova Corporation</a>. Site non officiel, non affilié à Rockstar Games ni Take-Two Interactive. GTA et Grand Theft Auto sont des marques de leurs détenteurs respectifs.</footer>
+<script src="/jeux/assets/stars.js"></script>
+
+<script>
+const target=new Date('2026-11-19T00:00:00+01:00').getTime();
+function tick(){let r=Math.max(0,target-Date.now());
+if(r===0){document.getElementById('cd').innerHTML='<div><b>DISPO</b><small>GTA 6 est sorti</small></div>';return}
+const d=Math.floor(r/864e5),h=Math.floor(r%864e5/36e5),m=Math.floor(r%36e5/6e4),s=Math.floor(r%6e4/1e3);
+d_.textContent=d;h_.textContent=h;m_.textContent=m;s_.textContent=s;setTimeout(tick,1000)}
+const d_=document.getElementById('d'),h_=document.getElementById('h'),m_=document.getElementById('m'),s_=document.getElementById('s');tick();
+</script>
+</body>
+</html>
