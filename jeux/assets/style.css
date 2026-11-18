@@ -133,3 +133,27 @@ button{min-height:48px}
   footer{padding-bottom:100px}
 }
 .tk-bar input#txt{flex-basis:100%}.tk-bar select{flex:1}.tk-bar #add{flex:0 0 auto}
+
+/* ===== Correctifs mobile + composants contenu ===== */
+html{scroll-padding-top:80px;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+.tw{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+.tw table{margin:0}
+.crumbs{font-size:.8rem;color:var(--mut);margin-bottom:10px}.crumbs a{color:var(--mut)}
+.code{font-family:"Cousine",monospace;font-weight:700;white-space:nowrap;letter-spacing:.08em;color:var(--txt);background:rgba(255,91,91,.12);border:1px solid rgba(255,91,91,.35);padding:2px 8px;display:inline-block;line-height:1.5}
+.na{color:var(--mut);font-size:.85rem;font-style:italic}
+article ol li,article ul li{padding-left:2px}
+@media (max-width:640px){
+  article h1{font-size:2rem;line-height:1.1;word-break:normal;overflow-wrap:anywhere}
+  article h2{font-size:1.35rem;margin-top:32px}
+  .tw{overflow:visible}
+  .tw table,.tw thead,.tw tbody,.tw tr,.tw td{display:block;width:100%}
+  .tw thead{display:none}
+  .tw tr{border:1px solid var(--line);background:rgba(0,0,0,.6);margin-bottom:8px;padding:6px 0}
+  .tw td{border:0;padding:6px 14px;display:flex;gap:12px;justify-content:space-between;align-items:baseline;text-align:right}
+  .tw td::before{content:attr(data-l);color:var(--mut);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;text-align:left;flex:0 0 38%}
+  .tw td:first-child{font-weight:600;font-size:1.02rem}
+  .tw td .code{white-space:normal;text-align:center}
+  .note{padding:14px 16px}
+  .toc{padding:16px 18px}
+}
