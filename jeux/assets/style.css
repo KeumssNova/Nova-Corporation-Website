@@ -165,3 +165,8 @@ article ol li,article ul li{padding-left:2px}
 .yt span{position:absolute;left:14px;bottom:10px;z-index:2;font-family:var(--disp);font-weight:700;font-size:1.1rem}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .credit{font-size:.78rem;color:var(--mut);margin-bottom:18px}
+
+/* ===== Posts X intégrés (hébergés par X, rien n'est copié chez nous) ===== */
+.xpost{margin:18px auto;max-width:550px}
+.xpost .twitter-tweet{border:1px solid var(--line);background:rgba(0,0,0,.6);padding:16px 18px;margin:0;font-size:.95rem;color:var(--mut)}
+.xpost .twitter-tweet a{color:var(--txt)}
