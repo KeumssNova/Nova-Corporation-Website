@@ -36,6 +36,11 @@
   --texte:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
+/* Dit au navigateur de dessiner les contrôles natifs en sombre : liste déroulante, barres de
+   défilement, champs. Sans cette ligne, la liste qui s'ouvre sous un <select> reste blanche,
+   et mon texte blanc par-dessus devenait illisible. Signalé le 2026-11-19 sur le tracker. */
+:root{color-scheme:dark}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--txt);font-family:var(--texte);
@@ -164,6 +169,10 @@ button.ghost:hover{color:var(--txt)}
 .tk-bar{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
 .tk-bar input,.tk-bar select{flex:1;min-width:160px;background:transparent;border:1px solid var(--line);
   color:var(--txt);padding:12px 14px;font:inherit;font-size:16px;min-height:46px}
+/* background-color explicite et non `transparent` : la liste déroulante hérite de la couleur du
+   select, et `transparent` lui laissait le blanc du système. */
+.tk-bar select{background-color:#000}
+.tk-bar select option{background-color:#000;color:var(--txt)}
 .tk-bar input:focus,.tk-bar select:focus{border-color:var(--line-fort);outline:none}
 .tk-bar input#txt{flex-basis:100%}
 .progress{height:2px;background:var(--line);margin:10px 0 30px}
@@ -260,3 +269,8 @@ button.ghost:hover{color:var(--txt)}
 
 footer{font-family:var(--mono);border-top:1px solid var(--line);color:var(--mut);font-size:.76rem;text-align:center;
        padding:34px 22px;background:#000;line-height:1.8}
+
+/* L'avancée du tracker : le chiffre et son mot sur la même ligne de base.
+   Avant, le pourcentage en mono et le mot en sans ne s'alignaient pas. */
+.avancee{display:flex;align-items:baseline;gap:10px;margin:0}
+.avancee span{color:var(--mut);font-size:.86rem}

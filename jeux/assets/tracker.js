@@ -322,7 +322,7 @@ function render() {
   const items = [...DEFAULT_ITEMS, ...state.custom];
   const total = items.length, done = items.filter(i => state.done[i.id]).length;
   const pct = total ? Math.round(done / total * 100) : 0;
-  $('pct').textContent = pct + ' %';
+  $('pct').textContent = pct;   // le « % complété » est dans l'étiquette, voir la page
   $('bar').style.width = pct + '%';
   if (!total) { $('list').innerHTML = '<div class="note">Aucun élément pour l\'instant. Ajoute tes missions et collectibles ci-dessus.</div>'; return; }
   $('list').innerHTML = CATS.map(cat => {
