@@ -217,7 +217,12 @@
           monde.
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mx-8">
+        <!-- Quatre cartes depuis l'arrivée de Nova Games : en trois colonnes, la quatrième
+             restait seule sur sa ligne, d'où deux colonnes et une grille 2x2.
+             Pas de xl:grid-cols-4 : le Tailwind de ce site est précompilé dans
+             assets/css/output.css, qui ne contient que grid-cols-2 et grid-cols-3.
+             Une classe absente de ce fichier ne produit rien. -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-8">
           <a
             class="eco-card"
             href="https://arkive.novacorporation.fr"
@@ -257,6 +262,19 @@
               attend son tour, les deux autres passent avant.
             </p>
           </div>
+
+          <a class="eco-card" href="/jeux/">
+            <span class="eco-statut est-en-ligne">En ligne</span>
+            <h2 class="eco-nom">Nova Games</h2>
+            <p class="eco-role">Guides de jeux vidéo</p>
+            <p class="eco-texte">
+              Les guides que les joueurs français vont chercher sur des sites
+              anglais faute de mieux. On commence par GTA 6, sorti le 19
+              novembre : sortie et prix, argent rapide, codes de triche,
+              tracker de progression.
+            </p>
+            <p class="eco-lien">Ouvrir Nova Games</p>
+          </a>
         </div>
       </section>
     </main>
