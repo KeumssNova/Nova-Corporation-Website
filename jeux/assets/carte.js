@@ -122,8 +122,10 @@
   appliquer();
 
   let glisse = null;
+  let aGlisse = false;   // le dernier geste était-il un déplacement ?
   const pos = (e) => (e.touches ? e.touches[0] : e);
   svg.addEventListener('pointerdown', (e) => {
+    aGlisse = false;
     glisse = { x: pos(e).clientX, y: pos(e).clientY, vx: vue.x, vy: vue.y, bouge: false };
     svg.setPointerCapture?.(e.pointerId);
   });
@@ -136,10 +138,14 @@
     vue.x = glisse.vx - dx; vue.y = glisse.vy - dy;
     borner(); appliquer();
   });
-  const fin = () => { glisse = null; };
+  // `click` arrive APRES `pointerup`. En remettant glisse à null au relâchement, le garde-fou
+  // `if (glisse.bouge) return` des ouvertures ne voyait plus rien et tout glissement finissait par
+  // ouvrir un panneau. On garde donc la trace du mouvement dans une variable qui survit au clic,
+  // remise à zéro au pointerdown suivant. Mesuré le 2026-11-19 : le bug se produisait à chaque fois.
+  const fin = () => { aGlisse = glisse ? glisse.bouge : false; glisse = null; };
   svg.addEventListener('pointerup', fin);
   svg.addEventListener('pointercancel', fin);
-  svg.addEventListener('pointerleave', fin);
+  // pas de pointerleave : sortir du cadre en pleine manipulation annulait le déplacement en cours
   svg.addEventListener('wheel', (e) => {
     e.preventDefault();
     const r = svg.getBoundingClientRect();
@@ -152,13 +158,25 @@
 
   // ---- Panneau --------------------------------------------------------------
   const panneau = document.getElementById('c-panneau');
-  const fermer = () => { panneau.hidden = true; svg.querySelectorAll('.c-pt.on').forEach((n) => n.classList.remove('on')); };
+  const ACCUEIL = {
+    titre: 'Leonida', sous: `${ZONES.length} régions · ${POINTS.length} points`,
+    texte: '<p>Clique une région pour savoir ce qu\'on y trouve, un point pour son détail.</p>' +
+           '<p class="c-compte">Glisse pour te déplacer, molette ou boutons pour zoomer.</p>',
+  };
+  // Le panneau ne se cache plus : une colonne vide à côté de la carte ne dit rien à personne.
+  // Il revient à son état d'accueil, qui explique quoi faire.
+  const fermer = () => {
+    svg.querySelectorAll('.c-pt.on').forEach((n) => n.classList.remove('on'));
+    panneau.querySelector('.c-titre').textContent = ACCUEIL.titre;
+    panneau.querySelector('.c-sstitre').textContent = ACCUEIL.sous;
+    panneau.querySelector('.c-texte').innerHTML = ACCUEIL.texte;
+    panneau.querySelector('.c-actions').innerHTML = '';
+  };
   document.getElementById('c-fermer').onclick = fermer;
 
   function ouvrirZone(z) {
-    if (glisse && glisse.bouge) return;
+    if (aGlisse) return;
     const n = POINTS.filter((p) => p.zone === z.id).length;
-    panneau.hidden = false;
     panneau.querySelector('.c-titre').textContent = z.nom;
     panneau.querySelector('.c-sstitre').textContent = z.sous;
     panneau.querySelector('.c-texte').innerHTML =
@@ -167,12 +185,11 @@
   }
 
   function ouvrirPoint(p) {
-    if (glisse && glisse.bouge) return;
+    if (aGlisse) return;
     svg.querySelectorAll('.c-pt.on').forEach((n) => n.classList.remove('on'));
     svg.querySelector(`.c-pt[data-id="${p.id}"]`)?.classList.add('on');
     const z = ZONES.find((x) => x.id === p.zone);
     const cat = CATEGORIES.find((c) => c.id === p.cat);
-    panneau.hidden = false;
     panneau.querySelector('.c-titre').textContent = p.nom;
     panneau.querySelector('.c-sstitre').textContent = `${cat ? cat.nom : ''} · ${z ? z.nom : ''}`;
     panneau.querySelector('.c-texte').innerHTML =
@@ -218,5 +235,6 @@
     });
   }
 
+  fermer();
   majVus(); majFiltres();
 })();

@@ -223,3 +223,25 @@ article ol li,article ul li{padding-left:2px}
   color:var(--mut);box-shadow:none;clip-path:none;font-size:1.3rem}
 #c-fermer:hover{background:transparent;color:var(--red)}
 #c-filtres{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* ===== Carte : la boîte suit le dessin, le panneau sort de la carte =====
+   Le dessin est en portrait (1000x1400) et le cadre était en paysage sur ordinateur :
+   43 % de la surface restait vide, mesuré le 2026-11-19, et la carte avait l'air inutile.
+   La scène garde donc le format du dessin, et la largeur restante sert au panneau. */
+.c-wrap{display:flex;flex-direction:column;gap:0}
+.c-scene{aspect-ratio:1000/1400;max-height:none}
+.c-aside{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.c-panneau{position:static;padding:16px 18px;border:0;border-left:3px solid var(--red);background:transparent}
+#c-fermer{top:10px;right:10px}
+.c-barre{border-top:1px solid var(--line);border-bottom:0}
+@media(min-width:900px){
+  .c-wrap{flex-direction:row;align-items:stretch}
+  /* width:auto obligatoire : la regle d'origine pose width:100%, et une boite qui a deja une
+     largeur ET une hauteur ignore aspect-ratio. C'est ce qui laissait 41 % de vide. */
+  /* La largeur vient du conteneur et non de la hauteur de l'ecran : calee sur vh, la carte
+     mangeait toute la place et le panneau tombait a un mot par ligne. */
+  .c-scene{flex:0 0 auto;width:min(46%,420px);height:auto;aspect-ratio:1000/1400}
+  .c-aside{flex:1;min-width:280px;border-top:0;border-left:1px solid var(--line);justify-content:flex-start}
+  .c-panneau{flex:1;overflow:auto}
+  .c-barre{margin-top:auto}
+}
