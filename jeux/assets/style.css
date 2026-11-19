@@ -15,13 +15,17 @@
    Pas de champ d'étoiles. Il mangeait la lisibilité pour une décoration que personne n'a
    demandée, et ce n'est pas ce qui fait la DA Nova.
 
+   Fond noir pur, demandé par l'utilisateur. Le blanc du texte est donc légèrement adouci
+   (#f2f4f6 et non #fff) : sur un écran, du blanc pur sur du noir pur fait baver les lettres.
+   Le contraste reste très au-dessus du seuil AA.
+
    Les polices viennent du site (assets/fonts/), plus de Google Fonts : une requête de moins. */
 
 @font-face{font-family:"cousine";src:url("/assets/fonts/Cousine-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"cousine";src:url("/assets/fonts/Cousine-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 
 :root{
-  --bg:#0a0b0d;
+  --bg:#000;
   --txt:#f2f4f6;
   --mut:#a9aeb5;
   --red:#ff5b5b;
