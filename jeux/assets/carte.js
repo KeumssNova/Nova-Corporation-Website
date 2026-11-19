@@ -129,13 +129,19 @@
     glisse = { x: pos(e).clientX, y: pos(e).clientY, vx: vue.x, vy: vue.y, bouge: false };
     svg.setPointerCapture?.(e.pointerId);
   });
+  // Distance en PIXELS D'ÉCRAN, et seuil large. Avant, le seuil valait 2 unités du dessin :
+  // à 420 px de large pour 1000 unités, 2 px de souris en valaient presque 5, donc le moindre
+  // tremblement passait pour un déplacement et le clic était perdu. Mesuré le 2026-11-19 :
+  // dès 2 px de tremblement, cliquer une région ne faisait plus rien. Personne ne clique sans
+  // bouger d'un pixel, surtout au doigt.
+  const SEUIL = 7;
   svg.addEventListener('pointermove', (e) => {
     if (!glisse) return;
     const r = svg.getBoundingClientRect();
-    const dx = (pos(e).clientX - glisse.x) * (vue.w / r.width);
-    const dy = (pos(e).clientY - glisse.y) * (vue.h / r.height);
-    if (Math.abs(dx) + Math.abs(dy) > 2) glisse.bouge = true;
-    vue.x = glisse.vx - dx; vue.y = glisse.vy - dy;
+    const ex = pos(e).clientX - glisse.x, ey = pos(e).clientY - glisse.y;
+    if (Math.hypot(ex, ey) > SEUIL) glisse.bouge = true;
+    vue.x = glisse.vx - ex * (vue.w / r.width);
+    vue.y = glisse.vy - ey * (vue.h / r.height);
     borner(); appliquer();
   });
   // `click` arrive APRES `pointerup`. En remettant glisse à null au relâchement, le garde-fou
