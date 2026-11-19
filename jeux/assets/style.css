@@ -157,3 +157,11 @@ article ol li,article ul li{padding-left:2px}
   .note{padding:14px 16px}
   .toc{padding:16px 18px}
 }
+
+/* ===== Vidéo intégrée (façade : YouTube ne charge qu'au clic) ===== */
+.yt{position:relative;aspect-ratio:16/9;background:#111 center/cover no-repeat;border:1px solid var(--line);cursor:pointer;margin:18px 0 6px;overflow:hidden}
+.yt::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 50%)}
+.yt button{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:72px;height:72px;min-height:0;padding:0;border-radius:50%;clip-path:none;background:var(--red);color:#fff;font-size:1.6rem;box-shadow:0 0 30px rgba(255,91,91,.6)}
+.yt span{position:absolute;left:14px;bottom:10px;z-index:2;font-family:var(--disp);font-weight:700;font-size:1.1rem}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.credit{font-size:.78rem;color:var(--mut);margin-bottom:18px}
