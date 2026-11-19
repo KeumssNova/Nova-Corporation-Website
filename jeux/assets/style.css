@@ -1,247 +1,249 @@
-/* DA Nova Corporation : spatial, noir et blanc, Cousine, accent rouge Nova */
-:root{--bg:#000;--card:rgba(255,255,255,.04);--txt:#fff;--mut:#9ca3af;--red:#ff5b5b;--red-l:#ff8989;--red-d:#662727;--line:rgba(255,255,255,.14)}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--txt);font-family:"Cousine",ui-monospace,monospace;font-size:16px;line-height:1.7}
-#stars{position:fixed;inset:0;z-index:-1;width:100%;height:100%;background:#000}
-a{color:var(--txt);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}a:hover{color:var(--red-l)}
-header{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;gap:16px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{height:34px;width:auto}
-.brand span{font-weight:700;letter-spacing:.25em;font-size:.85rem}
-.brand span b{color:var(--red);font-weight:700}
-.links{display:flex;gap:22px;flex-wrap:wrap}
-.links a{text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:var(--mut)}
-.links a:hover,.links a.on{color:var(--txt)}
-.links a.on{border-bottom:2px solid var(--red);padding-bottom:2px}
-main{max-width:1100px;margin:auto;padding:32px 22px 70px}
-.hero{padding:70px 0 40px;text-align:center}
-.kicker{text-transform:uppercase;letter-spacing:.3em;font-size:.75rem;color:var(--red)}
-.hero h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.1;font-weight:700;text-transform:uppercase;margin-top:12px}
-.hero p{color:var(--mut);max-width:620px;margin:18px auto 0}
-.countdown{display:flex;gap:12px;justify-content:center;margin-top:34px;flex-wrap:wrap}
-.countdown div{border:1px solid var(--line);background:rgba(0,0,0,.6);padding:14px 18px;min-width:88px}
-.countdown b{display:block;font-size:2rem}.countdown small{color:var(--mut);text-transform:uppercase;font-size:.68rem;letter-spacing:.2em}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:30px}
-.card{background:rgba(0,0,0,.6);border:1px solid var(--line);padding:24px;transition:border-color .25s,transform .25s}
-a.card{display:block;text-decoration:none}a.card:hover{border-color:var(--red);transform:translateY(-2px);color:var(--txt)}
-.card h2,.card h3{font-size:1.05rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}.card p{color:var(--mut);font-size:.92rem}
-.tag{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red);margin-bottom:10px}
-.section-title{text-transform:uppercase;letter-spacing:.25em;font-size:.8rem;color:var(--mut);margin-top:50px}
-article{max-width:780px;margin:auto}
-article h1{font-size:clamp(1.7rem,5vw,2.5rem);line-height:1.2;text-transform:uppercase;margin-bottom:10px}
-article .meta{color:var(--mut);font-size:.85rem;margin-bottom:28px}
-article h2{font-size:1.25rem;margin:40px 0 12px;text-transform:uppercase;letter-spacing:.05em;padding-left:12px;border-left:3px solid var(--red)}
-article h3{font-size:1.05rem;margin:24px 0 8px}
-article p,article li{margin-bottom:12px;color:#e5e7eb}article ul,article ol{padding-left:22px}
-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92rem}
-th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}th{background:rgba(255,255,255,.06);text-transform:uppercase;font-size:.75rem;letter-spacing:.1em}
-.note{border:1px solid var(--line);border-left:3px solid var(--red);background:rgba(0,0,0,.6);padding:14px 18px;margin:20px 0}
-.toc{border:1px solid var(--line);background:rgba(0,0,0,.6);padding:18px 22px;margin-bottom:24px}.toc b{display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.15em;font-size:.8rem}
-.sources{margin-top:40px;font-size:.82rem;color:var(--mut)}.sources a{color:var(--mut)}
-/* tracker */
-.tk-bar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-.tk-bar input,.tk-bar select{flex:1;min-width:160px;background:#000;border:1px solid var(--line);color:var(--txt);padding:11px 14px;font:inherit}
-button{background:var(--txt);color:#000;border:0;padding:11px 18px;font:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;cursor:pointer}
-button:hover{background:var(--red);color:#fff}
-button.ghost{background:transparent;border:1px solid var(--line);color:var(--mut)}button.ghost:hover{border-color:var(--red);color:var(--txt)}
-.progress{height:6px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 26px}
-.progress i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
-.cat{margin-bottom:26px}.cat h3{display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;margin-bottom:8px}
-.item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(0,0,0,.6);padding:10px 14px;margin-bottom:6px;cursor:pointer}
-.item input{width:18px;height:18px;accent-color:var(--red)}.item span{flex:1}.item.done span{color:var(--mut);text-decoration:line-through}
-.item .del{background:none;color:var(--mut);padding:2px 8px;font-size:1.1rem}
-footer{border-top:1px solid var(--line);color:var(--mut);font-size:.8rem;text-align:center;padding:28px 22px;background:#000}
-footer a{color:var(--mut)}
+/* Nova Games — feuille de style
+   Direction artistique de Nova Corporation : spatial, noir et blanc, une seule police
+   monospace (Cousine, celle du site), le rouge Nova en accent et nulle part ailleurs.
 
-/* ===== Couche "jeu vidéo" : HUD, sunset Vice, titres condensés ===== */
-:root{--sun:linear-gradient(90deg,#ff5b5b 0%,#ff7a45 45%,#ffb347 100%);--disp:"Rajdhani","Cousine",sans-serif}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
-.brand span,.links a,.hero h1,article h1,article h2,.card h2,.card h3,.section-title,.countdown b,button,.cat h3,th{font-family:var(--disp)}
-.brand span{font-size:1.05rem;letter-spacing:.3em}
-.links a{font-size:.95rem;font-weight:600;letter-spacing:.15em}
-.hero{position:relative;padding:90px 0 50px}
-.hero::before{content:"";position:absolute;left:50%;top:40px;width:min(520px,90vw);height:260px;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 100%,rgba(255,91,91,.35),rgba(255,122,69,.12) 45%,transparent 70%);z-index:-1;filter:blur(10px)}
-.kicker{font-family:var(--disp);font-weight:700;font-size:.85rem;letter-spacing:.45em}
-.hero h1{font-size:clamp(2.8rem,10vw,6.5rem);font-weight:700;letter-spacing:.02em;line-height:.95;background:var(--sun);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative;display:inline-block}
-.hero h1 .glitch{position:absolute;inset:0;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.25);transform:translate(4px,-3px);animation:gl 3.5s infinite steps(1)}
-@keyframes gl{0%,92%,100%{transform:translate(4px,-3px);opacity:.6}93%{transform:translate(-6px,2px);opacity:1}95%{transform:translate(7px,-1px)}97%{transform:translate(-2px,4px)}}
-.countdown div{position:relative;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);background:rgba(255,91,91,.06);border-color:rgba(255,91,91,.35)}
-.countdown b{font-size:2.6rem;font-weight:700;line-height:1}
-.card{position:relative;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
-.card::before,.card::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--red);border-style:solid;opacity:.8;transition:all .25s}
-.card::before{top:8px;left:8px;border-width:2px 0 0 2px}.card::after{bottom:8px;right:8px;border-width:0 2px 2px 0}
-a.card:hover::before{top:4px;left:4px}a.card:hover::after{bottom:4px;right:4px}
-a.card:hover{background:rgba(255,91,91,.07)}
-.card h2,.card h3{font-size:1.45rem;font-weight:700;letter-spacing:.04em;line-height:1.15}
-.tag{font-family:var(--disp);font-weight:700;font-size:.8rem;background:var(--red);color:#000;padding:2px 8px;letter-spacing:.15em}
-.grid .card:not(a) .tag{background:transparent;color:var(--mut);border:1px solid var(--line)}
-.section-title{font-size:1rem;font-weight:700;letter-spacing:.4em;display:flex;align-items:center;gap:14px}
-.section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--red),transparent)}
-article h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1;font-weight:700}
-article h2{font-size:1.7rem;font-weight:700;border-left:4px solid;border-image:var(--sun) 1}
-button{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);font-size:1rem;font-weight:700}
-.progress{height:12px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);background:rgba(255,255,255,.08)}
-.progress i{background:var(--sun);box-shadow:0 0 12px rgba(255,91,91,.7)}
-#pct{font-family:var(--disp);font-size:2rem;font-weight:700}
-.item{transition:border-color .2s}.item:hover{border-color:rgba(255,91,91,.5)}
-.item.done{border-color:rgba(255,91,91,.3);background:rgba(255,91,91,.05)}
-th{font-size:.95rem;font-weight:700}
-@media (max-width:640px){.links{flex-wrap:nowrap;overflow-x:auto;gap:18px;width:100%;scrollbar-width:none}.links::-webkit-scrollbar{display:none}.links a{white-space:nowrap;font-size:.85rem}}
-button.ghost{border:0;box-shadow:inset 0 0 0 1px var(--line)}
+   Réécrite le 2026-11-19. La version précédente empilait une couche « jeu vidéo » par-dessus :
+   dégradé orange, police condensée Rajdhani, coins biseautés, lignes de balayage, halos.
+   C'était le cliché du genre, pas notre univers. Tout est parti.
 
-/* ===== Passe lisibilité / UX ===== */
-html,body{font-family:"Inter",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.6}
-body::after{display:none}
-.hero h1 .glitch{display:none}
-.hero{padding:36px 0 20px}.hero::before{top:0}
-.hero h1{font-size:clamp(2.6rem,9vw,5rem)}
-.hero p{font-size:1.05rem;margin-top:12px}
-.kicker{letter-spacing:.25em;font-size:.78rem}
-.countdown{margin-top:22px;gap:8px;flex-wrap:nowrap}
-.countdown div{min-width:0;flex:1;max-width:110px;padding:12px 6px}
-.countdown b{font-size:2rem}.countdown small{letter-spacing:.08em;font-size:.68rem}
-.links a{letter-spacing:.06em;text-transform:none;font-size:1rem}
-.brand span{letter-spacing:.18em}
-.card{padding:20px 20px 22px}
-.card h2,.card h3{text-transform:none;font-size:1.35rem;letter-spacing:.01em}
-.card p{font-size:.95rem;color:#c7cbd1}
-.card .go{display:inline-block;margin-top:12px;font-family:var(--disp);font-weight:700;color:var(--red);font-size:1rem}
-.tag{letter-spacing:.08em}
-.section-title{letter-spacing:.2em;font-size:.9rem}
-article h1{text-transform:none}article h2{text-transform:none;letter-spacing:.01em}
-article p,article li{color:#e5e7eb}
-.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:26px}
-.quick div{border:1px solid var(--line);background:rgba(0,0,0,.6);padding:12px 14px}
-.quick small{display:block;color:var(--mut);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
-.quick b{font-family:var(--disp);font-size:1.25rem}
-th,td{padding:12px}
-.tk-bar input,.tk-bar select{font-size:16px;min-height:48px}
-button{min-height:48px}
-.item{min-height:52px}
-.help{color:var(--mut);font-size:.92rem;margin-top:-6px}
-/* barre d'onglets mobile */
-.tabbar{display:none}
-@media (max-width:640px){
-  header .links{display:none}
-  nav{justify-content:center}
-  main{padding-bottom:110px}
-  .tabbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(0,0,0,.95);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-  .tabbar a{flex:1;text-align:center;text-decoration:none;color:var(--mut);font-size:.72rem;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:3px}
-  .tabbar a svg{width:22px;height:22px}
-  .tabbar a.on{color:var(--red)}
-  footer{padding-bottom:100px}
+   Les polices viennent du site (assets/fonts/), plus de Google Fonts : une requête de moins,
+   et exactement les mêmes lettres que sur novacorporation.fr. */
+
+@font-face{font-family:"cousine";src:url("/assets/fonts/Cousine-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"cousine";src:url("/assets/fonts/Cousine-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#000;
+  --txt:#fff;
+  --mut:#8f949b;
+  --red:#ff5b5b;
+  --line:rgba(255,255,255,.14);
+  --line-fort:rgba(255,255,255,.3);
+  --fond:rgba(255,255,255,.03);
 }
-.tk-bar input#txt{flex-basis:100%}.tk-bar select{flex:1}.tk-bar #add{flex:0 0 auto}
 
-/* ===== Correctifs mobile + composants contenu ===== */
-html{scroll-padding-top:80px;-webkit-text-size-adjust:100%}
-body{overflow-x:hidden}
-.tw{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
-.tw table{margin:0}
-.crumbs{font-size:.8rem;color:var(--mut);margin-bottom:10px}.crumbs a{color:var(--mut)}
-.code{font-family:"Cousine",monospace;font-weight:700;white-space:nowrap;letter-spacing:.08em;color:var(--txt);background:rgba(255,91,91,.12);border:1px solid rgba(255,91,91,.35);padding:2px 8px;display:inline-block;line-height:1.5}
-.na{color:var(--mut);font-size:.85rem;font-style:italic}
-article ol li,article ul li{padding-left:2px}
-@media (max-width:640px){
-  article h1{font-size:2rem;line-height:1.1;word-break:normal;overflow-wrap:anywhere}
-  article h2{font-size:1.35rem;margin-top:32px}
-  .tw{overflow:visible}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--txt);font-family:"cousine",ui-monospace,monospace;
+     font-size:16px;line-height:1.75}
+#stars{position:fixed;inset:0;z-index:-1;width:100%;height:100%;background:#000}
+
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--line-fort);
+  text-underline-offset:4px;transition:text-decoration-color .15s}
+a:hover{text-decoration-color:var(--red)}
+::selection{background:var(--red);color:#000}
+:focus-visible{outline:1px solid var(--red);outline-offset:3px}
+
+/* ---------- en-tête ---------- */
+header{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);
+       backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav{max-width:1120px;margin:auto;display:flex;align-items:center;gap:28px;padding:16px 22px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
+.brand img{height:28px;width:auto}
+.brand span{font-weight:700;letter-spacing:.22em;font-size:.82rem}
+.brand span b{color:var(--red);font-weight:700}
+.links{display:flex;gap:22px;flex-wrap:wrap;margin-left:auto}
+.links a{text-decoration:none;font-size:.86rem;color:var(--mut);padding-bottom:3px;
+         border-bottom:1px solid transparent}
+.links a:hover{color:var(--txt)}
+.links a.on{color:var(--txt);border-bottom-color:var(--red)}
+
+main{max-width:1120px;margin:auto;padding:0 22px 80px}
+
+/* ---------- accueil ---------- */
+.hero{padding:72px 0 8px;max-width:720px}
+.kicker{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;color:var(--mut)}
+.hero h1{font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.12;font-weight:700;margin-top:18px;
+         letter-spacing:-.01em}
+.hero p{color:var(--mut);margin-top:18px;max-width:58ch}
+
+/* bandeau de faits : des chiffres alignés, pas des capsules */
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+       border-top:1px solid var(--line);margin-top:44px}
+.quick div{padding:18px 24px 20px 0;border-bottom:1px solid var(--line)}
+.quick small{display:block;color:var(--mut);font-size:.7rem;text-transform:uppercase;letter-spacing:.14em}
+.quick b{display:block;font-size:1.15rem;font-weight:700;margin-top:6px}
+
+.countdown{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+.countdown div{min-width:62px}
+.countdown b{display:block;font-size:1.9rem;font-weight:700;line-height:1}
+.countdown small{color:var(--mut);text-transform:uppercase;font-size:.68rem;letter-spacing:.14em}
+
+/* ---------- titres de section ---------- */
+.section-title{text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;color:var(--mut);
+               margin:52px 0 18px;display:flex;align-items:center;gap:16px}
+.section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- cartes ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;
+      background:var(--line);border:1px solid var(--line)}
+.card{background:var(--bg);padding:26px 24px 28px;transition:background .18s}
+a.card{display:block;text-decoration:none}
+a.card:hover{background:var(--fond)}
+.card h2,.card h3{font-size:1.1rem;font-weight:700;line-height:1.35;margin-bottom:10px}
+.card p{color:var(--mut);font-size:.92rem}
+.card .go{display:inline-block;margin-top:16px;color:var(--txt);font-size:.84rem;
+          border-bottom:1px solid var(--red);padding-bottom:2px}
+.tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:.16em;
+     color:var(--mut);margin-bottom:12px}
+
+/* ---------- article ---------- */
+article{max-width:760px;margin:0}
+.crumbs{color:var(--mut);font-size:.78rem;padding-top:36px}
+article h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.2;margin:14px 0 10px;font-weight:700}
+.meta{color:var(--mut);font-size:.82rem;margin-bottom:34px}
+article h2{font-size:1.2rem;font-weight:700;margin:52px 0 14px;padding-left:16px;
+           border-left:2px solid var(--red)}
+article h3{font-size:1rem;font-weight:700;margin:30px 0 8px}
+article p,article li{margin-bottom:14px;color:#dfe2e6}
+article ul,article ol{padding-left:22px;margin-bottom:14px}
+.help{color:var(--mut);font-size:.86rem}
+.sources{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+         font-size:.78rem;color:var(--mut);line-height:1.7}
+.credit{color:var(--mut);font-size:.78rem;margin-top:10px}
+
+.note{border:1px solid var(--line);border-left:2px solid var(--red);padding:18px 22px;margin:24px 0}
+.toc{border:1px solid var(--line);padding:20px 24px;margin-bottom:28px}
+.toc b{display:block;margin-bottom:10px;text-transform:uppercase;letter-spacing:.16em;
+       font-size:.72rem;color:var(--mut);font-weight:400}
+.toc ol{margin:0;padding-left:20px}
+.toc li{margin-bottom:4px}
+
+/* ---------- tableaux ---------- */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:13px 14px 13px 0;text-align:left;vertical-align:top}
+th{color:var(--mut);text-transform:uppercase;font-size:.68rem;letter-spacing:.14em;font-weight:400}
+.code{display:inline-block;border:1px solid var(--line);padding:3px 9px;font-size:.88rem;
+      letter-spacing:.12em;white-space:nowrap}
+.na{color:var(--mut)}
+
+/* sur téléphone, chaque ligne devient une fiche */
+@media(max-width:700px){
   .tw table,.tw thead,.tw tbody,.tw tr,.tw td{display:block;width:100%}
   .tw thead{display:none}
-  .tw tr{border:1px solid var(--line);background:rgba(0,0,0,.6);margin-bottom:8px;padding:6px 0}
-  .tw td{border:0;padding:6px 14px;display:flex;gap:12px;justify-content:space-between;align-items:baseline;text-align:right}
-  .tw td::before{content:attr(data-l);color:var(--mut);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;text-align:left;flex:0 0 38%}
-  .tw td:first-child{font-weight:600;font-size:1.02rem}
-  .tw td .code{white-space:normal;text-align:center}
-  .note{padding:14px 16px}
-  .toc{padding:16px 18px}
+  .tw tr{border:1px solid var(--line);padding:14px 16px;margin-bottom:10px}
+  .tw td{border:0;padding:4px 0;display:flex;gap:14px;justify-content:space-between;align-items:baseline}
+  .tw td::before{content:attr(data-l);color:var(--mut);font-size:.68rem;text-transform:uppercase;
+                 letter-spacing:.12em;flex:0 0 auto}
 }
 
-/* ===== Vidéo intégrée (façade : YouTube ne charge qu'au clic) ===== */
-.yt{position:relative;aspect-ratio:16/9;background:#111 center/cover no-repeat;border:1px solid var(--line);cursor:pointer;margin:18px 0 6px;overflow:hidden}
-.yt::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 50%)}
-.yt button{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:72px;height:72px;min-height:0;padding:0;border-radius:50%;clip-path:none;background:var(--red);color:#fff;font-size:1.6rem;box-shadow:0 0 30px rgba(255,91,91,.6)}
-.yt span{position:absolute;left:14px;bottom:10px;z-index:2;font-family:var(--disp);font-weight:700;font-size:1.1rem}
-.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.credit{font-size:.78rem;color:var(--mut);margin-bottom:18px}
+/* ---------- boutons ---------- */
+button{background:transparent;color:var(--txt);border:1px solid var(--line-fort);
+       padding:11px 18px;font:inherit;font-size:.84rem;cursor:pointer;min-height:46px;
+       transition:border-color .15s,background .15s}
+button:hover{border-color:var(--red);background:var(--fond)}
+button.ghost{border-color:var(--line);color:var(--mut)}
+button.ghost:hover{color:var(--txt)}
 
-/* ===== Posts X intégrés (hébergés par X, rien n'est copié chez nous) ===== */
-.xpost{margin:18px auto;max-width:550px}
-.xpost .twitter-tweet{border:1px solid var(--line);background:rgba(0,0,0,.6);padding:16px 18px;margin:0;font-size:.95rem;color:var(--mut)}
-.xpost .twitter-tweet a{color:var(--txt)}
+/* ---------- vidéo en façade ---------- */
+.yt{position:relative;aspect-ratio:16/9;background:#07090c center/cover no-repeat;
+    border:1px solid var(--line);cursor:pointer;display:flex;align-items:flex-end;margin:20px 0}
+.yt::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 55%)}
+.yt span{position:relative;z-index:2;padding:16px 18px;font-size:.9rem}
+.yt button{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+           width:58px;height:58px;min-height:0;padding:0;border-radius:50%;
+           border:1px solid var(--line-fort);background:rgba(0,0,0,.5);font-size:1rem}
+.yt:hover button{border-color:var(--red)}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.xpost{margin:20px 0}
 
-/* ===== Carte schématique de Leonida ===== */
-.c-wrap{position:relative;border:1px solid var(--line);background:rgba(0,0,0,.6);margin:18px 0}
-.c-scene{position:relative;width:100%;aspect-ratio:1000/1400;max-height:78vh;overflow:hidden;touch-action:none}
-@media(min-width:900px){.c-scene{aspect-ratio:1000/900}}
-#carte{display:block;width:100%;height:100%;cursor:grab;background:
-  radial-gradient(ellipse at 70% 20%,rgba(255,91,91,.07),transparent 60%),#05070b}
+/* ---------- tracker ---------- */
+.tk-bar{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.tk-bar input,.tk-bar select{flex:1;min-width:160px;background:transparent;border:1px solid var(--line);
+  color:var(--txt);padding:12px 14px;font:inherit;font-size:16px;min-height:46px}
+.tk-bar input:focus,.tk-bar select:focus{border-color:var(--line-fort);outline:none}
+.tk-bar input#txt{flex-basis:100%}
+.progress{height:2px;background:var(--line);margin:10px 0 30px}
+.progress i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+#pct{font-size:1.6rem;font-weight:700}
+.cat{margin-bottom:30px}
+.cat h3{display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.14em;
+        font-size:.72rem;color:var(--mut);font-weight:400;margin-bottom:10px;
+        border-bottom:1px solid var(--line);padding-bottom:8px}
+.item{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);
+      cursor:pointer;min-height:48px}
+.item input{width:16px;height:16px;accent-color:var(--red);flex:0 0 auto}
+.item span{flex:1;font-size:.92rem}
+.item.done span{color:var(--mut);text-decoration:line-through}
+.item .del{border:0;background:none;color:var(--mut);padding:2px 8px;min-height:0;font-size:1.1rem}
+.item .del:hover{color:var(--red);background:none}
+
+/* ---------- carte ---------- */
+.c-wrap{display:flex;flex-direction:column;border:1px solid var(--line);margin:22px 0}
+.c-scene{position:relative;width:100%;aspect-ratio:1000/1400;overflow:hidden;touch-action:none}
+#carte{display:block;width:100%;height:100%;cursor:grab;background:#000}
 #carte:active{cursor:grabbing}
-.c-zone polygon,.c-ile{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.35);stroke-width:2;transition:fill .2s,stroke .2s}
+.c-zone polygon,.c-ile{fill:rgba(255,255,255,.035);stroke:var(--line-fort);stroke-width:1.5;
+                       transition:fill .18s,stroke .18s}
 .c-zone{cursor:pointer}
-.c-zone:hover polygon,.c-zone:hover .c-ile{fill:rgba(255,91,91,.12);stroke:var(--red)}
-.c-pont{stroke:rgba(255,255,255,.25);stroke-width:2;stroke-dasharray:6 6}
-.c-nom{fill:#fff;font-family:var(--disp);font-weight:700;font-size:26px;letter-spacing:.08em;text-anchor:middle;pointer-events:none}
-.c-sous{fill:var(--mut);font-size:16px;text-anchor:middle;pointer-events:none}
-.c-repere{fill:rgba(255,255,255,.22);font-size:18px;letter-spacing:.3em;text-anchor:middle;pointer-events:none}
-.c-nord{fill:var(--red);font-family:var(--disp);font-weight:700;font-size:24px;text-anchor:middle;pointer-events:none}
-.c-fleche{stroke:var(--red);stroke-width:2}
+.c-zone:hover polygon,.c-zone:hover .c-ile{fill:rgba(255,255,255,.08);stroke:#fff}
+.c-pont{stroke:var(--line);stroke-width:1.5;stroke-dasharray:5 7}
+.c-nom{fill:#fff;font-weight:700;font-size:23px;letter-spacing:.14em;text-anchor:middle;pointer-events:none}
+.c-sous{fill:var(--mut);font-size:15px;text-anchor:middle;pointer-events:none}
+.c-repere{fill:rgba(255,255,255,.18);font-size:15px;letter-spacing:.3em;text-anchor:middle;pointer-events:none}
+.c-nord{fill:var(--mut);font-size:17px;text-anchor:middle;pointer-events:none}
+.c-fleche{stroke:var(--line-fort);stroke-width:1.5}
 .c-pt{cursor:pointer}
-.c-halo{fill:transparent;stroke:rgba(255,255,255,.25);stroke-width:1.5;transition:stroke .2s,r .2s}
-.c-pt:hover .c-halo,.c-pt:focus-visible .c-halo,.c-pt.on .c-halo{stroke:#fff;r:21}
-.c-pt.on .c-coeur{stroke:#fff;stroke-width:3}
-.c-pt.vu .c-coeur{fill-opacity:.25}
-.c-pt.vu .c-halo{stroke-dasharray:3 3}
+.c-halo{fill:transparent;stroke:rgba(255,255,255,.2);stroke-width:1;transition:stroke .18s,r .18s}
+.c-pt:hover .c-halo,.c-pt:focus-visible .c-halo,.c-pt.on .c-halo{stroke:#fff;r:19}
+.c-pt.on .c-coeur{stroke:#fff;stroke-width:2}
+.c-pt.vu .c-coeur{fill-opacity:.2}
+.c-pt.vu .c-halo{stroke-dasharray:2 3}
 .c-pt:focus{outline:none}
-.c-outils{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:3}
-.c-outils button{min-height:0;width:40px;height:40px;padding:0;font-size:1.1rem;background:rgba(0,0,0,.8);
-  color:#fff;box-shadow:inset 0 0 0 1px var(--line);clip-path:none}
-.c-outils button:hover{background:var(--red)}
-#c-reset{font-size:.62rem;letter-spacing:0}
-.c-barre{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
-.c-filtre{display:inline-flex;align-items:center;gap:7px;min-height:0;padding:7px 12px;font-size:.82rem;
-  background:transparent;color:var(--mut);box-shadow:inset 0 0 0 1px var(--line);clip-path:none;text-transform:none;letter-spacing:0}
-.c-filtre i{width:10px;height:10px;border-radius:50%;opacity:.35}
-.c-filtre.on{color:#fff}
-.c-filtre.on i{opacity:1}
-.c-filtre:hover{background:rgba(255,255,255,.06);color:#fff}
-#c-compteur{margin-left:auto;color:var(--mut);font-size:.82rem}
-.c-panneau{position:absolute;left:10px;right:10px;bottom:10px;z-index:4;background:rgba(0,0,0,.94);
-  border:1px solid var(--line);border-left:3px solid var(--red);padding:16px 18px}
-@media(min-width:900px){.c-panneau{right:auto;width:min(380px,45%)}}
-.c-panneau .c-titre{font-family:var(--disp);font-weight:700;font-size:1.3rem;line-height:1.2}
-.c-panneau .c-sstitre{color:var(--mut);font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
-.c-panneau .c-texte{margin-top:10px;font-size:.95rem}
-.c-panneau .c-texte p{margin-bottom:8px}
-.c-approx,.c-compte{color:var(--mut);font-size:.88rem}
-.c-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}
-.c-vu{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:.92rem}
-.c-vu input{width:18px;height:18px;accent-color:var(--red)}
-.c-lien{font-family:var(--disp);font-weight:700;color:var(--red);text-decoration:none;font-size:.95rem}
-#c-fermer{position:absolute;top:8px;right:8px;width:34px;height:34px;min-height:0;padding:0;background:transparent;
-  color:var(--mut);box-shadow:none;clip-path:none;font-size:1.3rem}
-#c-fermer:hover{background:transparent;color:var(--red)}
-#c-filtres{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-
-/* ===== Carte : la boîte suit le dessin, le panneau sort de la carte =====
-   Le dessin est en portrait (1000x1400) et le cadre était en paysage sur ordinateur :
-   43 % de la surface restait vide, mesuré le 2026-11-19, et la carte avait l'air inutile.
-   La scène garde donc le format du dessin, et la largeur restante sert au panneau. */
-.c-wrap{display:flex;flex-direction:column;gap:0}
-.c-scene{aspect-ratio:1000/1400;max-height:none}
+.c-outils{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px;z-index:3}
+.c-outils button{width:38px;height:38px;min-height:0;padding:0;background:rgba(0,0,0,.75);
+                 border-color:var(--line);font-size:1rem}
+#c-reset{font-size:.6rem;letter-spacing:.04em}
 .c-aside{display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.c-panneau{position:static;padding:16px 18px;border:0;border-left:3px solid var(--red);background:transparent}
-#c-fermer{top:10px;right:10px}
-.c-barre{border-top:1px solid var(--line);border-bottom:0}
+.c-panneau{position:relative;padding:22px 24px;border-left:2px solid var(--red)}
+.c-panneau .c-titre{font-size:1.15rem;font-weight:700;line-height:1.3;padding-right:34px}
+.c-panneau .c-sstitre{color:var(--mut);font-size:.72rem;text-transform:uppercase;
+                      letter-spacing:.14em;margin-top:5px}
+.c-panneau .c-texte{margin-top:14px;font-size:.92rem}
+.c-panneau .c-texte p{margin-bottom:10px}
+.c-approx,.c-compte{color:var(--mut);font-size:.85rem}
+.c-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px}
+.c-vu{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:.9rem}
+.c-vu input{width:16px;height:16px;accent-color:var(--red)}
+.c-lien{font-size:.86rem;border-bottom:1px solid var(--red);padding-bottom:2px;text-decoration:none}
+#c-fermer{position:absolute;top:16px;right:14px;width:30px;height:30px;min-height:0;padding:0;
+          border:0;color:var(--mut);font-size:1.1rem;background:none}
+#c-fermer:hover{color:var(--red);background:none}
+.c-barre{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 24px;
+         border-top:1px solid var(--line)}
+#c-filtres{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.c-filtre{display:inline-flex;align-items:center;gap:8px;min-height:0;padding:6px 0;
+          border:0;color:var(--mut);font-size:.8rem}
+.c-filtre i{width:7px;height:7px;border-radius:50%;opacity:.3;transition:opacity .15s}
+.c-filtre.on{color:var(--txt)}
+.c-filtre.on i{opacity:1}
+.c-filtre:hover{color:var(--txt);background:none}
+#c-compteur{margin-left:auto;color:var(--mut);font-size:.78rem}
 @media(min-width:900px){
   .c-wrap{flex-direction:row;align-items:stretch}
-  /* width:auto obligatoire : la regle d'origine pose width:100%, et une boite qui a deja une
-     largeur ET une hauteur ignore aspect-ratio. C'est ce qui laissait 41 % de vide. */
-  /* La largeur vient du conteneur et non de la hauteur de l'ecran : calee sur vh, la carte
-     mangeait toute la place et le panneau tombait a un mot par ligne. */
-  .c-scene{flex:0 0 auto;width:min(46%,420px);height:auto;aspect-ratio:1000/1400}
-  .c-aside{flex:1;min-width:280px;border-top:0;border-left:1px solid var(--line);justify-content:flex-start}
-  .c-panneau{flex:1;overflow:auto}
+  /* width:auto indispensable : une boîte qui a déjà largeur ET hauteur ignore aspect-ratio */
+  .c-scene{flex:0 0 auto;width:auto;height:min(68vh,660px);aspect-ratio:1000/1400}
+  .c-aside{flex:1;min-width:290px;border-top:0;border-left:1px solid var(--line)}
+  .c-panneau{flex:1;overflow:auto;border-left:0;border-top:2px solid var(--red)}
   .c-barre{margin-top:auto}
 }
+
+/* ---------- barre d'onglets, téléphone ---------- */
+.tabbar{display:none}
+@media(max-width:860px){
+  header .links{display:none}
+  nav{justify-content:center}
+  main{padding-bottom:104px}
+  .hero{padding:52px 0 36px}
+  .tabbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;
+          background:rgba(0,0,0,.96);border-top:1px solid var(--line);
+          padding:8px 4px calc(8px + env(safe-area-inset-bottom))}
+  .tabbar a{flex:1;text-align:center;text-decoration:none;color:var(--mut);font-size:.66rem;
+            padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:5px}
+  .tabbar a svg{width:19px;height:19px}
+  .tabbar a.on{color:var(--txt)}
+  footer{padding-bottom:104px}
+}
+
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:.76rem;text-align:center;
+       padding:34px 22px;background:#000;line-height:1.8}
