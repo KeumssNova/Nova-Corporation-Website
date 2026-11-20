@@ -242,10 +242,14 @@ button.ghost:hover{color:var(--txt)}
 .c-filtre:hover{color:var(--txt);background:none}
 #c-compteur{font-family:var(--mono);margin-left:auto;color:var(--mut);font-size:.78rem}
 @media(min-width:900px){
-  .c-wrap{flex-direction:row;align-items:stretch}
+  /* La carte sort de la colonne de texte et prend la largeur utile de la page. Enfermée dans
+     les 780 px de l'article, elle faisait 471 px de large sur un écran de 1920 : trop petit
+     pour qu'on y lise quoi que ce soit. Recentrée sur la fenêtre, pas sur la colonne. */
+  .c-wrap{flex-direction:row;align-items:stretch;
+          width:min(1076px,calc(100vw - 44px));margin-left:50%;transform:translateX(-50%)}
   /* width:auto indispensable : une boîte qui a déjà largeur ET hauteur ignore aspect-ratio */
-  .c-scene{flex:0 0 auto;width:auto;height:min(68vh,660px);aspect-ratio:1000/1400}
-  .c-aside{flex:1;min-width:290px;border-top:0;border-left:1px solid var(--line)}
+  .c-scene{flex:0 0 auto;width:auto;height:min(84vh,860px);aspect-ratio:1000/1400}
+  .c-aside{flex:1;min-width:300px;border-top:0;border-left:1px solid var(--line)}
   .c-panneau{flex:1;overflow:auto;border-left:0;border-top:2px solid var(--red)}
   .c-barre{margin-top:auto}
 }
